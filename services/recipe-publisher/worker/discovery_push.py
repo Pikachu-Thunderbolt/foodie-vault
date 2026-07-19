@@ -34,25 +34,66 @@ def _headers() -> dict[str, str]:
     return {"authorization": f"Bearer {TOKEN}", "x-actor-id": ACTOR}
 
 
-def _candidate_metadata(item: dict) -> dict:
-    """把 rank / search 归一化 item 映射成控制面 preflight 需要的元数据。
+async def _fetch_top_comments(bvid: str, limit: int = 5) -> list[dict]:
+    """拉取视频高赞评论，返回最多 limit 条。"""
+    try:
+        from bilibili_api.video import Video
+        from bilibili_api.comment import get_comments
+        v = Video(bvid=bvid)
+        info = await v.get_info()
+        oid = info.get("aid") or info.get("id") or 0
+        if not oid:
+            return []
+        comments = await get_comments(
+            oid=oid,
+            type_=1,       # 1=视频评论
+            order=1,       # 1=按热度排序
+            page_index=1,
+        )
+        items = []
+        for c in (comments.get("replies") or [])[:limit]:
+            items.append({
+                "content": (c.get("content") or {}).get("message", ""),
+                "likes": c.get("like", 0),
+                "user": (c.get("member") or {}).get("uname", ""),
+            })
+        return items
+    except Exception:
+        return []
 
-    只读元数据，不含任何下载动作。字段名对齐 tutorials.js::evaluateCookingTutorial。
+
+async def _candidate_metadata(item: dict, fetch_comments: bool = True) -> dict:
+    """把 rank / search 归一化 item 映射成控制面 preflight 需要的元数据。
+    额外拉取评论存入 _sourceData，供拆解环节使用。
     """
     stat = item.get("stat", {}) or {}
     owner = item.get("owner", {}) or {}
     tag = item.get("tag", "")
     tags = [t.strip() for t in tag.split(",")] if isinstance(tag, str) and tag else (tag if isinstance(tag, list) else [])
-    return {
+    bvid = item.get("bvid", "")
+
+    # 拉取高赞评论
+    top_comments = []
+    if fetch_comments and bvid:
+        top_comments = await _fetch_top_comments(bvid)
+
+    metadata = {
         "title": item.get("title", ""),
         "description": item.get("desc") or item.get("description", ""),
         "tags": tags,
         "category": item.get("tname_v2") or item.get("tname") or item.get("typename", ""),
         "durationSeconds": int(item.get("duration", 0) or 0),
-        # 附带原始热度，仅供审计；服务端不会用播放量作为放行条件。
         "authorName": owner.get("name", ""),
         "viewCount": stat.get("view", 0),
+        # 供拆解环节使用的额外上下文
+        "_sourceData": {
+            "description": item.get("desc") or item.get("description", ""),
+            "tags": tags,
+            "title": item.get("title", ""),
+            "topComments": top_comments,
+        },
     }
+    return metadata
 
 
 async def _fetch_candidates(source: str, limit: int) -> list[dict]:
@@ -60,6 +101,9 @@ async def _fetch_candidates(source: str, limit: int) -> list[dict]:
         items = await discover_cooking.fetch_ranking()
     elif source == "historical":
         items = await discover_cooking.fetch_historical()
+    elif source == "ups":
+        # ups 模式在 run() 中单独处理，这里返回空列表
+        return []
     elif source == "auto":
         rank_items = await discover_cooking.fetch_ranking()
         hist_items = await discover_cooking.fetch_historical()
@@ -102,7 +146,7 @@ def run(source: str | None, limit: int, tokens: list[str]) -> int:
             try:
                 bvid = add_video._parse_bvid(tok)
                 info = asyncio.run(add_video._fetch_video_info(bvid))
-                candidates.append((bvid, _candidate_metadata(info)))
+                candidates.append((bvid, asyncio.run(_candidate_metadata(info, fetch_comments=True))))
             except Exception as exc:  # noqa: BLE001
                 print(f"  跳过 {tok}: {exc}", file=sys.stderr)
     else:
@@ -110,7 +154,37 @@ def run(source: str | None, limit: int, tokens: list[str]) -> int:
         for it in items:
             bvid = it.get("bvid")
             if bvid:
-                candidates.append((bvid, _candidate_metadata(it)))
+                candidates.append((bvid, asyncio.run(_candidate_metadata(it, fetch_comments=True))))
+
+    # UP主模式：拉取已关注UP主的新视频
+    if source == "ups":
+        import sqlite3 as _sqlite3
+        from engine.schema import DB_PATH
+        db_con = _sqlite3.connect(DB_PATH)
+        try:
+            from engine.ups import crawl_all as ups_crawl_all
+            results = ups_crawl_all(db_con, days=90, only_cooking=True, max_results=30, pages=2)
+            for r in results:
+                if r.get("status") == "ok":
+                    # crawl_all 内部已通过 add_one_bvid 入库新视频
+                    # 这里只需要把新增的视频推送到控制面
+                    pass
+            # 从SQLite读取本次新发现的视频
+            mids = [r["mid"] for r in results if r.get("status") == "ok"]
+            if mids:
+                placeholders = ",".join("?" * len(mids))
+                new_videos = db_con.execute(
+                    f"SELECT bvid,title FROM videos WHERE up_mid IN ({placeholders}) AND discovered_via='ups' AND processing_status='new'",
+                    mids,
+                ).fetchall()
+                for bvid, title in new_videos:
+                    try:
+                        info = asyncio.run(add_video._fetch_video_info(bvid))
+                        candidates.append((bvid, asyncio.run(_candidate_metadata(info, fetch_comments=True))))
+                    except Exception as exc:
+                        print(f"  跳过 {bvid}: {exc}", file=sys.stderr)
+        finally:
+            db_con.close()
 
     if not candidates:
         print("没有候选可推送")
@@ -142,7 +216,7 @@ def run(source: str | None, limit: int, tokens: list[str]) -> int:
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="B站发现 → 控制面预检推送（不下载）")
     parser.add_argument("tokens", nargs="*", help="显式 BV 号或 B站视频 URL（给定则忽略 --source）")
-    parser.add_argument("--source", choices=("auto", "food_3day", "historical"), default="food_3day")
+    parser.add_argument("--source", choices=("auto", "food_3day", "historical", "ups"), default="food_3day")
     parser.add_argument("--limit", type=int, default=30)
     args = parser.parse_args(argv)
     return run(args.source, args.limit, args.tokens)
