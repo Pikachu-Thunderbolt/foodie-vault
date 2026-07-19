@@ -130,11 +130,127 @@ function dashboardTutorialPage(detail) {
   <h2>处理任务与审计历史</h2><pre>${html(JSON.stringify({ tasks: detail.tasks, events: detail.events }, null, 2))}</pre></main></html>`
 }
 
-function dashboardDiscoverPage(message = '') {
-  const note = message ? `<div style="background:#e4f1df;color:#417138;border:1px solid #bcd9b0;padding:10px 12px;border-radius:9px;margin-bottom:14px">${html(message)}</div>` : ''
-  return `<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>发现 · 庖丁解牛</title><style>body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif;margin:32px;background:#fff9ef;color:#3b3026}main{max-width:820px;margin:auto}a{color:#c9573b}section{background:#fffdf8;border:1px solid #eadfce;border-radius:14px;padding:20px;margin:16px 0}h2{font-size:17px;margin:0 0 10px}input,button{font:inherit}input{height:38px;border:1px solid #cfc1ad;border-radius:8px;padding:0 10px}button{background:#d9694d;color:#fff;border:0;border-radius:9px;padding:10px 16px;cursor:pointer}label{font-size:13px;color:#806f61;margin-right:6px}</style><main><p><a href="/dashboard">← 返回后台</a></p><h1>发现 B站做饭教程</h1><p>抓候选并做「仅元数据」预检（播放量不放行）；通过项进入教程库等待入队处理。</p>${note}
-  <section><h2>按来源发现</h2><form method="post" action="/dashboard/discover/run"><label>来源</label><select name="source" style="height:38px;border:1px solid #cfc1ad;border-radius:8px;padding:0 8px"><option value="food_3day">美食三日榜</option><option value="historical">历史优质（关键词搜索）</option><option value="auto">两者合并</option></select> <label>数量</label><input name="limit" value="30" style="width:80px"> <button type="submit">开始发现</button></form></section>
-  <section><h2>按 BV 号 / 链接手动加</h2><form method="post" action="/dashboard/discover/run"><input name="bvids" placeholder="BV号或链接，多个用空格分隔" style="width:70%"> <button type="submit">加入并预检</button></form></section></main></html>`
+function dashboardDiscoverPage(message, channelType = 'bilibili', activeTab = 'ranking', preflightResults = [], upsList = []) {
+  const channels = require('./channels').listChannels()
+  const channel = require('./channels').getChannel(channelType)
+  const modes = channel.discovery.modes
+
+  // Channel selector
+  const channelOpts = channels.map(ch =>
+    `<option value="${html(ch.channelType)}" ${ch.channelType === channelType ? 'selected' : ''}>${html(ch.label)}</option>`
+  ).join('')
+
+  // Tab bar
+  const tabs = modes.map(m =>
+    `<a href="?channel=${html(channelType)}&tab=${html(m.key)}" class="tab ${m.key === activeTab ? 'active' : ''}">${html(m.label)}</a>`
+  ).join('')
+
+  const note = message ? `<div class="msg">${html(message)}</div>` : ''
+
+  // --- Ranking tab ---
+  let rankingTab = ''
+  if (activeTab === 'ranking') {
+    const rankingMode = modes.find(m => m.key === 'ranking')
+    rankingTab = `
+    <section>
+      <h2>榜单发现</h2>
+      <form method="post" action="/dashboard/discover/run" class="inline-form">
+        <input type="hidden" name="channelType" value="${html(channelType)}">
+        <label>来源</label>
+        <select name="source">
+          ${(rankingMode.params[0].options || []).map(o =>
+            `<option value="${html(o.value)}">${html(o.label)}</option>`).join('')}
+        </select>
+        <label>数量</label><input name="limit" value="30" style="width:70px">
+        <button type="submit">开始发现</button>
+      </form>
+    </section>`
+
+    // Preflight results table
+    if (preflightResults.length > 0) {
+      const rows = preflightResults.map(r => {
+        const passed = r.verdict === 'PASSED'
+        return `<tr>
+          <td>${passed ? `<input type="checkbox" name="tids" value="${html(r.tutorialId)}">` : ''}</td>
+          <td><a target="_blank" href="${html(r.sourceUrl || '#')}">${html(r.sourceTitle || r.sourceId)}</a></td>
+          <td><small>${html(r.sourceId)}</small></td>
+          <td>${badge(r.verdict)}</td>
+          <td>${r.score != null ? r.score : '—'}</td>
+        </tr>`
+      }).join('')
+      rankingTab += `
+      <section>
+        <h2>预检结果</h2>
+        <form method="post" action="/dashboard/discover/enqueue-batch">
+          <table><thead><tr><th>选</th><th>标题</th><th>ID</th><th>预检</th><th>评分</th></tr></thead>
+          <tbody>${rows}</tbody></table>
+          <div style="margin-top:12px">
+            <button type="button" onclick="document.querySelectorAll('input[type=checkbox]').forEach(c=>c.checked=true)">全选PASSED</button>
+            <button type="submit">批量入队</button>
+          </div>
+        </form>
+      </section>`
+    }
+  }
+
+  // --- UP主 tab ---
+  let upsTab = ''
+  if (activeTab === 'up_subscription') {
+    upsTab = `
+    <section>
+      <h2>UP主关注</h2>
+      <form method="post" action="/dashboard/ups/add" class="inline-form">
+        <label>添加UP主（mid或空间链接）</label>
+        <input name="mid" placeholder="64876543 或 space.bilibili.com/64876543" style="width:300px">
+        <button type="submit">关注</button>
+      </form>
+      <form method="post" action="/dashboard/ups/crawl" style="margin-top:8px">
+        <button type="submit" style="background:#618c55">一键拉取所有UP主新视频</button>
+      </form>
+    </section>`
+
+    if (upsList.length > 0) {
+      const rows = upsList.map(u => `<tr>
+        <td><strong>${html(u.name || 'UP_'+u.mid)}</strong><br><small>mid: ${html(String(u.mid))}</small></td>
+        <td>${u.n_approved || 0}✓ / ${u.n_pending || 0}… / ${u.n_total || 0}总</td>
+        <td>${u.last_checked_at ? String(u.last_checked_at).slice(0,19) : '—'}</td>
+        <td>${u.last_video_bvid ? `<a target="_blank" href="https://www.bilibili.com/video/${html(u.last_video_bvid)}">${html(u.last_video_bvid)}</a>` : '—'}</td>
+        <td><form method="post" action="/dashboard/ups/remove" onsubmit="return confirm('取消关注？')"><input type="hidden" name="mid" value="${html(String(u.mid))}"><button class="btn-sm" style="background:#ad4d39">取消关注</button></form></td>
+      </tr>`).join('')
+      upsTab += `
+      <section>
+        <h2>已关注 ${upsList.length} 个UP主</h2>
+        <table><thead><tr><th>UP主</th><th>视频统计</th><th>上次检查</th><th>最新视频</th><th>操作</th></tr></thead>
+        <tbody>${rows}</tbody></table>
+      </section>`
+    }
+  }
+
+  // --- Direct tab ---
+  let directTab = ''
+  if (activeTab === 'direct') {
+    directTab = `
+    <section>
+      <h2>指定素材</h2>
+      <form method="post" action="/dashboard/discover/run">
+        <input type="hidden" name="channelType" value="${html(channelType)}">
+        <textarea name="bvids" placeholder="每行一个BV号或B站视频链接" rows="5" style="width:100%;font:inherit;padding:8px;border:1px solid #cfc1ad;border-radius:8px"></textarea>
+        <button type="submit" style="margin-top:10px">加入并预检</button>
+      </form>
+    </section>`
+  }
+
+  return `<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>发现 · 庖丁解牛</title><style>
+  :root{--ink:#342a24;--paper:#fffdf8;--line:#eadcc8;--coral:#d9694d;--green:#618c55;--amber:#b87825}*{box-sizing:border-box}body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif;margin:0;background:#f8f1e4;color:var(--ink)}main{max-width:1100px;margin:auto;padding:32px 22px 64px}a{color:#bd573f}h1{margin-bottom:4px}.channel-bar{display:flex;align-items:center;gap:16px;margin:14px 0}.channel-bar select{height:38px;border:1px solid #cfc1ad;border-radius:8px;padding:0 10px;font:inherit}.tabs{display:flex;gap:4px;margin:18px 0}.tab{padding:8px 18px;border:1px solid var(--line);border-radius:10px 10px 0 0;text-decoration:none;color:var(--ink);background:#f0e6d7;font-size:14px}.tab.active{background:var(--paper);border-bottom-color:var(--paper);font-weight:700;color:var(--coral)}section{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:20px;margin:0 0 18px;overflow:auto}h2{font-size:17px;margin:0 0 12px}table{width:100%;border-collapse:collapse;min-width:600px}th,td{padding:10px;border-bottom:1px solid #f0e6d7;text-align:left;font-size:13px;vertical-align:top}th{color:#806f61;background:#fff8ec}.badge{font-size:11px;border-radius:999px;padding:3px 8px;background:#eee3d2;color:#5c4b3f;white-space:nowrap}.badge.PASSED,.badge.preflight_passed{background:#e4f1df;color:#417138}.badge.REJECTED,.badge.preflight_rejected{background:#f9dfd8;color:#a8432f}.badge.MANUAL_REVIEW_REQUIRED,.badge.METADATA_INCOMPLETE{background:#fff0d4;color:#9a661a}.msg{background:#e4f1df;color:#417138;border:1px solid #bcd9b0;padding:10px 12px;border-radius:9px;margin-bottom:14px}button{background:var(--coral);color:#fff;border:0;border-radius:9px;padding:10px 18px;cursor:pointer;font:inherit}button:hover{opacity:0.9}input,textarea,select{font:inherit}.inline-form{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.inline-form input,.inline-form select{height:38px;border:1px solid #cfc1ad;border-radius:8px;padding:0 10px}.btn-sm{padding:6px 12px;font-size:12px;border-radius:7px}@media(max-width:700px){main{padding:16px}}</style>
+  <main><p><a href="/dashboard">← 返回后台</a></p><h1>发现教程素材</h1>
+  <div class="channel-bar">渠道:
+    <form method="get" action="/dashboard/discover" style="display:inline">
+      <select name="channel" onchange="this.form.submit()">${channelOpts}</select>
+      <input type="hidden" name="tab" value="${html(activeTab)}">
+    </form>
+  </div>
+  <div class="tabs">${tabs}</div>
+  ${note}${rankingTab}${upsTab}${directTab}</main></html>`
 }
 
 function dashboardFramePage(detail, urlMap) {
@@ -252,10 +368,35 @@ const server = http.createServer(async (req, res) => {
       } catch (error) { console.error('[paoding-jieniu] dashboard dict resolve failed', error.message) }
       res.writeHead(303, { location: '/dashboard/dictionary' }); return res.end()
     }
-    if (req.method === 'GET' && req.url.match(/^\/dashboard\/discover(\?|$)/)) {
+    if (req.method === 'GET' && req.url.match(/^\/dashboard\/discover/)) {
       if (!isDashboardAuthorized(req)) { res.writeHead(303, { location: '/dashboard/login' }); return res.end() }
-      const msg = new URL(req.url, 'http://localhost').searchParams.get('msg') || ''
-      return res.end(dashboardDiscoverPage(msg))
+      const url = new URL(req.url, 'http://localhost')
+      const channelType = url.searchParams.get('channel') || 'bilibili'
+      const activeTab = url.searchParams.get('tab') || 'ranking'
+      const msg = url.searchParams.get('msg') || ''
+
+      // 获取UP主列表
+      let upsList = []
+      try {
+        const { listUpsSubscriptions } = require('./supervisor')
+        upsList = await listUpsSubscriptions(port)
+      } catch (_) {}
+
+      // 获取最近的预检结果（从 tutorials 集合查最近创建的）
+      let preflightResults = []
+      try {
+        const recent = await tutorials.list(50)
+        preflightResults = recent.map(t => ({
+          tutorialId: t.tutorialId,
+          sourceId: t.sourceId,
+          sourceTitle: t.sourceTitle,
+          sourceUrl: t.sourceUrl,
+          verdict: t.preflight?.verdict || t.lifecycleStatus,
+          score: t.preflight?.score,
+        }))
+      } catch (_) {}
+
+      return res.end(dashboardDiscoverPage(msg, channelType, activeTab, preflightResults, upsList))
     }
     if (req.method === 'POST' && req.url === '/dashboard/discover/run') {
       if (!isDashboardAuthorized(req)) { res.writeHead(303, { location: '/dashboard/login' }); return res.end() }
@@ -265,6 +406,15 @@ const server = http.createServer(async (req, res) => {
       runDiscoveryOnce(port, { source: form.source || 'food_3day', limit: form.limit || '30', bvids })
         .catch((error) => console.error('[paoding-jieniu] discover run failed', error.message))
       res.writeHead(303, { location: `/dashboard/discover?msg=${encodeURIComponent('发现任务已触发，稍后在教程库查看候选。')}` }); return res.end()
+    }
+    if (req.method === 'POST' && req.url === '/dashboard/discover/enqueue-batch') {
+      if (!isDashboardAuthorized(req)) { res.writeHead(303, { location: '/dashboard/login' }); return res.end() }
+      const form = await readForm(req)
+      const tids = Array.isArray(form.tids) ? form.tids : (form.tids ? [form.tids] : [])
+      for (const tid of tids) {
+        try { await tutorials.enqueue(tid, dashboardUser || 'content-admin') } catch (e) { console.error('[paoding-jieniu] batch enqueue failed for', tid, e.message) }
+      }
+      res.writeHead(303, { location: `/dashboard/discover?msg=已入队${tids.length}个教程` }); return res.end()
     }
     // UP主管理 API
     if (req.method === 'POST' && req.url === '/dashboard/ups/crawl') {
