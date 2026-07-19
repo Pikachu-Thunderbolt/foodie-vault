@@ -26,7 +26,7 @@ test('user tutorial must self-review then receive system approval for sharing', 
   assert.equal(passed.verdict, 'PASSED')
   await service.enqueue(tutorial.tutorialId)
   const task = await service.claimNext('worker-1')
-  assert.equal(task.tutorial.bvid, 'BV1abcDEF34')
+  assert.equal(task.tutorial.sourceId, 'BV1abcDEF34')
   await service.registerVersion({ tutorialId: tutorial.tutorialId, packageId: 'pkg-1', recipeId: 'recipe-1', versionId: 'version-1' })
   await service.review(tutorial.tutorialId, { action: 'OWNER_APPROVE' }, 'user-1')
   await service.review(tutorial.tutorialId, { action: 'REQUEST_SHARE' }, 'user-1')
@@ -108,4 +108,26 @@ test('USER frame selection is refused for anyone but the owner', async () => {
   await assert.rejects(() => service.submitFrameSelection(tutorial.tutorialId, [{ stepIndex: 0, frameType: 'key', slot: 0 }], 'someone-else'), /所有者/)
   const ok = await service.submitFrameSelection(tutorial.tutorialId, [{ stepIndex: 0, frameType: 'key', slot: 0 }], 'user-9')
   assert.equal(ok.kind, 'EXPORT')
+})
+
+// —— 渠道抽象测试 ——
+test('channel parseSourceId parses BV号', () => {
+  const { parseSourceId } = require('../src/channels')
+  assert.equal(parseSourceId('bilibili', 'BV1xx4y1B7Ea'), 'BV1xx4y1B7Ea')
+  assert.equal(parseSourceId('bilibili', 'https://www.bilibili.com/video/BV1xx4y1B7Ea'), 'BV1xx4y1B7Ea')
+})
+
+test('channel evaluateCookingTutorial rejects non-cooking', () => {
+  const { evaluateCookingTutorial } = require('../src/channels')
+  const result = evaluateCookingTutorial('bilibili', { title: '美食探店vlog', durationSeconds: 300 })
+  assert.equal(result.verdict, 'REJECTED')
+})
+
+test('submitSource creates tutorial with channelType and sourceId', async () => {
+  const root = await fs.mkdtemp(path.join(os.tmpdir(), 'paoding-'))
+  const service = new TutorialService({ cloud: createLocalCloud(root) })
+  const t = await service.submitSource({ channelType: 'bilibili', sourceId: 'BV1test0001', ownerType: 'SYSTEM' }, 'test')
+  assert.equal(t.channelType, 'bilibili')
+  assert.equal(t.sourceId, 'BV1test0001')
+  assert.equal(t.bvid, undefined)
 })

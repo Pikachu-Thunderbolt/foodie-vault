@@ -63,9 +63,7 @@ class TutorialService {
     const visibility = ownerType === 'SYSTEM' ? 'PUBLIC' : 'PRIVATE'
     const tutorial = await this.upsert('tutorials', { tutorialId }, {
       channelType,
-      platform: channelType,
       sourceId,
-      bvid: channelType === 'bilibili' ? sourceId : undefined,
       sourceUrl,
       sourceMeta: input.sourceMeta || {},
       sourceData: input.sourceData || {},
@@ -131,7 +129,7 @@ class TutorialService {
     if (tutorial.lifecycleStatus !== 'PREFLIGHT_PASSED') throw new ValidationError(['未通过"正常做饭教程"预检，禁止下载或处理'])
     const taskId = `task_${tutorialId}_${Date.now()}`
     await this.db.collection('tutorials').doc(tutorial._id).update({ data: { processingStatus: 'QUEUED', lifecycleStatus: 'PROCESSING', activeTaskId: taskId, updatedAt: now() } })
-    await this.db.collection('tutorial_processing_tasks').add({ data: { taskId, tutorialId, kind: 'PROCESS', platform: 'bilibili', bvid: tutorial.bvid, status: 'QUEUED', createdAt: now(), updatedAt: now() } })
+    await this.db.collection('tutorial_processing_tasks').add({ data: { taskId, tutorialId, kind: 'PROCESS', channelType: tutorial.channelType, sourceId: tutorial.sourceId, status: 'QUEUED', createdAt: now(), updatedAt: now() } })
     await this.event(tutorialId, 'PROCESSING_QUEUED', actor, { taskId })
     return { tutorialId, taskId, status: 'QUEUED', kind: 'PROCESS' }
   }
@@ -143,7 +141,7 @@ class TutorialService {
     if (!task) return null
     const tutorial = await this.findOne('tutorials', { tutorialId: task.tutorialId })
     // 通用护栏：平台与预检必须成立（防止任何绕过预检的旧任务被领取或下载）。
-    const baseOk = tutorial && tutorial.platform === 'bilibili' && tutorial.preflight?.verdict === 'PASSED'
+    const baseOk = tutorial && tutorial.channelType === 'bilibili' && tutorial.preflight?.verdict === 'PASSED'
     const stageOk = kind === 'EXPORT'
       ? tutorial?.lifecycleStatus === 'READY_TO_EXPORT'
       : (tutorial?.lifecycleStatus === 'PROCESSING' && tutorial?.processingStatus === 'QUEUED')
@@ -191,7 +189,7 @@ class TutorialService {
     if (!steps.length) throw new ValidationError(['草稿必须包含步骤'])
     await this.upsert('tutorial_frame_drafts', { tutorialId }, {
       recipeName: input.recipeName || '',
-      bvid: tutorial.bvid,
+      sourceId: tutorial.sourceId,
       steps, // [{stepIndex,name,description,candidates:[{frameType,slot,cloudFileId}]}]
       selection: null,
       reviewerType: tutorial.ownerType, // SYSTEM→管理员挑；USER→所有者挑
@@ -225,7 +223,7 @@ class TutorialService {
     await this.db.collection('tutorial_frame_drafts').doc(draft._id).update({ data: { selection: selections, selectedBy: actor, selectedAt: now(), updatedAt: now() } })
     const taskId = `export_${tutorialId}_${Date.now()}`
     await this.db.collection('tutorials').doc(tutorial._id).update({ data: { lifecycleStatus: 'READY_TO_EXPORT', processingStatus: 'EXPORT_QUEUED', activeTaskId: taskId, updatedAt: now() } })
-    await this.db.collection('tutorial_processing_tasks').add({ data: { taskId, tutorialId, kind: 'EXPORT', platform: 'bilibili', bvid: tutorial.sourceId, status: 'QUEUED', createdAt: now(), updatedAt: now() } })
+    await this.db.collection('tutorial_processing_tasks').add({ data: { taskId, tutorialId, kind: 'EXPORT', channelType: tutorial.channelType, sourceId: tutorial.sourceId, status: 'QUEUED', createdAt: now(), updatedAt: now() } })
     await this.event(tutorialId, 'FRAMES_SELECTED', actor, { taskId, stepCount: selections.length })
     return { tutorialId, taskId, status: 'QUEUED', kind: 'EXPORT' }
   }
@@ -258,6 +256,58 @@ class TutorialService {
     }
     await this.event(tutorialId, action, actor, { versionId: revision.versionId, reason: input.reason || null })
     return { tutorialId, versionId: revision.versionId, action }
+  }
+
+  // ——— 菜品模糊匹配 ———
+  // 基于菜名 + 食材签名计算相似度，返回候选菜品列表
+  async matchDish(recipeName, ingredients = []) {
+    const allDishes = await this.db.collection('dish_dictionary').limit(200).get()
+    const dishes = allDishes.data
+
+    const results = dishes.map(dish => {
+      let score = 0
+      const reasons = []
+
+      // 1) 菜名完全匹配
+      if (dish.canonicalName === recipeName) { score += 100; reasons.push('菜名完全匹配') }
+      // 2) 别名匹配
+      else if ((dish.aliases || []).some(a => a === recipeName)) { score += 95; reasons.push('别名匹配') }
+      // 3) 子串匹配
+      else if (dish.canonicalName.includes(recipeName) || recipeName.includes(dish.canonicalName)) {
+        score += 70; reasons.push('菜名包含关系')
+      }
+      // 4) 别名子串
+      else if ((dish.aliases || []).some(a => recipeName.includes(a) || a.includes(recipeName))) {
+        score += 60; reasons.push('别名包含关系')
+      }
+
+      // 5) 食材签名 Jaccard 相似度
+      const dishSigs = dish.ingredientSignature || []
+      const recipeSigs = ingredients.map(i => (i.canonicalName || i.rawName || '').toLowerCase())
+      if (dishSigs.length > 0 && recipeSigs.length > 0) {
+        const intersection = dishSigs.filter(s => recipeSigs.some(r => r.includes(s) || s.includes(r)))
+        const union = new Set([...dishSigs, ...recipeSigs])
+        const jaccard = intersection.length / union.size
+        score += Math.round(jaccard * 50)
+        if (jaccard > 0.5) reasons.push(`食材重合度${Math.round(jaccard*100)}%`)
+      }
+
+      return { dish, score, reasons }
+    })
+
+    results.sort((a, b) => b.score - a.score)
+    return results.slice(0, 5).filter(r => r.score > 20)
+  }
+
+  // 菜品字典管理：列出所有菜名及其别名
+  async listDishDictionary(limit = 200) {
+    const allDishes = await this.db.collection('dish_dictionary').limit(limit).get()
+    return allDishes.data
+  }
+
+  // 更新菜品字典（添加/修改别名等）
+  async upsertDishDictionary(query, data) {
+    return this.upsert('dish_dictionary', query, { ...data, updatedAt: now() })
   }
 
   async list(limit = 100) { return (await this.db.collection('tutorials').orderBy('updatedAt', 'desc').limit(Math.min(Math.max(Number(limit) || 100, 1), 100)).get()).data }

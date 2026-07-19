@@ -285,14 +285,69 @@ function dashboardFramePage(detail, urlMap) {
   return `<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>挑帧 · 庖丁解牛</title><style>body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif;margin:32px;background:#fff9ef;color:#3b3026}main{max-width:900px;margin:auto}a{color:#c9573b}button{background:#618c55;color:#fff;border:0;border-radius:10px;padding:12px 22px;font:inherit;cursor:pointer;position:sticky;bottom:20px}</style><main><p><a href="/dashboard/tutorials/${encodeURIComponent(t.tutorialId)}">← 返回教程详情</a></p><h1>为「${html(draft.recipeName || t.sourceTitle || t.sourceId)}」挑代表帧</h1><p>每步选一张最能展示动作的帧，提交后自动导出并进入系统审核。</p><form method="post" action="/dashboard/tutorials/${encodeURIComponent(t.tutorialId)}/frames">${blocks}<button type="submit">确认挑帧并导出</button></form></main></html>`
 }
 
-function dashboardDictionaryPage(items) {
-  const rows = items.map((q) => `<tr><td>${badge(q.dictionaryKind)}</td><td>${html(q.rawName)}</td><td>${html(q.normalizedName || '')}</td><td>${q.blockingPublish ? '<span class="badge rejected">阻断发布</span>' : ''}</td><td>${html(String(q.occurrenceCount || 1))}</td><td>
+function dashboardDictionaryPage(items, dishes = [], activeTab = 'review') {
+  const tabBar = `
+    <div class="tabs" style="display:flex;gap:4px;margin:18px 0">
+      <a href="?tab=review" class="tab ${activeTab === 'review' ? 'active' : ''}" style="padding:8px 18px;border:1px solid #eadcc8;border-radius:10px 10px 0 0;text-decoration:none;color:#342a24;background:${activeTab==='review'?'#fffdf8':'#f0e6d7'};font-size:14px;${activeTab==='review'?'font-weight:700;color:#d9694d':''}">词典审核队列</a>
+      <a href="?tab=dishes" class="tab ${activeTab === 'dishes' ? 'active' : ''}" style="padding:8px 18px;border:1px solid #eadcc8;border-radius:10px 10px 0 0;text-decoration:none;color:#342a24;background:${activeTab==='dishes'?'#fffdf8':'#f0e6d7'};font-size:14px;${activeTab==='dishes'?'font-weight:700;color:#d9694d':''}">菜品管理</a>
+    </div>`
+
+  // Review queue tab content
+  const reviewRows = items.map((q) => `<tr><td>${badge(q.dictionaryKind)}</td><td>${html(q.rawName)}</td><td>${html(q.normalizedName || '')}</td><td>${q.blockingPublish ? '<span class="badge rejected">阻断发布</span>' : ''}</td><td>${html(String(q.occurrenceCount || 1))}</td><td>
     <form method="post" action="/dashboard/dictionary/${encodeURIComponent(q._id)}/resolve" style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">
       <input name="canonicalName" placeholder="新建标准名" value="${html(q.rawName)}" style="height:32px;border:1px solid #cfc1ad;border-radius:8px;padding:0 8px">
       <input name="category" placeholder="分类（可选）" style="height:32px;border:1px solid #cfc1ad;border-radius:8px;padding:0 8px">
       <button name="mode" value="create_new" style="background:#618c55;color:#fff;border:0;border-radius:8px;padding:7px 12px;cursor:pointer">建为标准名</button>
     </form></td></tr>`).join('')
-  return `<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>词典审核 · 庖丁解牛</title><style>body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif;margin:32px;background:#fff9ef;color:#3b3026}main{max-width:1040px;margin:auto}a{color:#c9573b}table{width:100%;border-collapse:collapse}th,td{padding:10px;border-bottom:1px solid #f0e6d7;text-align:left;font-size:13px;vertical-align:middle}th{color:#806f61;background:#fff8ec}.badge{font-size:11px;border-radius:999px;padding:4px 8px;background:#eee3d2;color:#5c4b3f}.badge.rejected{background:#f9dfd8;color:#a8432f}</style><main><p><a href="/dashboard">← 返回后台</a></p><h1>词典审核队列</h1><p>未匹配或低置信度的菜名/食材。建为标准名后，原始名会补进该主档别名，后续 manifest 自动命中。</p><table><thead><tr><th>类型</th><th>原始名</th><th>归一名</th><th>发布影响</th><th>出现次数</th><th>处理</th></tr></thead><tbody>${rows || '<tr><td colspan="6">暂无待审核词典项</td></tr>'}</tbody></table></main></html>`
+
+  const reviewContent = `
+    <section style="background:#fffdf8;border:1px solid #eadcc8;border-radius:14px;padding:20px;margin:0 0 18px;overflow:auto">
+      <h2 style="font-size:17px;margin:0 0 12px">词典审核队列</h2>
+      <p style="color:#806f61;line-height:1.6;margin:0 0 14px">未匹配或低置信度的菜名/食材。建为标准名后，原始名会补进该主档别名，后续 manifest 自动命中。</p>
+      <table style="width:100%;border-collapse:collapse"><thead><tr><th>类型</th><th>原始名</th><th>归一名</th><th>发布影响</th><th>出现次数</th><th>处理</th></tr></thead><tbody>${reviewRows || '<tr><td colspan="6">暂无待审核词典项</td></tr>'}</tbody></table>
+    </section>`
+
+  // Dish management tab content
+  const dishRows = dishes.map((d) => {
+    const aliases = (d.aliases || []).join(', ')
+    const sigs = (d.ingredientSignature || []).join(', ')
+    return `<tr>
+      <td><strong>${html(d.canonicalName || '')}</strong></td>
+      <td><small>${html(aliases || '—')}</small></td>
+      <td><small>${html(sigs || '—')}</small></td>
+      <td>${html(d.category || '—')}</td>
+      <td>
+        <form method="post" action="/dashboard/dictionary/dish/${encodeURIComponent(d._id)}/edit" style="display:flex;gap:5px;flex-wrap:wrap;align-items:center">
+          <input name="aliases" placeholder="别名（逗号分隔）" value="${html(aliases)}" style="height:30px;border:1px solid #cfc1ad;border-radius:6px;padding:0 6px;font-size:12px;width:150px">
+          <input name="category" placeholder="分类" value="${html(d.category || '')}" style="height:30px;border:1px solid #cfc1ad;border-radius:6px;padding:0 6px;font-size:12px;width:80px">
+          <button style="background:#618c55;color:#fff;border:0;border-radius:6px;padding:5px 10px;cursor:pointer;font-size:12px">保存</button>
+        </form>
+      </td>
+    </tr>`
+  }).join('')
+
+  const dishContent = `
+    <section style="background:#fffdf8;border:1px solid #eadcc8;border-radius:14px;padding:20px;margin:0 0 18px;overflow:auto">
+      <h2 style="font-size:17px;margin:0 0 12px">菜品字典 (${dishes.length}条)</h2>
+      <p style="color:#806f61;line-height:1.6;margin:0 0 14px">管理标准菜名及其别名、食材签名。编辑别名后，模糊匹配会将其纳入候选。</p>
+      <div style="margin-bottom:14px">
+        <form method="post" action="/dashboard/dictionary/dish/add" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+          <input name="canonicalName" placeholder="新菜名（必填）" required style="height:34px;border:1px solid #cfc1ad;border-radius:8px;padding:0 10px;width:160px">
+          <input name="aliases" placeholder="别名（逗号分隔）" style="height:34px;border:1px solid #cfc1ad;border-radius:8px;padding:0 10px;width:200px">
+          <input name="ingredientSignature" placeholder="食材签名（逗号分隔）" style="height:34px;border:1px solid #cfc1ad;border-radius:8px;padding:0 10px;width:200px">
+          <input name="category" placeholder="分类" style="height:34px;border:1px solid #cfc1ad;border-radius:8px;padding:0 10px;width:100px">
+          <button style="background:#d9694d;color:#fff;border:0;border-radius:8px;padding:8px 14px;cursor:pointer">新增菜品</button>
+        </form>
+      </div>
+      <table style="width:100%;border-collapse:collapse"><thead><tr><th>标准菜名</th><th>别名</th><th>食材签名</th><th>分类</th><th>操作</th></tr></thead><tbody>${dishRows || '<tr><td colspan="5">暂无菜品字典项</td></tr>'}</tbody></table>
+    </section>`
+
+  return `<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>菜品字典 · 庖丁解牛</title><style>
+  :root{--ink:#342a24;--paper:#fffdf8;--line:#eadcc8;--coral:#d9694d;--green:#618c55;--amber:#b87825}*{box-sizing:border-box}body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif;margin:0;background:#f8f1e4;color:var(--ink)}main{max-width:1100px;margin:auto;padding:32px 22px 64px}a{color:#bd573f}h1{margin-bottom:4px}section{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:20px;margin:0 0 18px;overflow:auto}h2{font-size:17px;margin:0 0 12px}table{width:100%;border-collapse:collapse;min-width:600px}th,td{padding:10px;border-bottom:1px solid #f0e6d7;text-align:left;font-size:13px;vertical-align:middle}th{color:#806f61;background:#fff8ec}.badge{font-size:11px;border-radius:999px;padding:4px 8px;background:#eee3d2;color:#5c4b3f;white-space:nowrap}.badge.rejected{background:#f9dfd8;color:#a8432f}button{font:inherit;cursor:pointer}button:hover{opacity:0.9}input{font:inherit}</style>
+  <main><p><a href="/dashboard">← 返回后台</a></p><h1>菜品字典</h1>
+  ${tabBar}
+  ${activeTab === 'dishes' ? dishContent : reviewContent}
+  </main></html>`
 }
 
 
@@ -379,9 +434,15 @@ const server = http.createServer(async (req, res) => {
       } catch (error) { console.error('[paoding-jieniu] dashboard review failed', error.message) }
       res.writeHead(303, { location: `/dashboard/tutorials/${encodeURIComponent(tutorialId)}` }); return res.end()
     }
-    if (req.method === 'GET' && req.url === '/dashboard/dictionary') {
+    if (req.method === 'GET' && req.url === '/dashboard/dictionary' || (req.method === 'GET' && req.url.startsWith('/dashboard/dictionary?'))) {
       if (!isDashboardAuthorized(req)) { res.writeHead(303, { location: '/dashboard/login' }); return res.end() }
-      return res.end(dashboardDictionaryPage(await publisher.listDictionaryQueue('PENDING')))
+      const url = new URL(req.url, 'http://localhost')
+      const tab = url.searchParams.get('tab') || 'review'
+      const [queueItems, dishes] = await Promise.all([
+        publisher.listDictionaryQueue('PENDING'),
+        tutorials.listDishDictionary(200),
+      ])
+      return res.end(dashboardDictionaryPage(queueItems, dishes, tab))
     }
     const dashboardDictResolveMatch = req.method === 'POST' && req.url.match(/^\/dashboard\/dictionary\/([^/?]+)\/resolve$/)
     if (dashboardDictResolveMatch) {
@@ -393,6 +454,35 @@ const server = http.createServer(async (req, res) => {
         })
       } catch (error) { console.error('[paoding-jieniu] dashboard dict resolve failed', error.message) }
       res.writeHead(303, { location: '/dashboard/dictionary' }); return res.end()
+    }
+    // 新增菜品到 dish_dictionary
+    if (req.method === 'POST' && req.url === '/dashboard/dictionary/dish/add') {
+      if (!isDashboardAuthorized(req)) { res.writeHead(303, { location: '/dashboard/login' }); return res.end() }
+      const form = await readForm(req)
+      try {
+        const canonicalName = (form.canonicalName || '').trim()
+        if (!canonicalName) throw new Error('菜名必填')
+        await tutorials.upsertDishDictionary({ canonicalName }, {
+          canonicalName,
+          aliases: String(form.aliases || '').split(',').map(s => s.trim()).filter(Boolean),
+          ingredientSignature: String(form.ingredientSignature || '').split(',').map(s => s.trim()).filter(Boolean),
+          category: form.category || '',
+        })
+      } catch (error) { console.error('[paoding-jieniu] dish add failed', error.message) }
+      res.writeHead(303, { location: '/dashboard/dictionary?tab=dishes' }); return res.end()
+    }
+    // 编辑菜品字典项
+    const dashboardDishEditMatch = req.method === 'POST' && req.url.match(/^\/dashboard\/dictionary\/dish\/([^/?]+)\/edit$/)
+    if (dashboardDishEditMatch) {
+      if (!isDashboardAuthorized(req)) { res.writeHead(303, { location: '/dashboard/login' }); return res.end() }
+      const form = await readForm(req)
+      try {
+        await tutorials.upsertDishDictionary({ _id: decodeURIComponent(dashboardDishEditMatch[1]) }, {
+          aliases: String(form.aliases || '').split(',').map(s => s.trim()).filter(Boolean),
+          category: form.category || '',
+        })
+      } catch (error) { console.error('[paoding-jieniu] dish edit failed', error.message) }
+      res.writeHead(303, { location: '/dashboard/dictionary?tab=dishes' }); return res.end()
     }
     if (req.method === 'GET' && req.url.match(/^\/dashboard\/discover/)) {
       if (!isDashboardAuthorized(req)) { res.writeHead(303, { location: '/dashboard/login' }); return res.end() }
@@ -526,6 +616,13 @@ const server = http.createServer(async (req, res) => {
     if (versionMatch) { const body = await readJson(req); return reply(res, 201, { data: await tutorials.registerVersion({ ...body, tutorialId: decodeURIComponent(versionMatch[1]) }, actor) }) }
     const reviewMatch = req.method === 'POST' && req.url.match(/^\/v1\/tutorials\/([^/?]+)\/review$/)
     if (reviewMatch) return reply(res, 200, { data: await tutorials.review(decodeURIComponent(reviewMatch[1]), await readJson(req), actor) })
+    if (req.method === 'GET' && req.url.match(/^\/v1\/dishes\/match/)) {
+      const url = new URL(req.url, 'http://localhost')
+      const name = url.searchParams.get('name') || ''
+      const ingredients = url.searchParams.get('ingredients') || ''
+      const ingList = ingredients ? ingredients.split(',').map(s => ({ rawName: s.trim() })) : []
+      return reply(res, 200, { data: await tutorials.matchDish(name, ingList) })
+    }
     if (req.method === 'GET' && req.url === '/v1/tutorials') return reply(res, 200, { data: await tutorials.list() })
     const tutorialMatch = req.method === 'GET' && req.url.match(/^\/v1\/tutorials\/([^/?]+)$/)
     if (tutorialMatch) { const detail = await tutorials.get(decodeURIComponent(tutorialMatch[1])); return detail ? reply(res, 200, { data: detail }) : reply(res, 404, { code: 'NOT_FOUND', message: '未找到教程' }) }

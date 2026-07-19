@@ -112,9 +112,9 @@ async function assembleRecipe(tutorial) {
     ownerType: tutorial.ownerType,
     visibility: tutorial.visibility,
     source: {
-      platform: tutorial.platform,
+      channelType: tutorial.channelType,
       url: tutorial.sourceUrl,
-      bvid: tutorial.bvid,
+      sourceId: tutorial.sourceId,
       title: tutorial.sourceTitle || '',
     },
     ingredients: ingredients.map((it) => ({
@@ -152,8 +152,9 @@ async function listMine(openid) {
   // 列表只回摘要，避免每条都换 URL
   return res.data.map((t) => ({
     tutorialId: t.tutorialId,
-    bvid: t.bvid,
-    sourceTitle: t.sourceTitle || t.bvid,
+    sourceId: t.sourceId,
+    channelType: t.channelType,
+    sourceTitle: t.sourceTitle || t.sourceId,
     lifecycleStatus: t.lifecycleStatus,
     visibility: t.visibility,
     currentVersionId: t.currentVersionId,
@@ -207,7 +208,13 @@ exports.main = async (event) => {
       case 'getDraft': return { code: 0, data: await getDraft(OPENID, event.tutorialId) }
       // —— 治理写（代理到控制面）——
       case 'submit':
-        return { code: 0, data: await callControlPlane('POST', '/v1/tutorials/bilibili', OPENID, { bvid: event.bvid, ownerType: 'USER', ownerId: OPENID }) }
+        return { code: 0, data: await callControlPlane('POST', '/v1/tutorials/submit', OPENID, {
+          sourceId: event.sourceId || event.bvid,
+          sourceUrl: event.sourceUrl,
+          channelType: event.channelType || 'bilibili',
+          ownerType: 'USER',
+          ownerId: OPENID,
+        }) }
       case 'submitFrameSelection':
         return { code: 0, data: await callControlPlane('POST', `/v1/tutorials/${encodeURIComponent(event.tutorialId)}/frame-selection`, OPENID, { selections: event.selections }) }
       case 'review':

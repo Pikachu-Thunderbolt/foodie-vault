@@ -34,7 +34,7 @@ export interface ITutorial {
   cuisineTags: string[]
   ownerType: 'SYSTEM' | 'USER'
   visibility: 'PRIVATE' | 'SHARE_PENDING' | 'SHARED' | 'PUBLIC'
-  source: { platform: string; url: string; bvid: string; title: string }
+  source: { channelType: string; url: string; sourceId: string; title: string }
   ingredients: ITutorialIngredient[]
   steps: ITutorialStep[]
 }
@@ -42,7 +42,8 @@ export interface ITutorial {
 /** “我的教程”列表摘要。 */
 export interface ITutorialSummary {
   tutorialId: string
-  bvid: string
+  sourceId: string
+  channelType: string
   sourceTitle: string
   lifecycleStatus: string
   visibility: string
