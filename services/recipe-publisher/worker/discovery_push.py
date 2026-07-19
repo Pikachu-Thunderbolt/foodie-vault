@@ -34,14 +34,17 @@ def _headers() -> dict[str, str]:
     return {"authorization": f"Bearer {TOKEN}", "x-actor-id": ACTOR}
 
 
-async def _fetch_top_comments(bvid: str, limit: int = 5) -> list[dict]:
+async def _fetch_top_comments(bvid: str, limit: int = 5, aid: int = 0) -> list[dict]:
     """拉取视频高赞评论，返回最多 limit 条。"""
     try:
         from bilibili_api.video import Video
         from bilibili_api.comment import get_comments
-        v = Video(bvid=bvid)
-        info = await v.get_info()
-        oid = info.get("aid") or info.get("id") or 0
+        if not aid:
+            v = Video(bvid=bvid)
+            info = await v.get_info()
+            oid = info.get("aid") or info.get("id") or 0
+        else:
+            oid = aid
         if not oid:
             return []
         comments = await get_comments(
@@ -49,6 +52,7 @@ async def _fetch_top_comments(bvid: str, limit: int = 5) -> list[dict]:
             type_=1,       # 1=视频评论
             order=1,       # 1=按热度排序
             page_index=1,
+            ps=limit,
         )
         items = []
         for c in (comments.get("replies") or [])[:limit]:
@@ -75,7 +79,7 @@ async def _candidate_metadata(item: dict, fetch_comments: bool = True) -> dict:
     # 拉取高赞评论
     top_comments = []
     if fetch_comments and bvid:
-        top_comments = await _fetch_top_comments(bvid)
+        top_comments = await _fetch_top_comments(bvid, aid=item.get("aid", 0))
 
     metadata = {
         "title": item.get("title", ""),
@@ -164,18 +168,13 @@ def run(source: str | None, limit: int, tokens: list[str]) -> int:
         try:
             from engine.ups import crawl_all as ups_crawl_all
             results = ups_crawl_all(db_con, days=90, only_cooking=True, max_results=30, pages=2)
-            for r in results:
-                if r.get("status") == "ok":
-                    # crawl_all 内部已通过 add_one_bvid 入库新视频
-                    # 这里只需要把新增的视频推送到控制面
-                    pass
             # 从SQLite读取本次新发现的视频
             mids = [r["mid"] for r in results if r.get("status") == "ok"]
             if mids:
                 placeholders = ",".join("?" * len(mids))
                 new_videos = db_con.execute(
-                    f"SELECT bvid,title FROM videos WHERE up_mid IN ({placeholders}) AND discovered_via='ups' AND processing_status='new'",
-                    mids,
+                    "SELECT bvid,title FROM videos WHERE up_mid IN ({}) AND discovered_via=? AND processing_status=?".format(placeholders),
+                    [*mids, 'ups', 'new'],
                 ).fetchall()
                 for bvid, title in new_videos:
                     try:
