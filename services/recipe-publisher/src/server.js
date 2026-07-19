@@ -266,6 +266,27 @@ const server = http.createServer(async (req, res) => {
         .catch((error) => console.error('[paoding-jieniu] discover run failed', error.message))
       res.writeHead(303, { location: `/dashboard/discover?msg=${encodeURIComponent('发现任务已触发，稍后在教程库查看候选。')}` }); return res.end()
     }
+    // UP主管理 API
+    if (req.method === 'POST' && req.url === '/dashboard/ups/crawl') {
+      if (!isDashboardAuthorized(req)) { res.writeHead(303, { location: '/dashboard/login' }); return res.end() }
+      const { runUpsCrawl } = require('./supervisor')
+      runUpsCrawl(port).catch(e => console.error('[paoding-jieniu] ups crawl failed', e.message))
+      res.writeHead(303, { location: '/dashboard/discover?msg=UP主视频拉取已触发' }); return res.end()
+    }
+    if (req.method === 'POST' && req.url === '/dashboard/ups/add') {
+      if (!isDashboardAuthorized(req)) { res.writeHead(303, { location: '/dashboard/login' }); return res.end() }
+      const form = await readForm(req)
+      const { addUpsSubscription } = require('./supervisor')
+      addUpsSubscription(port, form.mid).catch(e => console.error('[paoding-jieniu] ups add failed', e.message))
+      res.writeHead(303, { location: '/dashboard/discover?msg=已添加UP主' }); return res.end()
+    }
+    if (req.method === 'POST' && req.url === '/dashboard/ups/remove') {
+      if (!isDashboardAuthorized(req)) { res.writeHead(303, { location: '/dashboard/login' }); return res.end() }
+      const form = await readForm(req)
+      const { removeUpsSubscription } = require('./supervisor')
+      removeUpsSubscription(port, form.mid).catch(e => console.error('[paoding-jieniu] ups remove failed', e.message))
+      res.writeHead(303, { location: '/dashboard/discover?msg=已取消关注' }); return res.end()
+    }
     const dashboardEnqueueMatch = req.method === 'POST' && req.url.match(/^\/dashboard\/tutorials\/([^/?]+)\/enqueue$/)
     if (dashboardEnqueueMatch) {
       if (!isDashboardAuthorized(req)) { res.writeHead(303, { location: '/dashboard/login' }); return res.end() }

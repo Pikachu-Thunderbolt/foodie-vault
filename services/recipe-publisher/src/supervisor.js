@@ -65,4 +65,55 @@ function runDiscoveryOnce(port, { source = 'food_3day', limit = '30', bvids = []
   })
 }
 
-module.exports = { spawnWorker, startDiscoveryScheduler, runDiscoveryOnce }
+/** 拉取所有已关注UP主的新视频。 */
+function runUpsCrawl(port) {
+  return new Promise((resolve) => {
+    const child = spawn(PYTHON, ['worker/discovery_push.py', '--source', 'ups', '--limit', '30'],
+      { cwd: WORKER_ROOT, env: baseEnv(port), stdio: 'inherit' })
+    child.on('exit', (code) => resolve(code || 0))
+    child.on('error', (err) => { console.error('[supervisor] ups crawl failed', err.message); resolve(1) })
+  })
+}
+
+/** 关注 UP主：调 Python ups.py add。 */
+function addUpsSubscription(port, midOrUrl) {
+  return new Promise((resolve) => {
+    const child = spawn(PYTHON, ['-m', 'engine.ups', 'add', String(midOrUrl)],
+      { cwd: path.join(WORKER_ROOT, 'worker'), env: baseEnv(port), stdio: 'inherit' })
+    child.on('exit', (code) => resolve(code || 0))
+    child.on('error', (err) => { console.error('[supervisor] ups add failed', err.message); resolve(1) })
+  })
+}
+
+/** 取消关注 UP主。 */
+function removeUpsSubscription(port, midOrUrl) {
+  return new Promise((resolve) => {
+    const child = spawn(PYTHON, ['-m', 'engine.ups', 'remove', String(midOrUrl)],
+      { cwd: path.join(WORKER_ROOT, 'worker'), env: baseEnv(port), stdio: 'inherit' })
+    child.on('exit', (code) => resolve(code || 0))
+    child.on('error', (err) => { console.error('[supervisor] ups remove failed', err.message); resolve(1) })
+  })
+}
+
+/** 列出已关注UP主（读SQLite）。 */
+function listUpsSubscriptions(port) {
+  return new Promise((resolve) => {
+    const child = spawn(PYTHON, ['-c', `
+import sqlite3, json
+from engine.schema import DB_PATH, init_db
+from engine.ups import list_ups
+con = init_db()
+ups = list_ups(con)
+print(json.dumps(ups, ensure_ascii=False))
+con.close()
+`], { cwd: path.join(WORKER_ROOT, 'worker'), env: baseEnv(port) })
+    let out = ''
+    child.stdout.on('data', (d) => { out += d.toString() })
+    child.stderr.on('data', () => {})
+    child.on('exit', () => {
+      try { resolve(JSON.parse(out.trim())) } catch (_) { resolve([]) }
+    })
+  })
+}
+
+module.exports = { spawnWorker, startDiscoveryScheduler, runDiscoveryOnce, runUpsCrawl, addUpsSubscription, removeUpsSubscription, listUpsSubscriptions }
