@@ -92,7 +92,21 @@ def _run_process_stage(tutorial: dict[str, Any], task_id: str) -> dict[str, Any]
         if not result.ok:
             raise RuntimeError(f"转写失败: {result.error}")
         update(task_id, "EXTRACTING", "抽取食材、教程步骤与候选关键帧")
-        parsed = extract_steps.extract_one(bvid, con, model=os.environ.get("PAODING_TEXT_MODEL", "claude-sonnet-4-5"))
+        # 从控制面获取 sourceData（含标题/简介/评论）
+        source_data = None
+        try:
+            tutorial_resp = httpx.get(
+                f"{BASE_URL}/v1/tutorials/{tutorial['tutorialId']}",
+                headers=_headers(),
+                timeout=10,
+            )
+            tutorial_detail = tutorial_resp.json().get("data", {})
+            tutorial_full = tutorial_detail.get("tutorial", {})
+            source_data = tutorial_full.get("sourceData") or tutorial_full.get("sourceMeta") or {}
+        except Exception:
+            pass
+
+        parsed = extract_steps.extract_one(bvid, con, model=os.environ.get("PAODING_TEXT_MODEL", "claude-sonnet-4-5"), source_data=source_data)
         extract_frames.extract_frames_for(bvid, con, include_context=True)
 
         # 组装每步候选帧并上传。

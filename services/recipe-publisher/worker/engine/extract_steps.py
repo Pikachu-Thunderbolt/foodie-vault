@@ -44,6 +44,16 @@ USER_PROMPT_TEMPLATE = """## 任务
 
 `[start_sec - end_sec] 文本`  每行一段。
 
+## 视频信息（辅助参考）
+
+标题：{title}
+简介：{description}
+标签：{tags}
+
+## 观众高赞评论（可能有补充技巧或替代做法，请酌情参考）
+
+{comments}
+
 ## 输出 JSON Schema
 
 ```json
@@ -62,6 +72,9 @@ USER_PROMPT_TEMPLATE = """## 任务
       "key_frame_sec": 0.0,
       "key_visual_hint": "这一帧画面应该看到什么（如'刀切肉片的特写'）"
     }}
+  ],
+  "tips": [
+    {{"content": "实用技巧（如'炒糖色要小火慢炒'）", "source": "comment 或 transcript"}}
   ]
 }}
 ```
@@ -69,13 +82,12 @@ USER_PROMPT_TEMPLATE = """## 任务
 ## 关键规则
 
 1. **key_frame_sec** 是**画面最具代表性**的瞬间 —— 通常是动手操作的关键帧（刀落、锅起、食材变色），不是话语开始/结束
-   - 如果步骤跨度较大（如"炖 30 分钟"），取动作发生或结果呈现的关键帧，不要取中点
-   - key_frame_sec 必须在 [start_sec, end_sec] 之间
-2. **步骤拆分**：按"动作切换"拆，不要按"句子切换"拆。每个步骤应该是独立的操作（切/腌/炒/调味/出锅）
+2. **步骤拆分**：按"动作切换"拆，不要按"句子切换"拆
 3. **时间戳严格对齐**：用文稿里实际出现的时间，不要瞎猜
 4. **食材归一**：同名食材合并（如"生抽"和"酱油"统一为"生抽"）
 5. **数量写原文**：amount 保留原话（"适量"、"少许"、"两勺"都可以）
-6. **过滤口播冗余**：忽略"大家好"、"记得点赞"、"下期见"这类非操作内容
+6. **过滤口播冗余**：忽略"大家好"、"记得点赞"这类非操作内容
+7. **tips 提取**：从评论和口播中提取对做菜有实际帮助的技巧。标记来源（transcript 或 comment）
 
 ## 文稿（bvid={bvid}）
 
@@ -98,15 +110,32 @@ def _has_credential() -> bool:
     return llm_provider.has_credential()
 
 
-def call_llm(transcript_text: str, bvid: str, model: str = DEFAULT_MODEL) -> dict:
-    """调 LLM（provider 抽象层），返回解析后的 dict。
+def call_llm(transcript_text: str, bvid: str, model: str = DEFAULT_MODEL,
+             title: str = "", description: str = "", tags: str = "",
+             top_comments: list | None = None) -> dict:
+    """调 LLM，返回解析后的 dict。可注入视频元数据和评论辅助提取。"""
+    # 格式化评论
+    comments_text = ""
+    if top_comments:
+        comments_lines = []
+        for c in top_comments:
+            likes = c.get("likes", 0)
+            content = c.get("content", "")
+            if content:
+                comments_lines.append(f"- {content} (点赞 {likes})")
+        comments_text = "\n".join(comments_lines) if comments_lines else "（无高赞评论）"
+    else:
+        comments_text = "（未获取评论数据）"
 
-    provider 由环境变量决定：云端国产模型（OpenAI 兼容）或本地 Claude。
-    此处只负责构造 prompt 与解析严格 JSON，与厂商无关。
-    """
-    user_msg = USER_PROMPT_TEMPLATE.format(bvid=bvid, transcript=transcript_text)
+    user_msg = USER_PROMPT_TEMPLATE.format(
+        bvid=bvid,
+        transcript=transcript_text,
+        title=title or "（未知）",
+        description=description or "（未提供）",
+        tags=tags or "（未提供）",
+        comments=comments_text,
+    )
     text = llm_provider.chat(SYSTEM_PROMPT, user_msg, model=model).strip()
-    # 剥 code fence
     text = re.sub(r"^```(?:json)?\s*", "", text)
     text = re.sub(r"\s*```$", "", text)
     return json.loads(text)
@@ -114,8 +143,9 @@ def call_llm(transcript_text: str, bvid: str, model: str = DEFAULT_MODEL) -> dic
 
 def extract_one(bvid: str, con: sqlite3.Connection,
                 model: str = DEFAULT_MODEL,
-                overwrite: bool = False) -> dict:
-    """读 transcript → 调 LLM → 落库。返回 parsed dict（失败抛异常）。"""
+                overwrite: bool = False,
+                source_data: dict | None = None) -> dict:
+    """读 transcript → 调 LLM → 落库。可注入 sourceData 辅助提取。"""
     trans_path = Path("data/transcripts") / f"{bvid}.json"
     if not trans_path.exists():
         raise FileNotFoundError(f"transcript not found: {trans_path}")
@@ -128,7 +158,13 @@ def extract_one(bvid: str, con: sqlite3.Connection,
 
     data = json.loads(trans_path.read_text())
     transcript_text = format_transcript(data)
-    parsed = call_llm(transcript_text, bvid, model=model)
+    parsed = call_llm(
+        transcript_text, bvid, model=model,
+        title=(source_data or {}).get("title", ""),
+        description=(source_data or {}).get("description", ""),
+        tags=", ".join((source_data or {}).get("tags", [])),
+        top_comments=(source_data or {}).get("topComments", []),
+    )
     parsed["bvid"] = bvid
     parsed["model"] = model
     parsed["created_at"] = datetime.now(timezone.utc).isoformat(timespec="seconds")
