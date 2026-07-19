@@ -301,8 +301,13 @@ const server = http.createServer(async (req, res) => {
     }
     if (!isAuthorized(req)) return reply(res, 401, { code: 'UNAUTHORIZED', message: '缺少或无效的内部令牌' })
     const actor = req.headers['x-actor-id'] || 'content-service'
+    // 新接口
+    if (req.method === 'POST' && req.url === '/v1/tutorials/submit') {
+      return reply(res, 201, { data: await tutorials.submitSource(await readJson(req), actor) })
+    }
+    // 向后兼容旧接口
     if (req.method === 'POST' && req.url === '/v1/tutorials/bilibili') {
-      return reply(res, 201, { data: await tutorials.submitBilibili(await readJson(req), actor) })
+      return reply(res, 201, { data: await tutorials.submitSource({ ...(await readJson(req)), channelType: 'bilibili' }, actor) })
     }
     const preflightMatch = req.method === 'POST' && req.url.match(/^\/v1\/tutorials\/([^/?]+)\/preflight$/)
     if (preflightMatch) return reply(res, 200, { data: await tutorials.preflight(decodeURIComponent(preflightMatch[1]), (await readJson(req)).metadata, actor) })

@@ -1,10 +1,8 @@
 'use strict'
 
-// 庖丁解牛内容治理层：所有下载、处理、审核与发布动作均由此状态机约束。
-// 它不下载 B 站视频；重型 Python worker 只能领取 PRECHECK_PASSED 的任务。
 const { ValidationError } = require('./validator')
+const { parseSourceId, getChannel } = require('./channels')
 
-const BVID = /^BV[0-9A-Za-z]+$/
 const OWNER_TYPES = new Set(['SYSTEM', 'USER'])
 const VISIBILITIES = new Set(['PRIVATE', 'SHARE_PENDING', 'SHARED', 'PUBLIC'])
 const NEGATIVE = ['吃播', '试吃', '测评', '开箱', '搞笑', '段子', 'vlog', '探店', '踩雷', '整活', 'reaction', '直播回放', '搬运']
@@ -12,11 +10,6 @@ const POSITIVE = ['教程', '做法', '菜谱', '配方', '步骤', '做饭', '�
 const COOKING_CATEGORIES = ['美食', '美食制作', '生活']
 
 function now() { return new Date() }
-function bvidFrom(value) {
-  const match = String(value || '').trim().match(/(BV[0-9A-Za-z]+)/)
-  if (!match || !BVID.test(match[1])) throw new ValidationError(['仅支持有效的 B 站 BV 号或视频链接'])
-  return match[1]
-}
 
 // 仅用元数据判定，禁止触发下载。不把“播放量高”作为教程证明。
 function evaluateCookingTutorial(metadata = {}) {
@@ -53,37 +46,66 @@ class TutorialService {
     return this.db.collection('tutorial_audit_events').add({ data: { tutorialId, type, actor, payload, occurredAt: now() } })
   }
 
-  async submitBilibili(input, actor = 'system') {
+  async submitSource(input, actor = 'system') {
+    const channelType = input.channelType || 'bilibili'
+    const channel = getChannel(channelType)
     const ownerType = input.ownerType || 'USER'
     if (!OWNER_TYPES.has(ownerType)) throw new ValidationError(['ownerType 仅支持 SYSTEM 或 USER'])
     if (ownerType === 'USER' && !input.ownerId) throw new ValidationError(['用户教程必须提供 ownerId'])
-    const bvid = bvidFrom(input.bvid || input.sourceUrl)
-    const tutorialId = `tutorial_bilibili_${bvid}_${ownerType === 'USER' ? String(input.ownerId).slice(0, 32) : 'system'}`
+
+    const sourceId = parseSourceId(channelType, input.sourceId || input.sourceUrl || input.bvid)
+    const sourceUrl = input.sourceUrl || channel.buildSourceUrl(sourceId)
+    const tutorialId = `tutorial_${channelType}_${sourceId}_${ownerType === 'USER' ? String(input.ownerId).slice(0, 32) : 'system'}`
+
     const current = await this.findOne('tutorials', { tutorialId })
     if (current) return current
+
     const visibility = ownerType === 'SYSTEM' ? 'PUBLIC' : 'PRIVATE'
     const tutorial = await this.upsert('tutorials', { tutorialId }, {
-      platform: 'bilibili', bvid, sourceUrl: `https://www.bilibili.com/video/${bvid}`,
-      sourceTitle: '', ownerType, ownerId: input.ownerId || null,
-      visibility, requestedVisibility: visibility,
-      lifecycleStatus: 'PREFLIGHT_PENDING', processingStatus: 'NOT_QUEUED',
+      channelType,
+      platform: channelType,
+      sourceId,
+      bvid: channelType === 'bilibili' ? sourceId : undefined,
+      sourceUrl,
+      sourceMeta: input.sourceMeta || {},
+      sourceData: input.sourceData || {},
+      sourceTitle: '',
+      ownerType,
+      ownerId: input.ownerId || null,
+      discoverSource: input.discoverSource || 'direct',
+      visibility,
+      requestedVisibility: visibility,
+      lifecycleStatus: 'PREFLIGHT_PENDING',
+      processingStatus: 'NOT_QUEUED',
       reviewPolicy: ownerType === 'SYSTEM' ? 'SYSTEM_REQUIRED' : 'OWNER_REQUIRED',
-      currentVersionId: null, currentPublishedVersionId: null, revisionCount: 0,
+      currentVersionId: null,
+      currentPublishedVersionId: null,
+      revisionCount: 0,
       sourceRightsStatus: input.sourceRightsStatus || 'unknown',
     })
-    await this.event(tutorialId, 'SUBMITTED', actor, { ownerType, bvid })
+    await this.event(tutorialId, 'SUBMITTED', actor, { ownerType, channelType, sourceId })
     return tutorial
   }
 
-  async preflight(tutorialId, metadata, actor = 'bilibili-discovery-worker') {
+  // 向后兼容旧 API
+  async submitBilibili(input, actor) {
+    return this.submitSource({ ...input, channelType: 'bilibili' }, actor)
+  }
+
+  async preflight(tutorialId, metadata, actor = 'discovery-worker') {
     const tutorial = await this.findOne('tutorials', { tutorialId })
     if (!tutorial) throw new ValidationError(['未找到教程'])
-    if (tutorial.platform !== 'bilibili') throw new ValidationError(['当前阶段仅支持 B 站视频'])
-    const result = evaluateCookingTutorial(metadata)
+    const channel = getChannel(tutorial.channelType)
+    const result = channel.evaluateCookingTutorial(metadata)
     const state = result.verdict === 'PASSED' ? 'PREFLIGHT_PASSED' : result.verdict === 'REJECTED' ? 'PREFLIGHT_REJECTED' : 'PREFLIGHT_MANUAL_REVIEW'
     const updated = await this.db.collection('tutorials').doc(tutorial._id).update({ data: {
-      sourceTitle: metadata.title || tutorial.sourceTitle, sourceMetadata: metadata, preflight: { ...result, checkedAt: now(), checkedBy: actor },
-      lifecycleStatus: state, processingStatus: result.verdict === 'PASSED' ? 'READY_TO_QUEUE' : 'BLOCKED', updatedAt: now(),
+      sourceTitle: metadata.title || tutorial.sourceTitle,
+      sourceMeta: { ...(tutorial.sourceMeta || {}), ...metadata },
+      sourceData: { ...(tutorial.sourceData || {}), ...(metadata._sourceData || {}) },
+      preflight: { ...result, checkedAt: now(), checkedBy: actor },
+      lifecycleStatus: state,
+      processingStatus: result.verdict === 'PASSED' ? 'READY_TO_QUEUE' : 'BLOCKED',
+      updatedAt: now(),
     } })
     await this.event(tutorialId, 'PREFLIGHT_COMPLETED', actor, result)
     return { tutorialId, ...result, lifecycleStatus: state, updated }
@@ -106,7 +128,7 @@ class TutorialService {
   async enqueue(tutorialId, actor = 'content-admin') {
     const tutorial = await this.findOne('tutorials', { tutorialId })
     if (!tutorial) throw new ValidationError(['未找到教程'])
-    if (tutorial.lifecycleStatus !== 'PREFLIGHT_PASSED') throw new ValidationError(['未通过“正常做饭教程”预检，禁止下载或处理'])
+    if (tutorial.lifecycleStatus !== 'PREFLIGHT_PASSED') throw new ValidationError(['未通过"正常做饭教程"预检，禁止下载或处理'])
     const taskId = `task_${tutorialId}_${Date.now()}`
     await this.db.collection('tutorials').doc(tutorial._id).update({ data: { processingStatus: 'QUEUED', lifecycleStatus: 'PROCESSING', activeTaskId: taskId, updatedAt: now() } })
     await this.db.collection('tutorial_processing_tasks').add({ data: { taskId, tutorialId, kind: 'PROCESS', platform: 'bilibili', bvid: tutorial.bvid, status: 'QUEUED', createdAt: now(), updatedAt: now() } })
@@ -203,7 +225,7 @@ class TutorialService {
     await this.db.collection('tutorial_frame_drafts').doc(draft._id).update({ data: { selection: selections, selectedBy: actor, selectedAt: now(), updatedAt: now() } })
     const taskId = `export_${tutorialId}_${Date.now()}`
     await this.db.collection('tutorials').doc(tutorial._id).update({ data: { lifecycleStatus: 'READY_TO_EXPORT', processingStatus: 'EXPORT_QUEUED', activeTaskId: taskId, updatedAt: now() } })
-    await this.db.collection('tutorial_processing_tasks').add({ data: { taskId, tutorialId, kind: 'EXPORT', platform: 'bilibili', bvid: tutorial.bvid, status: 'QUEUED', createdAt: now(), updatedAt: now() } })
+    await this.db.collection('tutorial_processing_tasks').add({ data: { taskId, tutorialId, kind: 'EXPORT', platform: 'bilibili', bvid: tutorial.sourceId, status: 'QUEUED', createdAt: now(), updatedAt: now() } })
     await this.event(tutorialId, 'FRAMES_SELECTED', actor, { taskId, stepCount: selections.length })
     return { tutorialId, taskId, status: 'QUEUED', kind: 'EXPORT' }
   }
@@ -250,4 +272,4 @@ class TutorialService {
   }
 }
 
-module.exports = { TutorialService, evaluateCookingTutorial, bvidFrom }
+module.exports = { TutorialService, evaluateCookingTutorial }
