@@ -130,8 +130,8 @@ function dashboardPage(tutorialRows, filter = {}) {
 
   return `<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>庖丁解牛 · 教程库</title><style>
   :root{--ink:#342a24;--paper:#fffaf0;--line:#eadcc8;--coral:#d9694d;--green:#618c55;--amber:#b87825}*{box-sizing:border-box}body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif;margin:0;background:#f8f1e4;color:var(--ink)}main{max-width:1240px;margin:auto;padding:32px 22px 64px}.hero{padding:24px 28px;border:1px solid var(--line);background:linear-gradient(135deg,#fffdf6,#fff5e7);border-radius:18px;margin-bottom:22px}.eyebrow{color:var(--coral);font-weight:700;letter-spacing:.12em;font-size:12px}.hero h1{margin:7px 0;font-size:30px}.sub{color:#806f61;line-height:1.6;margin:0}nav{display:flex;gap:18px;margin:20px 0;font-weight:700}nav a{color:var(--ink);text-decoration:none}nav a.active{color:var(--coral)}section{background:#fffdf8;border:1px solid var(--line);border-radius:14px;padding:20px;margin:18px 0;overflow:auto}h2{font-size:18px;margin:0 0 5px}.filter-bar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:14px}.filter-bar select{height:36px;border:1px solid #cfc1ad;border-radius:8px;padding:0 8px;font:inherit}.filter-bar button{background:var(--coral);color:#fff;border:0;border-radius:8px;padding:8px 14px;cursor:pointer}table{width:100%;border-collapse:collapse;min-width:700px}th,td{padding:10px;border-bottom:1px solid #f0e6d7;text-align:left;font-size:13px;vertical-align:top}th{color:#806f61;font-weight:600;background:#fff8ec}.badge{font-size:11px;border-radius:999px;padding:3px 8px;background:#eee3d2;color:#5c4b3f;white-space:nowrap}.badge.PUBLISHED,.badge.SYSTEM,.badge.PREFLIGHT_PASSED{background:#e4f1df;color:#417138}.badge.REJECTED,.badge.PREFLIGHT_REJECTED{background:#f9dfd8;color:#a8432f}.badge.PROCESSING,.badge.FRAMES_REVIEW,.badge.SYSTEM_REVIEW_REQUIRED,.badge.OWNER_REVIEW_REQUIRED{background:#fff0d4;color:#9a661a}.badge.PREFLIGHT_PENDING{background:#eee3d2;color:#5c4b3f}a{color:#bd573f}@media(max-width:700px){main{padding:16px}.hero{padding:18px}}</style>
-  <main><div class="hero"><div class="eyebrow">庖丁解牛 · 内容控制台</div><h1>教程库</h1><p class="sub">多渠道做饭教程的发现、拆解、审核与发布。统一管理每个教程的完整生命周期。</p><form method="post" action="/dashboard/logout" style="margin-top:14px"><button style="border:0;background:none;padding:0;color:#8a6554;text-decoration:underline;cursor:pointer">退出登录</button></form></div><nav><a class="active" href="/dashboard">教程库</a><a href="/dashboard/discover">发现</a><a href="/dashboard/dictionary">菜品字典</a></nav>
-  <section>${filterBar}<table><thead><tr><th>教程 / 来源</th><th>归属</th><th>状态</th><th>可见性</th><th>版本数</th><th>最近更新</th></tr></thead><tbody>${table || '<tr><td colspan="6">暂无教程。去<a href="/dashboard/discover">发现页</a>添加。</td></tr>'}</tbody></table></section></main></html>`
+  <main><div class="hero"><div class="eyebrow">庖丁解牛 · 内容控制台</div><h1>教程库</h1><p class="sub">多渠道做饭教程的发现、拆解、审核与发布。统一管理每个教程的完整生命周期。</p><form method="post" action="/dashboard/logout" style="margin-top:14px"><button style="border:0;background:none;padding:0;color:#8a6554;text-decoration:underline;cursor:pointer">退出登录</button></form></div><nav><a class="active" href="/dashboard">教程库</a><a href="/dashboard/discover">素材工作台</a><a href="/dashboard/dictionary">菜品字典</a></nav>
+  <section>${filterBar}<table><thead><tr><th>教程 / 来源</th><th>归属</th><th>状态</th><th>可见性</th><th>版本数</th><th>最近更新</th></tr></thead><tbody>${table || '<tr><td colspan="6">暂无教程。去<a href="/dashboard/discover">素材工作台</a>添加。</td></tr>'}</tbody></table></section></main></html>`
 }
 
 function dashboardDetailPage(detail) {
@@ -402,7 +402,7 @@ function dashboardDiscoverPage(message, channelType = 'bilibili', activeSopTab =
   }
 
   // ── Render full page ──
-  const pageTitle = { discover: '发现素材', processing: '待处理', publish: '待发布' }[activeSopTab] || '发现'
+  const pageTitle = '素材工作台'
   return `<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${pageTitle} · 庖丁解牛</title><style>
   :root{--ink:#342a24;--paper:#fffdf8;--line:#eadcc8;--coral:#d9694d;--green:#618c55;--amber:#b87825;--cream:#f8f1e4}*{box-sizing:border-box}body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif;margin:0;background:var(--cream);color:var(--ink)}main{max-width:1160px;margin:auto;padding:28px 20px 64px}a{color:#bd573f;text-decoration:none}
   .hero{padding:20px 26px;border:1px solid var(--line);background:linear-gradient(135deg,#fffdf6,#fff5e7);border-radius:16px;margin-bottom:18px}
@@ -444,7 +444,7 @@ function dashboardDiscoverPage(message, channelType = 'bilibili', activeSopTab =
   .back-link{display:inline-block;margin-bottom:10px;font-size:13px}
   @media(max-width:700px){main{padding:14px 10px}.sop-tab{font-size:13px;padding:10px 0}}</style>
   <main><a href="/dashboard" class="back-link">← 返回后台</a>
-  <div class="hero"><h1>${cnStatus({discover:'发现教程素材',processing:'待处理队列',publish:'待发布管理'}[activeSopTab] || '发现')}</h1><p class="sub">B站做饭教程的全生命周期管理：发现 → 处理 → 审核发布</p></div>
+  <div class="hero"><h1>素材工作台</h1><p class="sub">做饭教程的全生命周期管理：发现 → 处理 → 审核发布</p></div>
   ${sopTabs}
   ${discoverContent}${processingContent}${publishContent}
   </main></html>`
