@@ -310,7 +310,16 @@ class TutorialService {
     return this.upsert('dish_dictionary', query, { ...data, updatedAt: now() })
   }
 
-  async list(limit = 100) { return (await this.db.collection('tutorials').orderBy('updatedAt', 'desc').limit(Math.min(Math.max(Number(limit) || 100, 1), 100)).get()).data }
+  async list(limit = 100) {
+    const rows = (await this.db.collection('tutorials').orderBy('updatedAt', 'desc').limit(Math.min(Math.max(Number(limit) || 100, 1), 100)).get()).data
+    // 向后兼容：旧数据可能只有 bvid/platform，补全 sourceId/channelType
+    return rows.map(t => ({
+      ...t,
+      sourceId: t.sourceId || t.bvid || '',
+      channelType: t.channelType || t.platform || 'bilibili',
+      sourceUrl: t.sourceUrl || (t.sourceId || t.bvid) ? `https://www.bilibili.com/video/${t.sourceId || t.bvid}` : '',
+    }))
+  }
   async get(tutorialId) {
     const tutorial = await this.findOne('tutorials', { tutorialId }); if (!tutorial) return null
     const [revisions, tasks, events] = await Promise.all([

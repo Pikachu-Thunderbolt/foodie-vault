@@ -87,7 +87,27 @@ function loginPage(error = '') {
   <main><div class="brand"><span class="mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M4 10h16M6 10l1.2 9h9.6l1.2-9M9 6a3 3 0 0 1 6 0"/><path d="M9 14h6"/></svg></span><span>庖丁解牛 · 内容后台</span></div><section class="card" aria-labelledby="login-title"><div class="eyebrow">ADMIN CONSOLE</div><h1 id="login-title">欢迎回来</h1><p class="sub">登录后可管理 B站教程、处理任务、审核、发布和版本记录。</p>${errorHtml}<form method="post" action="/dashboard/login"><label for="username">后台账号</label><input id="username" name="username" autocomplete="username" required autofocus><label for="password">密码</label><div class="password-wrap"><input id="password" name="password" type="password" autocomplete="current-password" required><button type="button" aria-label="显示或隐藏密码" onclick="const i=document.getElementById('password');i.type=i.type==='password'?'text':'password';this.textContent=i.type==='password'?'显示':'隐藏'">显示</button></div><button class="primary" type="submit">进入内容后台</button></form><p class="hint">仅授权内容管理员可访问</p></section></main></html>`
 }
 
-function badge(value) { return `<span class="badge ${html(value).toLowerCase()}">${html(value || '—')}</span>` }
+const STATUS_CN = {
+  PREFLIGHT_PENDING: '待预检', PREFLIGHT_PASSED: '预检通过', PREFLIGHT_REJECTED: '预检拒绝',
+  PREFLIGHT_MANUAL_REVIEW: '待人工预检', PROCESSING: '处理中', QUEUED: '排队中',
+  DOWNLOADING: '下载中', TRANSCRIBING: '转写中', EXTRACTING: '提取中',
+  FRAMES_EXTRACTED: '帧已提取', FRAMES_REVIEW: '待挑帧', READY_TO_EXPORT: '待导出',
+  EXPORTING: '导出中', SYSTEM_REVIEW_REQUIRED: '待系统审核', OWNER_REVIEW_REQUIRED: '待自审',
+  OWNER_APPROVED: '自审通过', PUBLISHED: '已发布', REJECTED: '已拒绝',
+  PROCESSING_FAILED: '处理失败', NOT_QUEUED: '未入队', READY_TO_QUEUE: '待入队',
+  BLOCKED: '已拦截', COMPLETE: '已完成', METADATA_INCOMPLETE: '元数据不完整',
+  MANUAL_REVIEW_REQUIRED: '待人工预检',
+}
+const OWNER_CN = { SYSTEM: '系统发现', USER: '用户提交' }
+function cnStatus(s) { return STATUS_CN[s] || s }
+function cnOwner(o) { return OWNER_CN[o] || o }
+
+function badge(value) {
+  const cnClass = (STATUS_CN[value] || value || '').toLowerCase().replace(/\s+/g, '_')
+  const ownerClass = (OWNER_CN[value] || '').toLowerCase().replace(/\s+/g, '_')
+  const cls = [html(String(value)).toLowerCase(), cnClass, ownerClass].filter(Boolean).join(' ')
+  return `<span class="badge ${cls}">${html(cnStatus(value) || cnOwner(value) || value || '—')}</span>`
+}
 function dashboardPage(tutorialRows, filter = {}) {
   const filterBar = `
     <form method="get" action="/dashboard" class="filter-bar">
@@ -146,127 +166,288 @@ function dashboardTutorialPage(detail) {
   <h2>处理任务与审计历史</h2><pre>${html(JSON.stringify({ tasks: detail.tasks, events: detail.events }, null, 2))}</pre></main></html>`
 }
 
-function dashboardDiscoverPage(message, channelType = 'bilibili', activeTab = 'ranking', preflightResults = [], upsList = []) {
+function dashboardDiscoverPage(message, channelType = 'bilibili', activeSopTab = 'discover', activeSubTab = 'ranking', results = [], upsList = []) {
   const channels = require('./channels').listChannels()
   const channel = require('./channels').getChannel(channelType)
   const modes = channel.discovery.modes
 
-  // Channel selector
-  const channelOpts = channels.map(ch =>
-    `<option value="${html(ch.channelType)}" ${ch.channelType === channelType ? 'selected' : ''}>${html(ch.label)}</option>`
-  ).join('')
-
-  // Tab bar
-  const tabs = modes.map(m =>
-    `<a href="?channel=${html(channelType)}&tab=${html(m.key)}" class="tab ${m.key === activeTab ? 'active' : ''}">${html(m.label)}</a>`
-  ).join('')
-
   const note = message ? `<div class="msg">${html(message)}</div>` : ''
 
-  // --- Ranking tab ---
-  let rankingTab = ''
-  if (activeTab === 'ranking') {
-    const rankingMode = modes.find(m => m.key === 'ranking')
-    rankingTab = `
-    <section>
-      <h2>榜单发现</h2>
-      <form method="post" action="/dashboard/discover/run" class="inline-form">
-        <input type="hidden" name="channelType" value="${html(channelType)}">
-        <label>来源</label>
-        <select name="source">
-          ${(rankingMode.params[0].options || []).map(o =>
-            `<option value="${html(o.value)}">${html(o.label)}</option>`).join('')}
-        </select>
-        <label>数量</label><input name="limit" value="30" style="width:70px">
-        <button type="submit">开始发现</button>
-      </form>
-    </section>`
+  // ── Level-1 SOP Tabs ──
+  const sopTab = (key, label) => {
+    const q = new URLSearchParams({ channel: channelType, sop: key, sub: key === 'discover' ? activeSubTab : '' }).toString()
+    return `<a href="?${q}" class="sop-tab ${key === activeSopTab ? 'active' : ''}">${label}</a>`
+  }
+  const sopTabs = `<div class="sop-tabs">${sopTab('discover', '发现素材')}${sopTab('processing', '待处理')}${sopTab('publish', '待发布')}</div>`
 
-    // Preflight results table
-    if (preflightResults.length > 0) {
-      const rows = preflightResults.map(r => {
-        const passed = r.verdict === 'PASSED'
+  // ── Level-2 Sub Tabs (only for discover) ──
+  let subTabs = ''
+  if (activeSopTab === 'discover') {
+    const subTab = (key, label) => {
+      const q = new URLSearchParams({ channel: channelType, sop: 'discover', sub: key }).toString()
+      return `<a href="?${q}" class="sub-tab ${key === activeSubTab ? 'active' : ''}">${label}</a>`
+    }
+    subTabs = `<div class="sub-tabs">${subTab('ranking', '榜单发现')}${subTab('up_subscription', 'UP主关注')}${subTab('direct', '指定素材')}</div>`
+  }
+
+  // ═══════════════════════════════════════════════════════
+  // SOP Tab 1: 发现素材
+  // ═══════════════════════════════════════════════════════
+  let discoverContent = ''
+  if (activeSopTab === 'discover') {
+    // Channel selector
+    const channelOpts = channels.map(ch =>
+      `<option value="${html(ch.channelType)}" ${ch.channelType === channelType ? 'selected' : ''}>${html(ch.label)}</option>`
+    ).join('')
+    const channelBar = `
+      <div class="channel-bar">
+        <span>渠道</span>
+        <form method="get" action="/dashboard/discover" style="display:inline">
+          <select name="channel" onchange="this.form.submit()">${channelOpts}</select>
+          <input type="hidden" name="sop" value="discover">
+          <input type="hidden" name="sub" value="${html(activeSubTab)}">
+        </form>
+      </div>`
+
+    // --- Sub-tab: 榜单发现 ---
+    let rankingForm = ''
+    if (activeSubTab === 'ranking') {
+      const rankingMode = modes.find(m => m.key === 'ranking')
+      rankingForm = `
+      <section>
+        <h2>榜单发现</h2>
+        <form method="post" action="/dashboard/discover/run" class="inline-form">
+          <input type="hidden" name="channelType" value="${html(channelType)}">
+          <label>来源</label>
+          <select name="source">
+            ${(rankingMode.params[0].options || []).map(o =>
+              `<option value="${html(o.value)}">${html(o.label)}</option>`).join('')}
+          </select>
+          <label>数量</label><input name="limit" value="30" style="width:70px">
+          <button type="submit">开始发现</button>
+        </form>
+      </section>`
+    }
+
+    // --- Sub-tab: UP主关注 ---
+    let upsForm = ''
+    if (activeSubTab === 'up_subscription') {
+      upsForm = `
+      <section>
+        <h2>UP主关注</h2>
+        <form method="post" action="/dashboard/ups/add" class="inline-form">
+          <label>添加UP主（mid或空间链接）</label>
+          <input name="mid" placeholder="64876543 或 space.bilibili.com/64876543" style="width:300px">
+          <button type="submit">关注</button>
+        </form>
+        <form method="post" action="/dashboard/ups/crawl" style="margin-top:8px">
+          <button type="submit" style="background:#618c55">一键拉取所有UP主新视频</button>
+        </form>
+      </section>`
+      if (upsList.length > 0) {
+        const upsRows = upsList.map(u => `<tr>
+          <td><strong>${html(u.name || 'UP_'+u.mid)}</strong><br><small>mid: ${html(String(u.mid))}</small></td>
+          <td>${u.n_approved || 0}✓ / ${u.n_pending || 0}… / ${u.n_total || 0}总</td>
+          <td>${u.last_checked_at ? String(u.last_checked_at).slice(0,19) : '—'}</td>
+          <td>${u.last_video_bvid ? `<a target="_blank" href="https://www.bilibili.com/video/${html(u.last_video_bvid)}">${html(u.last_video_bvid)}</a>` : '—'}</td>
+          <td><form method="post" action="/dashboard/ups/remove" onsubmit="return confirm('取消关注？')"><input type="hidden" name="mid" value="${html(String(u.mid))}"><button class="btn-sm" style="background:#ad4d39">取消关注</button></form></td>
+        </tr>`).join('')
+        upsForm += `
+        <section>
+          <h2>已关注 ${upsList.length} 个UP主</h2>
+          <table><thead><tr><th>UP主</th><th>视频统计</th><th>上次检查</th><th>最新视频</th><th>操作</th></tr></thead>
+          <tbody>${upsRows}</tbody></table>
+        </section>`
+      }
+    }
+
+    // --- Sub-tab: 指定素材 ---
+    let directForm = ''
+    if (activeSubTab === 'direct') {
+      directForm = `
+      <section>
+        <h2>指定素材</h2>
+        <form method="post" action="/dashboard/discover/run">
+          <input type="hidden" name="channelType" value="${html(channelType)}">
+          <textarea name="bvids" placeholder="每行一个BV号或B站视频链接" rows="5" style="width:100%;font:inherit;padding:8px;border:1px solid #cfc1ad;border-radius:8px"></textarea>
+          <button type="submit" style="margin-top:10px">加入并预检</button>
+        </form>
+      </section>`
+    }
+
+    // --- Preflight results table (shown after discovery) ---
+    let preflightTable = ''
+    const preflightPassedItems = results.filter(r => r.verdict === 'PASSED' || r.lifecycleStatus === 'PREFLIGHT_PASSED')
+    if (results.length > 0) {
+      const pRows = results.map(r => {
+        const passed = r.verdict === 'PASSED' || r.lifecycleStatus === 'PREFLIGHT_PASSED'
         return `<tr>
-          <td>${passed ? `<input type="checkbox" name="tids" value="${html(r.tutorialId)}">` : ''}</td>
-          <td><a target="_blank" href="${html(r.sourceUrl || '#')}">${html(r.sourceTitle || r.sourceId)}</a></td>
-          <td><small>${html(r.sourceId)}</small></td>
-          <td>${badge(r.verdict)}</td>
-          <td>${r.score != null ? r.score : '—'}</td>
+          <td>${passed ? `<input type="checkbox" name="tids" value="${html(r.tutorialId || r._id)}" ${passed ? 'checked' : ''}>` : '<span style="color:#ad4d39;font-size:12px">—</span>'}</td>
+          <td><a target="_blank" href="${html(r.sourceUrl || '#')}">${html(r.sourceTitle || r.sourceId || '')}</a></td>
+          <td><small>${html(r.sourceId || '')}</small></td>
+          <td>${badge(r.verdict || r.lifecycleStatus)}</td>
+          <td>${r.score != null ? `<span class="score-chip">${r.score}</span>` : '—'}</td>
         </tr>`
       }).join('')
-      rankingTab += `
+      preflightTable = `
       <section>
-        <h2>预检结果</h2>
-        <form method="post" action="/dashboard/discover/enqueue-batch">
-          <table><thead><tr><th>选</th><th>标题</th><th>ID</th><th>预检</th><th>评分</th></tr></thead>
-          <tbody>${rows}</tbody></table>
-          <div style="margin-top:12px">
-            <button type="button" onclick="document.querySelectorAll('input[type=checkbox]').forEach(c=>c.checked=true)">全选PASSED</button>
-            <button type="submit">批量入队</button>
+        <h2>发现结果</h2>
+        <form method="post" action="/dashboard/discover/push-to-processing" id="preflight-form">
+          <table><thead><tr><th style="width:40px">选</th><th>标题</th><th>ID</th><th>预检</th><th>评分</th></tr></thead>
+          <tbody>${pRows}</tbody></table>
+          <div class="action-bar">
+            <button type="button" class="btn-secondary" onclick="document.querySelectorAll('#preflight-form input[type=checkbox]').forEach(c=>c.checked=true)">全选预检通过的</button>
+            <button type="submit" class="btn-primary">送入待处理 →</button>
           </div>
         </form>
       </section>`
     }
+
+    discoverContent = channelBar + subTabs + note + rankingForm + upsForm + directForm + preflightTable
   }
 
-  // --- UP主 tab ---
-  let upsTab = ''
-  if (activeTab === 'up_subscription') {
-    upsTab = `
-    <section>
-      <h2>UP主关注</h2>
-      <form method="post" action="/dashboard/ups/add" class="inline-form">
-        <label>添加UP主（mid或空间链接）</label>
-        <input name="mid" placeholder="64876543 或 space.bilibili.com/64876543" style="width:300px">
-        <button type="submit">关注</button>
-      </form>
-      <form method="post" action="/dashboard/ups/crawl" style="margin-top:8px">
-        <button type="submit" style="background:#618c55">一键拉取所有UP主新视频</button>
-      </form>
-    </section>`
-
-    if (upsList.length > 0) {
-      const rows = upsList.map(u => `<tr>
-        <td><strong>${html(u.name || 'UP_'+u.mid)}</strong><br><small>mid: ${html(String(u.mid))}</small></td>
-        <td>${u.n_approved || 0}✓ / ${u.n_pending || 0}… / ${u.n_total || 0}总</td>
-        <td>${u.last_checked_at ? String(u.last_checked_at).slice(0,19) : '—'}</td>
-        <td>${u.last_video_bvid ? `<a target="_blank" href="https://www.bilibili.com/video/${html(u.last_video_bvid)}">${html(u.last_video_bvid)}</a>` : '—'}</td>
-        <td><form method="post" action="/dashboard/ups/remove" onsubmit="return confirm('取消关注？')"><input type="hidden" name="mid" value="${html(String(u.mid))}"><button class="btn-sm" style="background:#ad4d39">取消关注</button></form></td>
-      </tr>`).join('')
-      upsTab += `
+  // ═══════════════════════════════════════════════════════
+  // SOP Tab 2: 待处理
+  // ═══════════════════════════════════════════════════════
+  let processingContent = ''
+  if (activeSopTab === 'processing') {
+    const processingStatuses = ['PREFLIGHT_PASSED', 'PROCESSING', 'QUEUED', 'DOWNLOADING', 'TRANSCRIBING', 'EXTRACTING', 'FRAMES_EXTRACTED', 'NOT_QUEUED', 'READY_TO_QUEUE', 'PROCESSING_FAILED']
+    const filtered = results.filter(r => processingStatuses.includes(r.lifecycleStatus))
+    const procRows = filtered.map(r => {
+      const isReady = r.lifecycleStatus === 'PREFLIGHT_PASSED' || r.processingStatus === 'READY_TO_QUEUE' || r.processingStatus === 'NOT_QUEUED'
+      const queueable = r.lifecycleStatus === 'PREFLIGHT_PASSED'
+      const progressPct = ['DOWNLOADING','TRANSCRIBING','EXTRACTING'].includes(r.lifecycleStatus) || r.processingStatus === 'QUEUED'
+      const progressHtml = progressPct
+        ? `<div class="mini-progress"><div class="mini-progress-fill" style="width:${r.lifecycleStatus === 'DOWNLOADING' ? '25%' : r.lifecycleStatus === 'TRANSCRIBING' ? '50%' : r.lifecycleStatus === 'EXTRACTING' ? '75%' : '10%'}"></div></div><small style="color:#806f61">${cnStatus(r.lifecycleStatus)}</small>`
+        : ''
+      return `<tr>
+        <td>${queueable ? `<input type="checkbox" name="tids" value="${html(r.tutorialId)}">` : '<span style="color:#bbbbbb;font-size:12px">—</span>'}</td>
+        <td><a href="/dashboard/tutorials/${encodeURIComponent(r.tutorialId)}">${html(r.sourceTitle || r.sourceId)}</a></td>
+        <td>${html(r.channelType)}</td>
+        <td>${cnOwner(r.ownerType || '')}</td>
+        <td>${badge(r.lifecycleStatus)}</td>
+        <td>${progressHtml || (r.lifecycleStatus === 'PREFLIGHT_PASSED' ? '<span class="badge badge-sm ready-to-queue">待入队</span>' : badge(r.processingStatus || r.lifecycleStatus))}</td>
+      </tr>`
+    }).join('')
+    processingContent = `
       <section>
-        <h2>已关注 ${upsList.length} 个UP主</h2>
-        <table><thead><tr><th>UP主</th><th>视频统计</th><th>上次检查</th><th>最新视频</th><th>操作</th></tr></thead>
-        <tbody>${rows}</tbody></table>
+        <h2>待处理素材 (${filtered.length})</h2>
+        <form method="post" action="/dashboard/discover/start-processing" id="processing-form">
+          <table><thead><tr><th style="width:40px">选</th><th>标题</th><th>渠道</th><th>归属</th><th>状态</th><th>进度</th></tr></thead>
+          <tbody>${procRows || '<tr><td colspan="6">暂无待处理的素材。</td></tr>'}</tbody></table>
+          <div class="action-bar">
+            <button type="button" class="btn-secondary" onclick="var qs=document.querySelectorAll('#processing-form input[type=checkbox]');for(var c of qs)c.checked=true">全选待入队的</button>
+            <button type="submit" class="btn-primary">开始处理 →</button>
+          </div>
+        </form>
       </section>`
-    }
   }
 
-  // --- Direct tab ---
-  let directTab = ''
-  if (activeTab === 'direct') {
-    directTab = `
-    <section>
-      <h2>指定素材</h2>
-      <form method="post" action="/dashboard/discover/run">
-        <input type="hidden" name="channelType" value="${html(channelType)}">
-        <textarea name="bvids" placeholder="每行一个BV号或B站视频链接" rows="5" style="width:100%;font:inherit;padding:8px;border:1px solid #cfc1ad;border-radius:8px"></textarea>
-        <button type="submit" style="margin-top:10px">加入并预检</button>
-      </form>
-    </section>`
+  // ═══════════════════════════════════════════════════════
+  // SOP Tab 3: 待发布
+  // ═══════════════════════════════════════════════════════
+  let publishContent = ''
+  if (activeSopTab === 'publish') {
+    const publishStatuses = ['FRAMES_REVIEW', 'READY_TO_EXPORT', 'SYSTEM_REVIEW_REQUIRED', 'OWNER_REVIEW_REQUIRED', 'OWNER_APPROVED']
+    const filtered = results.filter(r => publishStatuses.includes(r.lifecycleStatus))
+    const pubRows = filtered.map(r => {
+      const isFramesReview = r.lifecycleStatus === 'FRAMES_REVIEW'
+      const isSystemReview = r.lifecycleStatus === 'SYSTEM_REVIEW_REQUIRED'
+      const isReadyExport = r.lifecycleStatus === 'READY_TO_EXPORT'
+      const selectable = isFramesReview || isSystemReview
+      return `<tr>
+        <td>${selectable ? `<input type="checkbox" name="tids" value="${html(r.tutorialId)}">` : '<span style="color:#bbbbbb;font-size:12px">—</span>'}</td>
+        <td><a href="/dashboard/tutorials/${encodeURIComponent(r.tutorialId)}">${html(r.sourceTitle || r.sourceId)}</a></td>
+        <td>${html(r.channelType)}</td>
+        <td>${cnOwner(r.ownerType || '')}</td>
+        <td>${badge(r.lifecycleStatus)}</td>
+        <td>${html(String(r.revisionCount || 0))}</td>
+      </tr>`
+    }).join('')
+
+    // Build contextual action bar
+    let actionBar = `<div class="action-bar"><span style="color:#806f61;font-size:13px">选择素材后，可用操作将出现在此处</span></div>`
+    const hasFramesReviewSystem = filtered.some(r => r.lifecycleStatus === 'FRAMES_REVIEW' && r.ownerType === 'SYSTEM')
+    const hasSystemReview = filtered.some(r => r.lifecycleStatus === 'SYSTEM_REVIEW_REQUIRED')
+    const hasReadyExport = filtered.some(r => r.lifecycleStatus === 'READY_TO_EXPORT')
+
+    const actionButtons = []
+    if (hasFramesReviewSystem) actionButtons.push(`<button type="button" class="btn-primary" onclick="goToFrames()">去挑帧</button>`)
+    if (hasSystemReview) actionButtons.push(`<button type="submit" formaction="/dashboard/discover/publish-selected" class="btn-green">系统通过发布</button>`)
+    if (hasSystemReview) actionButtons.push(`<button type="submit" formaction="/dashboard/discover/reject-selected" class="btn-reject">拒绝</button>`)
+    if (hasReadyExport && !hasFramesReviewSystem && !hasSystemReview) actionButtons.push(`<span style="color:#b87825;font-size:13px">⏳ 等待导出...</span>`)
+
+    actionBar = `
+      <div class="action-bar">
+        ${actionButtons.join('')}
+        <script>
+          function goToFrames() {
+            var checked = document.querySelectorAll('#publish-form input[type=checkbox]:checked');
+            if (checked.length === 0) { alert('请先选择素材'); return; }
+            var tid = checked[0].value;
+            location.href = '/dashboard/tutorials/' + encodeURIComponent(tid) + '/frames';
+          }
+        </script>
+      </div>`
+
+    publishContent = `
+      <section>
+        <h2>待发布素材 (${filtered.length})</h2>
+        <form method="post" action="/dashboard/discover/publish-selected" id="publish-form">
+          <table><thead><tr><th style="width:40px">选</th><th>标题</th><th>渠道</th><th>归属</th><th>状态</th><th>版本数</th></tr></thead>
+          <tbody>${pubRows || '<tr><td colspan="6">暂无待发布的素材。</td></tr>'}</tbody></table>
+          ${actionBar}
+        </form>
+      </section>`
   }
 
-  return `<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>发现 · 庖丁解牛</title><style>
-  :root{--ink:#342a24;--paper:#fffdf8;--line:#eadcc8;--coral:#d9694d;--green:#618c55;--amber:#b87825}*{box-sizing:border-box}body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif;margin:0;background:#f8f1e4;color:var(--ink)}main{max-width:1100px;margin:auto;padding:32px 22px 64px}a{color:#bd573f}h1{margin-bottom:4px}.channel-bar{display:flex;align-items:center;gap:16px;margin:14px 0}.channel-bar select{height:38px;border:1px solid #cfc1ad;border-radius:8px;padding:0 10px;font:inherit}.tabs{display:flex;gap:4px;margin:18px 0}.tab{padding:8px 18px;border:1px solid var(--line);border-radius:10px 10px 0 0;text-decoration:none;color:var(--ink);background:#f0e6d7;font-size:14px}.tab.active{background:var(--paper);border-bottom-color:var(--paper);font-weight:700;color:var(--coral)}section{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:20px;margin:0 0 18px;overflow:auto}h2{font-size:17px;margin:0 0 12px}table{width:100%;border-collapse:collapse;min-width:600px}th,td{padding:10px;border-bottom:1px solid #f0e6d7;text-align:left;font-size:13px;vertical-align:top}th{color:#806f61;background:#fff8ec}.badge{font-size:11px;border-radius:999px;padding:3px 8px;background:#eee3d2;color:#5c4b3f;white-space:nowrap}.badge.PASSED,.badge.preflight_passed{background:#e4f1df;color:#417138}.badge.REJECTED,.badge.preflight_rejected{background:#f9dfd8;color:#a8432f}.badge.MANUAL_REVIEW_REQUIRED,.badge.METADATA_INCOMPLETE{background:#fff0d4;color:#9a661a}.msg{background:#e4f1df;color:#417138;border:1px solid #bcd9b0;padding:10px 12px;border-radius:9px;margin-bottom:14px}button{background:var(--coral);color:#fff;border:0;border-radius:9px;padding:10px 18px;cursor:pointer;font:inherit}button:hover{opacity:0.9}input,textarea,select{font:inherit}.inline-form{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.inline-form input,.inline-form select{height:38px;border:1px solid #cfc1ad;border-radius:8px;padding:0 10px}.btn-sm{padding:6px 12px;font-size:12px;border-radius:7px}@media(max-width:700px){main{padding:16px}}</style>
-  <main><p><a href="/dashboard">← 返回后台</a></p><h1>发现教程素材</h1>
-  <div class="channel-bar">渠道:
-    <form method="get" action="/dashboard/discover" style="display:inline">
-      <select name="channel" onchange="this.form.submit()">${channelOpts}</select>
-      <input type="hidden" name="tab" value="${html(activeTab)}">
-    </form>
-  </div>
-  <div class="tabs">${tabs}</div>
-  ${note}${rankingTab}${upsTab}${directTab}</main></html>`
+  // ── Render full page ──
+  const pageTitle = { discover: '发现素材', processing: '待处理', publish: '待发布' }[activeSopTab] || '发现'
+  return `<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${pageTitle} · 庖丁解牛</title><style>
+  :root{--ink:#342a24;--paper:#fffdf8;--line:#eadcc8;--coral:#d9694d;--green:#618c55;--amber:#b87825;--cream:#f8f1e4}*{box-sizing:border-box}body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif;margin:0;background:var(--cream);color:var(--ink)}main{max-width:1160px;margin:auto;padding:28px 20px 64px}a{color:#bd573f;text-decoration:none}
+  .hero{padding:20px 26px;border:1px solid var(--line);background:linear-gradient(135deg,#fffdf6,#fff5e7);border-radius:16px;margin-bottom:18px}
+  .hero h1{margin:5px 0 3px;font-size:26px;letter-spacing:.03em}.hero .sub{color:#806f61;margin:0;font-size:14px}
+  .sop-tabs{display:flex;gap:0;margin:16px 0 0}.sop-tab{flex:1;text-align:center;padding:13px 0;border:1px solid var(--line);border-bottom:none;background:#ede0cf;color:var(--ink);font-weight:650;font-size:15px;border-radius:12px 12px 0 0;text-decoration:none;transition:all .18s}
+  .sop-tab.active{background:var(--paper);color:var(--coral);box-shadow:0 -3px 12px #765b4318}.sop-tab:hover{color:var(--coral)}
+  .sub-tabs{display:flex;gap:4px;margin:12px 0 0;align-items:center}.sub-tab{padding:7px 16px;border:1px solid var(--line);border-radius:8px;text-decoration:none;color:#5c4b3f;background:#ede0cf;font-size:13px;font-weight:600}.sub-tab.active{background:var(--paper);color:var(--coral);border-color:var(--coral);font-weight:700}
+  .channel-bar{display:flex;align-items:center;gap:12px;margin:10px 0;font-size:14px;font-weight:650}
+  .channel-bar select{height:36px;border:1px solid #cfc1ad;border-radius:8px;padding:0 10px;font:inherit;background:var(--paper)}
+  section{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:20px;margin:12px 0;overflow:auto;box-shadow:0 4px 18px #765b430c}
+  h2{font-size:16px;margin:0 0 10px;color:var(--ink)}
+  table{width:100%;border-collapse:collapse;min-width:700px}
+  th,td{padding:10px 8px;border-bottom:1px solid #f0e6d7;text-align:left;font-size:13px;vertical-align:middle}
+  th{color:#806f61;font-weight:600;background:#fff8ec;font-size:12px;text-transform:uppercase;letter-spacing:.05em}
+  .badge{font-size:11px;border-radius:999px;padding:3px 8px;background:#eee3d2;color:#5c4b3f;white-space:nowrap;display:inline-block}
+  .badge.preflight_passed,.badge.passed,.badge.system,.badge.published{background:#e4f1df;color:#417138}
+  .badge.preflight_rejected,.badge.rejected{background:#f9dfd8;color:#a8432f}
+  .badge.processing,.badge.queued,.badge.downloading,.badge.transcribing,.badge.extracting,.badge.frames_review,.badge.frames_reviewed,.badge.system_review_required,.badge.owner_review_required,.badge.owner_approved,.badge.manual_review_required,.badge.metadata_incomplete{background:#fff0d4;color:#9a661a}
+  .badge.read_to_export{background:#e8e0f0;color:#5c3d8a}
+  .badge.ready_to_queue{background:#e4f1df;color:#417138;font-size:10px;padding:2px 7px}
+  .badge-sm{padding:2px 7px;font-size:10px}
+  .score-chip{display:inline-block;background:var(--coral);color:#fff;border-radius:999px;padding:2px 9px;font-size:11px;font-weight:650}
+  .msg{background:#e4f1df;color:#417138;border:1px solid #bcd9b0;padding:10px 12px;border-radius:9px;margin-bottom:12px;font-size:14px}
+  button{font:inherit;cursor:pointer;border:0;border-radius:9px;padding:10px 18px;font-weight:650;transition:all .15s;font-size:14px}
+  button:hover{opacity:0.9;transform:translateY(-1px)}
+  button:active{transform:translateY(1px)}
+  .btn-primary{background:var(--coral);color:#fff;box-shadow:0 4px 12px #d9694d44}
+  .btn-secondary{background:var(--cream);color:var(--ink);border:1px solid #cfc1ad}
+  .btn-green{background:var(--green);color:#fff;box-shadow:0 4px 12px #618c5544}
+  .btn-reject{background:#ad4d39;color:#fff;box-shadow:0 4px 12px #ad4d3944}
+  .btn-sm{padding:6px 12px;font-size:12px;border-radius:7px}
+  .action-bar{display:flex;gap:10px;align-items:center;margin-top:14px;padding:12px 16px;background:#fff8ec;border-radius:10px;border:1px dashed var(--line);flex-wrap:wrap}
+  input,textarea,select{font:inherit}
+  .inline-form{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .inline-form input,.inline-form select{height:38px;border:1px solid #cfc1ad;border-radius:8px;padding:0 10px;background:var(--paper)}
+  input[type=checkbox]{width:18px;height:18px;cursor:pointer;accent-color:var(--coral)}
+  .mini-progress{width:70px;height:6px;background:#eee3d2;border-radius:999px;overflow:hidden;margin-bottom:3px}
+  .mini-progress-fill{height:100%;background:var(--amber);border-radius:999px;transition:width .6s ease}
+  .back-link{display:inline-block;margin-bottom:10px;font-size:13px}
+  @media(max-width:700px){main{padding:14px 10px}.sop-tab{font-size:13px;padding:10px 0}}</style>
+  <main><a href="/dashboard" class="back-link">← 返回后台</a>
+  <div class="hero"><h1>${cnStatus({discover:'发现教程素材',processing:'待处理队列',publish:'待发布管理'}[activeSopTab] || '发现')}</h1><p class="sub">B站做饭教程的全生命周期管理：发现 → 处理 → 审核发布</p></div>
+  ${sopTabs}
+  ${discoverContent}${processingContent}${publishContent}
+  </main></html>`
 }
 
 function dashboardFramePage(detail, urlMap) {
@@ -285,29 +466,20 @@ function dashboardFramePage(detail, urlMap) {
   return `<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>挑帧 · 庖丁解牛</title><style>body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif;margin:32px;background:#fff9ef;color:#3b3026}main{max-width:900px;margin:auto}a{color:#c9573b}button{background:#618c55;color:#fff;border:0;border-radius:10px;padding:12px 22px;font:inherit;cursor:pointer;position:sticky;bottom:20px}</style><main><p><a href="/dashboard/tutorials/${encodeURIComponent(t.tutorialId)}">← 返回教程详情</a></p><h1>为「${html(draft.recipeName || t.sourceTitle || t.sourceId)}」挑代表帧</h1><p>每步选一张最能展示动作的帧，提交后自动导出并进入系统审核。</p><form method="post" action="/dashboard/tutorials/${encodeURIComponent(t.tutorialId)}/frames">${blocks}<button type="submit">确认挑帧并导出</button></form></main></html>`
 }
 
-function dashboardDictionaryPage(items, dishes = [], activeTab = 'review') {
+function dashboardDictionaryPage(items, dishes = [], activeTab = 'dishes') {
   const tabBar = `
     <div class="tabs" style="display:flex;gap:4px;margin:18px 0">
-      <a href="?tab=review" class="tab ${activeTab === 'review' ? 'active' : ''}" style="padding:8px 18px;border:1px solid #eadcc8;border-radius:10px 10px 0 0;text-decoration:none;color:#342a24;background:${activeTab==='review'?'#fffdf8':'#f0e6d7'};font-size:14px;${activeTab==='review'?'font-weight:700;color:#d9694d':''}">词典审核队列</a>
       <a href="?tab=dishes" class="tab ${activeTab === 'dishes' ? 'active' : ''}" style="padding:8px 18px;border:1px solid #eadcc8;border-radius:10px 10px 0 0;text-decoration:none;color:#342a24;background:${activeTab==='dishes'?'#fffdf8':'#f0e6d7'};font-size:14px;${activeTab==='dishes'?'font-weight:700;color:#d9694d':''}">菜品管理</a>
     </div>`
 
-  // Review queue tab content
-  const reviewRows = items.map((q) => `<tr><td>${badge(q.dictionaryKind)}</td><td>${html(q.rawName)}</td><td>${html(q.normalizedName || '')}</td><td>${q.blockingPublish ? '<span class="badge rejected">阻断发布</span>' : ''}</td><td>${html(String(q.occurrenceCount || 1))}</td><td>
-    <form method="post" action="/dashboard/dictionary/${encodeURIComponent(q._id)}/resolve" style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">
-      <input name="canonicalName" placeholder="新建标准名" value="${html(q.rawName)}" style="height:32px;border:1px solid #cfc1ad;border-radius:8px;padding:0 8px">
-      <input name="category" placeholder="分类（可选）" style="height:32px;border:1px solid #cfc1ad;border-radius:8px;padding:0 8px">
-      <button name="mode" value="create_new" style="background:#618c55;color:#fff;border:0;border-radius:8px;padding:7px 12px;cursor:pointer">建为标准名</button>
-    </form></td></tr>`).join('')
+  // Count tutorials per dish
+  const dishTutorialCount = {}
+  if (items.length > 0) {
+    for (const item of items) {
+      // items from listDishDictionary may or may not have tutorialCount
+    }
+  }
 
-  const reviewContent = `
-    <section style="background:#fffdf8;border:1px solid #eadcc8;border-radius:14px;padding:20px;margin:0 0 18px;overflow:auto">
-      <h2 style="font-size:17px;margin:0 0 12px">词典审核队列</h2>
-      <p style="color:#806f61;line-height:1.6;margin:0 0 14px">未匹配或低置信度的菜名/食材。建为标准名后，原始名会补进该主档别名，后续 manifest 自动命中。</p>
-      <table style="width:100%;border-collapse:collapse"><thead><tr><th>类型</th><th>原始名</th><th>归一名</th><th>发布影响</th><th>出现次数</th><th>处理</th></tr></thead><tbody>${reviewRows || '<tr><td colspan="6">暂无待审核词典项</td></tr>'}</tbody></table>
-    </section>`
-
-  // Dish management tab content
   const dishRows = dishes.map((d) => {
     const aliases = (d.aliases || []).join(', ')
     const sigs = (d.ingredientSignature || []).join(', ')
@@ -316,6 +488,7 @@ function dashboardDictionaryPage(items, dishes = [], activeTab = 'review') {
       <td><small>${html(aliases || '—')}</small></td>
       <td><small>${html(sigs || '—')}</small></td>
       <td>${html(d.category || '—')}</td>
+      <td>${html(String(d.tutorialCount || '—'))}</td>
       <td>
         <form method="post" action="/dashboard/dictionary/dish/${encodeURIComponent(d._id)}/edit" style="display:flex;gap:5px;flex-wrap:wrap;align-items:center">
           <input name="aliases" placeholder="别名（逗号分隔）" value="${html(aliases)}" style="height:30px;border:1px solid #cfc1ad;border-radius:6px;padding:0 6px;font-size:12px;width:150px">
@@ -329,7 +502,7 @@ function dashboardDictionaryPage(items, dishes = [], activeTab = 'review') {
   const dishContent = `
     <section style="background:#fffdf8;border:1px solid #eadcc8;border-radius:14px;padding:20px;margin:0 0 18px;overflow:auto">
       <h2 style="font-size:17px;margin:0 0 12px">菜品字典 (${dishes.length}条)</h2>
-      <p style="color:#806f61;line-height:1.6;margin:0 0 14px">管理标准菜名及其别名、食材签名。编辑别名后，模糊匹配会将其纳入候选。</p>
+      <p style="color:#806f61;line-height:1.6;margin:0 0 14px">管理标准菜名及其别名、食材签名。菜品在服务器启动时自动从 recipe-icon 目录导入。编辑别名后，模糊匹配会将其纳入候选。</p>
       <div style="margin-bottom:14px">
         <form method="post" action="/dashboard/dictionary/dish/add" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
           <input name="canonicalName" placeholder="新菜名（必填）" required style="height:34px;border:1px solid #cfc1ad;border-radius:8px;padding:0 10px;width:160px">
@@ -339,14 +512,14 @@ function dashboardDictionaryPage(items, dishes = [], activeTab = 'review') {
           <button style="background:#d9694d;color:#fff;border:0;border-radius:8px;padding:8px 14px;cursor:pointer">新增菜品</button>
         </form>
       </div>
-      <table style="width:100%;border-collapse:collapse"><thead><tr><th>标准菜名</th><th>别名</th><th>食材签名</th><th>分类</th><th>操作</th></tr></thead><tbody>${dishRows || '<tr><td colspan="5">暂无菜品字典项</td></tr>'}</tbody></table>
+      <table style="width:100%;border-collapse:collapse"><thead><tr><th>标准菜名</th><th>别名</th><th>食材签名</th><th>分类</th><th>教程数</th><th>操作</th></tr></thead><tbody>${dishRows || '<tr><td colspan="6">暂无菜品字典项</td></tr>'}</tbody></table>
     </section>`
 
   return `<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>菜品字典 · 庖丁解牛</title><style>
   :root{--ink:#342a24;--paper:#fffdf8;--line:#eadcc8;--coral:#d9694d;--green:#618c55;--amber:#b87825}*{box-sizing:border-box}body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif;margin:0;background:#f8f1e4;color:var(--ink)}main{max-width:1100px;margin:auto;padding:32px 22px 64px}a{color:#bd573f}h1{margin-bottom:4px}section{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:20px;margin:0 0 18px;overflow:auto}h2{font-size:17px;margin:0 0 12px}table{width:100%;border-collapse:collapse;min-width:600px}th,td{padding:10px;border-bottom:1px solid #f0e6d7;text-align:left;font-size:13px;vertical-align:middle}th{color:#806f61;background:#fff8ec}.badge{font-size:11px;border-radius:999px;padding:4px 8px;background:#eee3d2;color:#5c4b3f;white-space:nowrap}.badge.rejected{background:#f9dfd8;color:#a8432f}button{font:inherit;cursor:pointer}button:hover{opacity:0.9}input{font:inherit}</style>
   <main><p><a href="/dashboard">← 返回后台</a></p><h1>菜品字典</h1>
   ${tabBar}
-  ${activeTab === 'dishes' ? dishContent : reviewContent}
+  ${dishContent}
   </main></html>`
 }
 
@@ -437,7 +610,7 @@ const server = http.createServer(async (req, res) => {
     if (req.method === 'GET' && req.url === '/dashboard/dictionary' || (req.method === 'GET' && req.url.startsWith('/dashboard/dictionary?'))) {
       if (!isDashboardAuthorized(req)) { res.writeHead(303, { location: '/dashboard/login' }); return res.end() }
       const url = new URL(req.url, 'http://localhost')
-      const tab = url.searchParams.get('tab') || 'review'
+      const tab = url.searchParams.get('tab') || 'dishes'
       const [queueItems, dishes] = await Promise.all([
         publisher.listDictionaryQueue('PENDING'),
         tutorials.listDishDictionary(200),
@@ -488,7 +661,8 @@ const server = http.createServer(async (req, res) => {
       if (!isDashboardAuthorized(req)) { res.writeHead(303, { location: '/dashboard/login' }); return res.end() }
       const url = new URL(req.url, 'http://localhost')
       const channelType = url.searchParams.get('channel') || 'bilibili'
-      const activeTab = url.searchParams.get('tab') || 'ranking'
+      const activeSopTab = url.searchParams.get('sop') || 'discover'
+      const activeSubTab = url.searchParams.get('sub') || 'ranking'
       const msg = url.searchParams.get('msg') || ''
 
       // 获取UP主列表
@@ -498,21 +672,13 @@ const server = http.createServer(async (req, res) => {
         upsList = await listUpsSubscriptions(port)
       } catch (_) {}
 
-      // 获取最近的预检结果（从 tutorials 集合查最近创建的）
-      let preflightResults = []
+      // 获取所有教程，由页面函数自行过滤
+      let allTutorials = []
       try {
-        const recent = await tutorials.list(50)
-        preflightResults = recent.map(t => ({
-          tutorialId: t.tutorialId,
-          sourceId: t.sourceId,
-          sourceTitle: t.sourceTitle,
-          sourceUrl: t.sourceUrl,
-          verdict: t.preflight?.verdict || t.lifecycleStatus,
-          score: t.preflight?.score,
-        }))
+        allTutorials = await tutorials.list(200)
       } catch (_) {}
 
-      return res.end(dashboardDiscoverPage(msg, channelType, activeTab, preflightResults, upsList))
+      return res.end(dashboardDiscoverPage(msg, channelType, activeSopTab, activeSubTab, allTutorials, upsList))
     }
     if (req.method === 'POST' && req.url === '/dashboard/discover/run') {
       if (!isDashboardAuthorized(req)) { res.writeHead(303, { location: '/dashboard/login' }); return res.end() }
@@ -531,6 +697,62 @@ const server = http.createServer(async (req, res) => {
         try { await tutorials.enqueue(tid, dashboardUser || 'content-admin') } catch (e) { console.error('[paoding-jieniu] batch enqueue failed for', tid, e.message) }
       }
       res.writeHead(303, { location: `/dashboard/discover?msg=已入队${tids.length}个教程` }); return res.end()
+    }
+    // POST /dashboard/discover/push-to-processing — 批量将预检通过的素材送入待处理
+    if (req.method === 'POST' && req.url === '/dashboard/discover/push-to-processing') {
+      if (!isDashboardAuthorized(req)) { res.writeHead(303, { location: '/dashboard/login' }); return res.end() }
+      const form = await readForm(req)
+      const tids = Array.isArray(form.tids) ? form.tids : (form.tids ? [form.tids] : [])
+      let count = 0
+      for (const tid of tids) {
+        try {
+          await tutorials.enqueue(tid, dashboardUser || 'content-admin')
+          count++
+        } catch (e) { console.error('[paoding-jieniu] push-to-processing failed for', tid, e.message) }
+      }
+      res.writeHead(303, { location: `/dashboard/discover?sop=processing&msg=已将${count}个素材送入待处理` }); return res.end()
+    }
+    // POST /dashboard/discover/start-processing — 批量入队开始处理
+    if (req.method === 'POST' && req.url === '/dashboard/discover/start-processing') {
+      if (!isDashboardAuthorized(req)) { res.writeHead(303, { location: '/dashboard/login' }); return res.end() }
+      const form = await readForm(req)
+      const tids = Array.isArray(form.tids) ? form.tids : (form.tids ? [form.tids] : [])
+      let count = 0
+      for (const tid of tids) {
+        try {
+          await tutorials.enqueue(tid, dashboardUser || 'content-admin')
+          count++
+        } catch (e) { console.error('[paoding-jieniu] start-processing failed for', tid, e.message) }
+      }
+      res.writeHead(303, { location: `/dashboard/discover?sop=processing&msg=已开始处理${count}个素材` }); return res.end()
+    }
+    // POST /dashboard/discover/publish-selected — 批量系统通过发布
+    if (req.method === 'POST' && req.url === '/dashboard/discover/publish-selected') {
+      if (!isDashboardAuthorized(req)) { res.writeHead(303, { location: '/dashboard/login' }); return res.end() }
+      const form = await readForm(req)
+      const tids = Array.isArray(form.tids) ? form.tids : (form.tids ? [form.tids] : [])
+      let count = 0
+      for (const tid of tids) {
+        try {
+          await tutorials.review(tid, { action: 'SYSTEM_APPROVE', versionId: null }, dashboardUser || 'content-admin')
+          count++
+        } catch (e) { console.error('[paoding-jieniu] publish-selected failed for', tid, e.message) }
+      }
+      res.writeHead(303, { location: `/dashboard/discover?sop=publish&msg=已发布${count}个素材` }); return res.end()
+    }
+    // POST /dashboard/discover/reject-selected — 批量拒绝
+    if (req.method === 'POST' && req.url === '/dashboard/discover/reject-selected') {
+      if (!isDashboardAuthorized(req)) { res.writeHead(303, { location: '/dashboard/login' }); return res.end() }
+      const form = await readForm(req)
+      const tids = Array.isArray(form.tids) ? form.tids : (form.tids ? [form.tids] : [])
+      let count = 0
+      for (const tid of tids) {
+        try {
+          await tutorials.review(tid, { action: 'REJECT', versionId: null, reason: form.reason || '管理员拒绝' }, dashboardUser || 'content-admin')
+          count++
+        } catch (e) { console.error('[paoding-jieniu] reject-selected failed for', tid, e.message) }
+      }
+      res.writeHead(303, { location: `/dashboard/discover?sop=publish&msg=已拒绝${count}个素材` }); return res.end()
     }
     // UP主管理 API
     if (req.method === 'POST' && req.url === '/dashboard/ups/crawl') {
@@ -655,7 +877,22 @@ const server = http.createServer(async (req, res) => {
   }
 })
 
-server.listen(port, host, () => console.log(`[paoding-jieniu] listening on http://${host}:${port}; ingest root=${ingestRoot}`))
+async function seedDishDictionaryFromIcons() {
+  const fs = require('fs'), path = require('path')
+  const iconDir = path.resolve(__dirname, '../../../resource/recipe-icon')
+  if (!fs.existsSync(iconDir)) return
+  const files = fs.readdirSync(iconDir).filter(f => f.endsWith('.png'))
+  for (const file of files) {
+    const dishName = file.replace('.png', '')
+    await tutorials.upsertDishDictionary({ canonicalName: dishName }, { canonicalName: dishName, aliases: [], ingredientSignature: [], category: '待归类' })
+  }
+  console.warn(`[paoding-jieniu] seeded ${files.length} dishes from recipe icons`)
+}
+
+server.listen(port, host, () => {
+  console.log(`[paoding-jieniu] listening on http://${host}:${port}; ingest root=${ingestRoot}`)
+  seedDishDictionaryFromIcons().catch(() => {})
+})
 
 if (watch) {
   setInterval(() => publisher.scanReadyPackages().catch((error) => console.error('[paoding-jieniu] scan failed', error)), intervalMs)

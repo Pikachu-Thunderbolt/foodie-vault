@@ -2,8 +2,6 @@
   "tutorials": [
     {
       "tutorialId": "tutorial_bilibili_BV1abcDEF12_system",
-      "platform": "bilibili",
-      "bvid": "BV1abcDEF12",
       "sourceUrl": "https://www.bilibili.com/video/BV1abcDEF12",
       "sourceTitle": "",
       "ownerType": "SYSTEM",
@@ -19,12 +17,12 @@
       "sourceRightsStatus": "cleared",
       "createdAt": "2026-07-19T03:21:39.568Z",
       "updatedAt": "2026-07-19T03:21:39.568Z",
-      "_id": "d41199cc-bc56-4e39-9857-2e112ea63351"
+      "_id": "d41199cc-bc56-4e39-9857-2e112ea63351",
+      "sourceId": "BV1abcDEF12",
+      "channelType": "bilibili"
     },
     {
       "tutorialId": "tutorial_bilibili_BV1zzTEST99_system",
-      "platform": "bilibili",
-      "bvid": "BV1zzTEST99",
       "sourceUrl": "https://www.bilibili.com/video/BV1zzTEST99",
       "sourceTitle": "红烧排骨做法教程",
       "ownerType": "SYSTEM",
@@ -60,12 +58,12 @@
         "checkedBy": "content-service"
       },
       "activeTaskId": "task_tutorial_bilibili_BV1zzTEST99_system_1784431322111",
-      "publishedAt": "2026-07-19T03:22:02.174Z"
+      "publishedAt": "2026-07-19T03:22:02.174Z",
+      "sourceId": "BV1zzTEST99",
+      "channelType": "bilibili"
     },
     {
       "tutorialId": "tutorial_bilibili_BV1frame01_system",
-      "platform": "bilibili",
-      "bvid": "BV1frame01",
       "sourceUrl": "https://www.bilibili.com/video/BV1frame01",
       "sourceTitle": "糖醋排骨做法教程",
       "ownerType": "SYSTEM",
@@ -100,7 +98,9 @@
         "checkedAt": "2026-07-19T04:01:44.508Z",
         "checkedBy": "content-service"
       },
-      "activeTaskId": "export_tutorial_bilibili_BV1frame01_system_1784433704625"
+      "activeTaskId": "export_tutorial_bilibili_BV1frame01_system_1784433704625",
+      "sourceId": "BV1frame01",
+      "channelType": "bilibili"
     }
   ],
   "tutorial_audit_events": [
@@ -392,6 +392,1691 @@
       "_id": "860fafab-0287-42b8-a79b-15abf1aef3fa",
       "selectedBy": "admin",
       "selectedAt": "2026-07-19T04:01:44.624Z"
+    }
+  ],
+  "dish_dictionary": [
+    {
+      "canonicalName": "三杯鸡",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.157Z",
+      "createdAt": "2026-07-19T09:41:08.157Z",
+      "_id": "5fdf7a34-3f01-409c-9d76-a07dbac89ae9"
+    },
+    {
+      "canonicalName": "东坡肉",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.159Z",
+      "createdAt": "2026-07-19T09:41:08.159Z",
+      "_id": "4f9c8a35-b0c6-4cb5-8780-69895da89dab"
+    },
+    {
+      "canonicalName": "京酱肉丝",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.159Z",
+      "createdAt": "2026-07-19T09:41:08.159Z",
+      "_id": "27a695ec-0297-4d13-bd2b-e6510151e413"
+    },
+    {
+      "canonicalName": "农家小炒肉",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.160Z",
+      "createdAt": "2026-07-19T09:41:08.160Z",
+      "_id": "e32ca253-5227-4fb6-a4de-598d1573579f"
+    },
+    {
+      "canonicalName": "冬瓜炖排骨",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.160Z",
+      "createdAt": "2026-07-19T09:41:08.160Z",
+      "_id": "576a864d-a10a-4e41-a0bb-14663ffdb7b2"
+    },
+    {
+      "canonicalName": "冬瓜焖鸭",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.161Z",
+      "createdAt": "2026-07-19T09:41:08.161Z",
+      "_id": "a3fbe5dc-eb65-41c1-bc62-b41fb0904679"
+    },
+    {
+      "canonicalName": "凉拌豆腐皮",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.161Z",
+      "createdAt": "2026-07-19T09:41:08.161Z",
+      "_id": "f24b18c0-6f35-48c0-9ba1-0caeab089092"
+    },
+    {
+      "canonicalName": "凉拌黄瓜",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.161Z",
+      "createdAt": "2026-07-19T09:41:08.161Z",
+      "_id": "f70aef62-b437-405e-b575-9aa02c994862"
+    },
+    {
+      "canonicalName": "剁椒鱼头",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.162Z",
+      "createdAt": "2026-07-19T09:41:08.162Z",
+      "_id": "d22db6a2-6966-44ce-a474-17f4c8cf59b0"
+    },
+    {
+      "canonicalName": "卤鸡蛋",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.162Z",
+      "createdAt": "2026-07-19T09:41:08.162Z",
+      "_id": "28a73170-36b7-4a62-a9dd-cdcf2012b9b1"
+    },
+    {
+      "canonicalName": "口水鸡",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.162Z",
+      "createdAt": "2026-07-19T09:41:08.162Z",
+      "_id": "57241f45-4e58-48a8-8a78-5d0305885d50"
+    },
+    {
+      "canonicalName": "可乐排骨",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.163Z",
+      "createdAt": "2026-07-19T09:41:08.163Z",
+      "_id": "e00a07b6-42ff-418f-9bc4-58c54971743f"
+    },
+    {
+      "canonicalName": "可乐鸡翅",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.163Z",
+      "createdAt": "2026-07-19T09:41:08.163Z",
+      "_id": "6b3e95c3-559d-4439-a5a4-37b9a7f3a05c"
+    },
+    {
+      "canonicalName": "咖喱牛肉",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.163Z",
+      "createdAt": "2026-07-19T09:41:08.163Z",
+      "_id": "11a7ca62-8245-43b5-92b6-bef3264587b8"
+    },
+    {
+      "canonicalName": "咖喱鸡",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.164Z",
+      "createdAt": "2026-07-19T09:41:08.164Z",
+      "_id": "63ade428-5d9c-488b-a780-4c4e1d31fd69"
+    },
+    {
+      "canonicalName": "啤酒鸭",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.164Z",
+      "createdAt": "2026-07-19T09:41:08.164Z",
+      "_id": "e7e29562-37d9-4886-a6dd-3e53b6362b0c"
+    },
+    {
+      "canonicalName": "回锅肉",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.164Z",
+      "createdAt": "2026-07-19T09:41:08.164Z",
+      "_id": "dca09854-2d36-437f-8ed8-1daf3f556575"
+    },
+    {
+      "canonicalName": "土豆炖牛肉",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.165Z",
+      "createdAt": "2026-07-19T09:41:08.165Z",
+      "_id": "1e42d644-b060-46c0-b3be-eac7137316b0"
+    },
+    {
+      "canonicalName": "土豆烧排骨",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.165Z",
+      "createdAt": "2026-07-19T09:41:08.165Z",
+      "_id": "5303050b-ec2a-442e-920e-ea21d48588e5"
+    },
+    {
+      "canonicalName": "土豆烧肉",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.165Z",
+      "createdAt": "2026-07-19T09:41:08.165Z",
+      "_id": "5432c25b-24db-427b-9cef-972e76b90b14"
+    },
+    {
+      "canonicalName": "土豆烧鸡",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.166Z",
+      "createdAt": "2026-07-19T09:41:08.166Z",
+      "_id": "ffee0555-6220-4550-b695-67729c3206d8"
+    },
+    {
+      "canonicalName": "土豆焖鸭",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.166Z",
+      "createdAt": "2026-07-19T09:41:08.166Z",
+      "_id": "b2b3b7b4-f909-4ac3-af50-0da128991fa5"
+    },
+    {
+      "canonicalName": "地三鲜",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.166Z",
+      "createdAt": "2026-07-19T09:41:08.166Z",
+      "_id": "3b4351ed-c716-4f8c-a279-ab60edd9c069"
+    },
+    {
+      "canonicalName": "大盘鸡",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.167Z",
+      "createdAt": "2026-07-19T09:41:08.167Z",
+      "_id": "a0d71905-25f8-40e7-a43e-26e87076e9f0"
+    },
+    {
+      "canonicalName": "奥尔良烤鸡翅",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.167Z",
+      "createdAt": "2026-07-19T09:41:08.167Z",
+      "_id": "bbdccb64-ecc6-4345-9e4f-f1db3683e794"
+    },
+    {
+      "canonicalName": "姜母鸭",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.167Z",
+      "createdAt": "2026-07-19T09:41:08.167Z",
+      "_id": "b14d7ae1-f187-46ef-a081-907f57abb574"
+    },
+    {
+      "canonicalName": "姜葱炒蟹",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.168Z",
+      "createdAt": "2026-07-19T09:41:08.168Z",
+      "_id": "26dd5b0c-663b-452f-9884-37bbf6461f38"
+    },
+    {
+      "canonicalName": "孜然牛肉",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.168Z",
+      "createdAt": "2026-07-19T09:41:08.168Z",
+      "_id": "9b6557d1-88ee-4b63-99db-9bbf9e36cba6"
+    },
+    {
+      "canonicalName": "孜然羊肉",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.168Z",
+      "createdAt": "2026-07-19T09:41:08.168Z",
+      "_id": "4e68d8fd-b46f-4792-92b4-2766bfc2be10"
+    },
+    {
+      "canonicalName": "宫保鸡丁",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.169Z",
+      "createdAt": "2026-07-19T09:41:08.169Z",
+      "_id": "93533f13-f9e8-42ac-a79c-2165d93c5f32"
+    },
+    {
+      "canonicalName": "家常蒸蛋",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.169Z",
+      "createdAt": "2026-07-19T09:41:08.169Z",
+      "_id": "c84112bb-f6d0-4f08-912a-1ee1791bdce9"
+    },
+    {
+      "canonicalName": "家常豆腐",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.170Z",
+      "createdAt": "2026-07-19T09:41:08.170Z",
+      "_id": "dc1c7f12-a77e-42f4-bc77-177af7cc4aaf"
+    },
+    {
+      "canonicalName": "小炒黄牛肉",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.170Z",
+      "createdAt": "2026-07-19T09:41:08.170Z",
+      "_id": "9fb98a61-e121-4842-8700-02eb9289bdfc"
+    },
+    {
+      "canonicalName": "小葱拌豆腐",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.170Z",
+      "createdAt": "2026-07-19T09:41:08.170Z",
+      "_id": "23f5be16-cbeb-43ff-995a-ae1529e76e0f"
+    },
+    {
+      "canonicalName": "尖椒干豆腐",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.171Z",
+      "createdAt": "2026-07-19T09:41:08.171Z",
+      "_id": "4be46f07-07d6-4e10-91cc-9f613f0d1c91"
+    },
+    {
+      "canonicalName": "尖椒炒肉",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.172Z",
+      "createdAt": "2026-07-19T09:41:08.172Z",
+      "_id": "b91cbb61-8e9d-4dbd-983a-bd1cc087f144"
+    },
+    {
+      "canonicalName": "山药排骨汤",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.172Z",
+      "createdAt": "2026-07-19T09:41:08.172Z",
+      "_id": "e3e0ee3a-b5ab-4cb6-830c-05b99f12d5de"
+    },
+    {
+      "canonicalName": "山药炖鸡",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.173Z",
+      "createdAt": "2026-07-19T09:41:08.173Z",
+      "_id": "01ffccbe-335f-4b5f-aeed-da29dd65c551"
+    },
+    {
+      "canonicalName": "干烧鲫鱼",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.173Z",
+      "createdAt": "2026-07-19T09:41:08.173Z",
+      "_id": "c4b5d755-6216-458f-a846-71118c54b6f7"
+    },
+    {
+      "canonicalName": "干煸豆角",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.173Z",
+      "createdAt": "2026-07-19T09:41:08.173Z",
+      "_id": "359fd12c-1ac2-4f61-a691-ebc17695ad1b"
+    },
+    {
+      "canonicalName": "干锅土豆片",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.174Z",
+      "createdAt": "2026-07-19T09:41:08.174Z",
+      "_id": "c86ce922-4906-4805-b031-3c0a312116bc"
+    },
+    {
+      "canonicalName": "手撕包菜",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.174Z",
+      "createdAt": "2026-07-19T09:41:08.174Z",
+      "_id": "75be381d-37d3-4f4a-91c8-c3524bb0e0b5"
+    },
+    {
+      "canonicalName": "排骨炖豆角",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.174Z",
+      "createdAt": "2026-07-19T09:41:08.174Z",
+      "_id": "decf74c7-0bc4-41d4-ab2b-15e9347b3142"
+    },
+    {
+      "canonicalName": "排骨烧年糕",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.175Z",
+      "createdAt": "2026-07-19T09:41:08.175Z",
+      "_id": "6e6961ba-814b-431f-a147-ec5e73b16df0"
+    },
+    {
+      "canonicalName": "木耳炒肉",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.175Z",
+      "createdAt": "2026-07-19T09:41:08.175Z",
+      "_id": "2e91b8e8-5891-47bc-a4f4-e4a2065da7ae"
+    },
+    {
+      "canonicalName": "木耳炒鸡蛋",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.176Z",
+      "createdAt": "2026-07-19T09:41:08.176Z",
+      "_id": "6eec7f0b-7b95-431a-8d86-9c0ed5383867"
+    },
+    {
+      "canonicalName": "木须肉",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.176Z",
+      "createdAt": "2026-07-19T09:41:08.176Z",
+      "_id": "a3f2dcf7-9d82-4892-96c6-004b8e330788"
+    },
+    {
+      "canonicalName": "板栗烧鸡",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.176Z",
+      "createdAt": "2026-07-19T09:41:08.176Z",
+      "_id": "6b9dfe45-0336-4e40-93e5-680f4e1371bf"
+    },
+    {
+      "canonicalName": "梅菜扣肉",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.177Z",
+      "createdAt": "2026-07-19T09:41:08.177Z",
+      "_id": "ba4871d3-dd6e-4fb8-b9d4-10cedbff8c74"
+    },
+    {
+      "canonicalName": "椒盐排骨",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.177Z",
+      "createdAt": "2026-07-19T09:41:08.177Z",
+      "_id": "907fe83c-3eb1-48ec-a3e9-51b8158690c3"
+    },
+    {
+      "canonicalName": "椒盐虾",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.177Z",
+      "createdAt": "2026-07-19T09:41:08.177Z",
+      "_id": "623fa466-c8cf-48f2-9663-172180cd58d8"
+    },
+    {
+      "canonicalName": "水煮牛肉",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.178Z",
+      "createdAt": "2026-07-19T09:41:08.178Z",
+      "_id": "e79e5dc0-b302-4ad3-b295-2d449cab8240"
+    },
+    {
+      "canonicalName": "水煮鱼",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.178Z",
+      "createdAt": "2026-07-19T09:41:08.178Z",
+      "_id": "197244e5-5482-4e03-bf47-b888a758b6f7"
+    },
+    {
+      "canonicalName": "油焖大虾",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.179Z",
+      "createdAt": "2026-07-19T09:41:08.179Z",
+      "_id": "e06e8edf-6d6f-4f94-b921-52e3fb107c6c"
+    },
+    {
+      "canonicalName": "洋葱炒牛肉",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.179Z",
+      "createdAt": "2026-07-19T09:41:08.179Z",
+      "_id": "eb180d60-eb6f-4538-9029-0f94d77e1661"
+    },
+    {
+      "canonicalName": "洋葱炒肉",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.180Z",
+      "createdAt": "2026-07-19T09:41:08.180Z",
+      "_id": "1f78ff02-18a1-432f-9db9-9d1aade67288"
+    },
+    {
+      "canonicalName": "洋葱炒鸡蛋",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.180Z",
+      "createdAt": "2026-07-19T09:41:08.180Z",
+      "_id": "3793b3fb-012d-42aa-9ee5-4d7d0ebda3d9"
+    },
+    {
+      "canonicalName": "海带炖排骨",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.181Z",
+      "createdAt": "2026-07-19T09:41:08.181Z",
+      "_id": "f424f122-f41a-43e8-816d-d3c91ecbdcd1"
+    },
+    {
+      "canonicalName": "清炒四季豆",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.181Z",
+      "createdAt": "2026-07-19T09:41:08.181Z",
+      "_id": "b4f3479e-7e2d-4246-9fd8-f088e2970af7"
+    },
+    {
+      "canonicalName": "清炒小白菜",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.181Z",
+      "createdAt": "2026-07-19T09:41:08.181Z",
+      "_id": "b2e7e1ff-448c-4abd-a1bc-d6efc8dd164f"
+    },
+    {
+      "canonicalName": "清炒油麦菜",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.182Z",
+      "createdAt": "2026-07-19T09:41:08.182Z",
+      "_id": "8ae4bdf7-a120-4b22-bf15-9bc5a5edfcb2"
+    },
+    {
+      "canonicalName": "清炒菜心",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.182Z",
+      "createdAt": "2026-07-19T09:41:08.182Z",
+      "_id": "48781906-92d0-45ae-9011-14d0be587393"
+    },
+    {
+      "canonicalName": "清炒虾仁",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.183Z",
+      "createdAt": "2026-07-19T09:41:08.183Z",
+      "_id": "9490366c-f5ef-4daf-8f9b-bfb2ad220f71"
+    },
+    {
+      "canonicalName": "清蒸鲈鱼",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.183Z",
+      "createdAt": "2026-07-19T09:41:08.183Z",
+      "_id": "2e7d2e8c-6455-4d30-97ab-8b8f47a371d5"
+    },
+    {
+      "canonicalName": "炒面",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.183Z",
+      "createdAt": "2026-07-19T09:41:08.183Z",
+      "_id": "ed003727-f16f-45c5-8864-4eb8423228c6"
+    },
+    {
+      "canonicalName": "牛肉炖土豆",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.184Z",
+      "createdAt": "2026-07-19T09:41:08.184Z",
+      "_id": "156d7bf1-5eb2-49f5-9c69-6e2058f213c8"
+    },
+    {
+      "canonicalName": "牛肉炖萝卜",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.184Z",
+      "createdAt": "2026-07-19T09:41:08.184Z",
+      "_id": "ac2f93b4-4c8c-4712-85af-dde6ce7a101f"
+    },
+    {
+      "canonicalName": "牛肉面",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.185Z",
+      "createdAt": "2026-07-19T09:41:08.185Z",
+      "_id": "43cd7863-baeb-4196-b594-873796798511"
+    },
+    {
+      "canonicalName": "玉米炖排骨",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.185Z",
+      "createdAt": "2026-07-19T09:41:08.185Z",
+      "_id": "08982250-2be0-41fc-9b7f-b060a8bd5108"
+    },
+    {
+      "canonicalName": "玉米炖鸡",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.186Z",
+      "createdAt": "2026-07-19T09:41:08.186Z",
+      "_id": "e110bd2e-b1da-4799-bb03-41e9c5b791df"
+    },
+    {
+      "canonicalName": "番茄炖牛腩",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.186Z",
+      "createdAt": "2026-07-19T09:41:08.186Z",
+      "_id": "507dd323-e1fa-42d4-91bf-324de109da2c"
+    },
+    {
+      "canonicalName": "番茄烧豆腐",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.186Z",
+      "createdAt": "2026-07-19T09:41:08.186Z",
+      "_id": "18d239a2-54a3-4eab-b345-adba95bf0c35"
+    },
+    {
+      "canonicalName": "番茄肥牛",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.187Z",
+      "createdAt": "2026-07-19T09:41:08.187Z",
+      "_id": "4e802747-0907-4a8d-905e-e76e7bc24d2e"
+    },
+    {
+      "canonicalName": "番茄鱼片",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.187Z",
+      "createdAt": "2026-07-19T09:41:08.187Z",
+      "_id": "41057911-c756-4d14-9484-e3c7a1b693d4"
+    },
+    {
+      "canonicalName": "白切鸡",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.188Z",
+      "createdAt": "2026-07-19T09:41:08.188Z",
+      "_id": "a1f97b7e-8e9b-4d6c-9727-bcfb76afb5cf"
+    },
+    {
+      "canonicalName": "白灼虾",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.188Z",
+      "createdAt": "2026-07-19T09:41:08.188Z",
+      "_id": "5591bfeb-3ad4-48fa-a98b-c5b5012ab259"
+    },
+    {
+      "canonicalName": "白灼西兰花",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.189Z",
+      "createdAt": "2026-07-19T09:41:08.189Z",
+      "_id": "447a1c77-40df-4d5c-9d29-91594a48613d"
+    },
+    {
+      "canonicalName": "白菜炖肉",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.189Z",
+      "createdAt": "2026-07-19T09:41:08.189Z",
+      "_id": "5882c2d1-97ea-46a1-b15e-8da1f89fa113"
+    },
+    {
+      "canonicalName": "白菜炖豆腐",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.190Z",
+      "createdAt": "2026-07-19T09:41:08.190Z",
+      "_id": "4e1e4cd1-52bc-484e-9431-079b54cad6e7"
+    },
+    {
+      "canonicalName": "白萝卜炖羊肉",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.190Z",
+      "createdAt": "2026-07-19T09:41:08.190Z",
+      "_id": "30e3efe1-95b2-4fe5-99e3-d700bd838edc"
+    },
+    {
+      "canonicalName": "盐焗鸡",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.191Z",
+      "createdAt": "2026-07-19T09:41:08.191Z",
+      "_id": "bf31f580-3992-449b-90f2-190acb75e919"
+    },
+    {
+      "canonicalName": "粉蒸排骨",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.191Z",
+      "createdAt": "2026-07-19T09:41:08.191Z",
+      "_id": "bb3606bb-029d-41d6-9804-c381c38e805d"
+    },
+    {
+      "canonicalName": "糖醋带鱼",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.192Z",
+      "createdAt": "2026-07-19T09:41:08.192Z",
+      "_id": "65a0fc82-fa0d-43a9-b5b4-abe799fd8d6a"
+    },
+    {
+      "canonicalName": "糖醋排骨",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.192Z",
+      "createdAt": "2026-07-19T09:41:08.192Z",
+      "_id": "6bc46f2b-f1cf-4e7b-96f3-0cb0d3b60b62"
+    },
+    {
+      "canonicalName": "糖醋里脊",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.192Z",
+      "createdAt": "2026-07-19T09:41:08.192Z",
+      "_id": "2a6f8eef-4f08-4f53-88cc-2393cd247f26"
+    },
+    {
+      "canonicalName": "糖醋鱼",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.193Z",
+      "createdAt": "2026-07-19T09:41:08.193Z",
+      "_id": "7c9eb1d0-23d9-4898-87ea-337da09b5dc8"
+    },
+    {
+      "canonicalName": "紫菜蛋花汤",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.193Z",
+      "createdAt": "2026-07-19T09:41:08.193Z",
+      "_id": "4b196ae3-6021-4c19-a2a8-28a706d0bf22"
+    },
+    {
+      "canonicalName": "红烧带鱼",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.194Z",
+      "createdAt": "2026-07-19T09:41:08.194Z",
+      "_id": "de839262-7c84-4306-b434-4db3902bfd31"
+    },
+    {
+      "canonicalName": "红烧排骨",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.194Z",
+      "createdAt": "2026-07-19T09:41:08.194Z",
+      "_id": "49c26b6a-8f39-4388-af04-1ba6096c2fa7"
+    },
+    {
+      "canonicalName": "红烧牛肉",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.195Z",
+      "createdAt": "2026-07-19T09:41:08.195Z",
+      "_id": "99fe90ec-9da0-4788-90ef-a9c84717a3c2"
+    },
+    {
+      "canonicalName": "红烧肉",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.195Z",
+      "createdAt": "2026-07-19T09:41:08.195Z",
+      "_id": "ede0317d-ba7d-4742-8330-2cf798a50576"
+    },
+    {
+      "canonicalName": "红烧茄子",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.196Z",
+      "createdAt": "2026-07-19T09:41:08.196Z",
+      "_id": "73225289-1201-40b1-832e-d57ebad31f0a"
+    },
+    {
+      "canonicalName": "红烧豆腐",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.196Z",
+      "createdAt": "2026-07-19T09:41:08.196Z",
+      "_id": "dbb4bb6c-db06-4771-9040-a1979754b45e"
+    },
+    {
+      "canonicalName": "红烧鱼",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.197Z",
+      "createdAt": "2026-07-19T09:41:08.197Z",
+      "_id": "0e1e4793-d8d9-4712-8077-9e60d7c497d2"
+    },
+    {
+      "canonicalName": "红烧鸡翅",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.197Z",
+      "createdAt": "2026-07-19T09:41:08.197Z",
+      "_id": "930d09f5-f78a-440a-870c-d7d98a7f87b4"
+    },
+    {
+      "canonicalName": "红烧鸭块",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.198Z",
+      "createdAt": "2026-07-19T09:41:08.198Z",
+      "_id": "20e2062f-e9c6-40e0-bc1f-a85aa1ce5c2b"
+    },
+    {
+      "canonicalName": "红焖羊肉",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.199Z",
+      "createdAt": "2026-07-19T09:41:08.199Z",
+      "_id": "ba072bcb-e47b-4674-bb82-74c5389240a2"
+    },
+    {
+      "canonicalName": "羊肉汤",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.199Z",
+      "createdAt": "2026-07-19T09:41:08.199Z",
+      "_id": "8c0b3b77-8562-47db-ad7e-ff966edc0983"
+    },
+    {
+      "canonicalName": "羊肉炖胡萝卜",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.200Z",
+      "createdAt": "2026-07-19T09:41:08.200Z",
+      "_id": "8bd33150-19af-4e1f-bd93-2d4675e6b5a3"
+    },
+    {
+      "canonicalName": "肉末粉条",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.200Z",
+      "createdAt": "2026-07-19T09:41:08.200Z",
+      "_id": "d923521c-d3e8-4a88-9c6d-a31e7f1e0128"
+    },
+    {
+      "canonicalName": "肉末茄子",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.201Z",
+      "createdAt": "2026-07-19T09:41:08.201Z",
+      "_id": "d3bc74c2-151e-40c1-b068-e594a3082172"
+    },
+    {
+      "canonicalName": "肉末蒸蛋",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.202Z",
+      "createdAt": "2026-07-19T09:41:08.202Z",
+      "_id": "e30e9832-fd42-4cf1-b048-2854274efe7b"
+    },
+    {
+      "canonicalName": "肉末豆腐",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.202Z",
+      "createdAt": "2026-07-19T09:41:08.202Z",
+      "_id": "bc0a27e1-ce26-48ac-a177-5ba36535086f"
+    },
+    {
+      "canonicalName": "腐竹烧肉",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.203Z",
+      "createdAt": "2026-07-19T09:41:08.203Z",
+      "_id": "9652e23e-8a98-4b90-a334-4a0348edc4ff"
+    },
+    {
+      "canonicalName": "腐竹烧香菇",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.203Z",
+      "createdAt": "2026-07-19T09:41:08.203Z",
+      "_id": "4e3ef780-c619-4d06-bbbb-26e9190fbbda"
+    },
+    {
+      "canonicalName": "芹菜炒肉",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.204Z",
+      "createdAt": "2026-07-19T09:41:08.204Z",
+      "_id": "240589dc-93ab-4738-9bda-7e2f41024d6b"
+    },
+    {
+      "canonicalName": "苦瓜炒鸡蛋",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.205Z",
+      "createdAt": "2026-07-19T09:41:08.205Z",
+      "_id": "30f49b9b-5eb3-4859-bc83-712da9221698"
+    },
+    {
+      "canonicalName": "茄子烧豆角",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.205Z",
+      "createdAt": "2026-07-19T09:41:08.205Z",
+      "_id": "f41db27d-5253-438a-aa92-fbcd1b114b07"
+    },
+    {
+      "canonicalName": "茄汁大虾",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.206Z",
+      "createdAt": "2026-07-19T09:41:08.206Z",
+      "_id": "7f21b806-0389-4a22-98c9-faabb1d1e36d"
+    },
+    {
+      "canonicalName": "茭白炒肉",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.206Z",
+      "createdAt": "2026-07-19T09:41:08.206Z",
+      "_id": "c383ad1a-cebc-47dd-a450-ce0498083c4e"
+    },
+    {
+      "canonicalName": "茶叶蛋",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.207Z",
+      "createdAt": "2026-07-19T09:41:08.207Z",
+      "_id": "20e63d00-f84a-4a4e-88d0-403a82f0a096"
+    },
+    {
+      "canonicalName": "荷包蛋",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.207Z",
+      "createdAt": "2026-07-19T09:41:08.207Z",
+      "_id": "65f100aa-2977-4428-930e-b647598fbcf4"
+    },
+    {
+      "canonicalName": "莲藕排骨汤",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.208Z",
+      "createdAt": "2026-07-19T09:41:08.208Z",
+      "_id": "e8212a5c-b2b8-488d-9f8e-786973bec95c"
+    },
+    {
+      "canonicalName": "莴笋炒肉",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.208Z",
+      "createdAt": "2026-07-19T09:41:08.208Z",
+      "_id": "f614b724-f76f-48a3-a1e8-7f9532ed077c"
+    },
+    {
+      "canonicalName": "菜脯煎蛋",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.209Z",
+      "createdAt": "2026-07-19T09:41:08.209Z",
+      "_id": "f816c1b6-d2d0-4fbb-9c3e-dbe8e276efe2"
+    },
+    {
+      "canonicalName": "菠菜鸡蛋饼",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.209Z",
+      "createdAt": "2026-07-19T09:41:08.209Z",
+      "_id": "8c68cb50-0afd-4d82-99d5-c09d62ffccd8"
+    },
+    {
+      "canonicalName": "萝卜炖排骨",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.210Z",
+      "createdAt": "2026-07-19T09:41:08.210Z",
+      "_id": "f1f5e9bb-1f67-4cd2-91c0-8e8b45ec136b"
+    },
+    {
+      "canonicalName": "萝卜炖牛腩",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.210Z",
+      "createdAt": "2026-07-19T09:41:08.210Z",
+      "_id": "5210229a-0225-4eb4-a772-125a28990248"
+    },
+    {
+      "canonicalName": "萝卜烧肉",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.211Z",
+      "createdAt": "2026-07-19T09:41:08.211Z",
+      "_id": "27b4f99a-392f-4895-9515-f3ee804492ce"
+    },
+    {
+      "canonicalName": "葱油鸡",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.211Z",
+      "createdAt": "2026-07-19T09:41:08.211Z",
+      "_id": "7b3b3ec6-776a-4885-b4b4-a2315fc013ad"
+    },
+    {
+      "canonicalName": "葱烧鱼",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.212Z",
+      "createdAt": "2026-07-19T09:41:08.212Z",
+      "_id": "f34dcb36-7b61-4ddf-b266-73a1b4ceeea0"
+    },
+    {
+      "canonicalName": "葱爆牛肉",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.212Z",
+      "createdAt": "2026-07-19T09:41:08.212Z",
+      "_id": "c23bb425-f6c9-4d87-bc45-d3e9ec7501ef"
+    },
+    {
+      "canonicalName": "葱爆羊肉",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.213Z",
+      "createdAt": "2026-07-19T09:41:08.213Z",
+      "_id": "58f382e9-af75-400e-b595-211f1ec95cb9"
+    },
+    {
+      "canonicalName": "葱花煎蛋",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.213Z",
+      "createdAt": "2026-07-19T09:41:08.213Z",
+      "_id": "e4f823ef-87b4-492b-b3aa-6f27d089213a"
+    },
+    {
+      "canonicalName": "蒜苗炒鸡蛋",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.214Z",
+      "createdAt": "2026-07-19T09:41:08.214Z",
+      "_id": "e4f5b5df-9d45-417d-bb5e-e1b52ecfe766"
+    },
+    {
+      "canonicalName": "蒜蓉生菜",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.214Z",
+      "createdAt": "2026-07-19T09:41:08.214Z",
+      "_id": "5c1f93e0-a057-466c-9550-268a4d9558e4"
+    },
+    {
+      "canonicalName": "蒜蓉空心菜",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.215Z",
+      "createdAt": "2026-07-19T09:41:08.215Z",
+      "_id": "69ffbb0d-835b-4e59-ab9c-f4db3b85b4eb"
+    },
+    {
+      "canonicalName": "蒜蓉粉丝蒸虾",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.215Z",
+      "createdAt": "2026-07-19T09:41:08.215Z",
+      "_id": "e50ee3c6-9f86-4074-b747-41b489b98434"
+    },
+    {
+      "canonicalName": "蒜蓉蒸扇贝",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.216Z",
+      "createdAt": "2026-07-19T09:41:08.216Z",
+      "_id": "0f22ac28-d878-4ed8-9744-53345889355a"
+    },
+    {
+      "canonicalName": "蒜蓉西兰花",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.216Z",
+      "createdAt": "2026-07-19T09:41:08.216Z",
+      "_id": "72366255-23d4-40d7-bf5a-e59442f8b678"
+    },
+    {
+      "canonicalName": "蒜薹炒肉",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.217Z",
+      "createdAt": "2026-07-19T09:41:08.217Z",
+      "_id": "142ad7d8-5f63-4e57-8533-338535c0156d"
+    },
+    {
+      "canonicalName": "蒜香排骨",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.218Z",
+      "createdAt": "2026-07-19T09:41:08.218Z",
+      "_id": "9caed737-7f5d-41f8-b03b-635c19d4ddc1"
+    },
+    {
+      "canonicalName": "蒜香鸡翅",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.218Z",
+      "createdAt": "2026-07-19T09:41:08.218Z",
+      "_id": "09d59560-b654-462d-b0f7-53b45a14f0dd"
+    },
+    {
+      "canonicalName": "蒸鳕鱼",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.219Z",
+      "createdAt": "2026-07-19T09:41:08.219Z",
+      "_id": "b56edcdb-f951-4ca8-8625-d06a0b845170"
+    },
+    {
+      "canonicalName": "虾仁滑蛋",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.220Z",
+      "createdAt": "2026-07-19T09:41:08.220Z",
+      "_id": "c14325fa-5d8a-4915-a828-b841afe4b25c"
+    },
+    {
+      "canonicalName": "虾仁炒鸡蛋",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.221Z",
+      "createdAt": "2026-07-19T09:41:08.221Z",
+      "_id": "42477243-ff69-4993-86d2-94667175830b"
+    },
+    {
+      "canonicalName": "虾仁蒸蛋",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.221Z",
+      "createdAt": "2026-07-19T09:41:08.221Z",
+      "_id": "0d615ea1-2bd4-40ef-8360-4126225478f0"
+    },
+    {
+      "canonicalName": "蚝油生菜",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.222Z",
+      "createdAt": "2026-07-19T09:41:08.222Z",
+      "_id": "df45cf6a-14f9-4da9-87ee-f5983c9a7e98"
+    },
+    {
+      "canonicalName": "蚝油豆腐",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.222Z",
+      "createdAt": "2026-07-19T09:41:08.222Z",
+      "_id": "9b8ea685-3423-4cf1-8354-1ef52449a1d5"
+    },
+    {
+      "canonicalName": "蛋炒饭",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.223Z",
+      "createdAt": "2026-07-19T09:41:08.223Z",
+      "_id": "c811de08-53f0-4824-8e12-b2e1496af607"
+    },
+    {
+      "canonicalName": "蛤蜊蒸蛋",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.223Z",
+      "createdAt": "2026-07-19T09:41:08.223Z",
+      "_id": "17433cd1-b83f-46ba-9b7b-eb53855d8d82"
+    },
+    {
+      "canonicalName": "蜜汁鸡翅",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.224Z",
+      "createdAt": "2026-07-19T09:41:08.224Z",
+      "_id": "d7a85c1a-c209-4bba-b879-6e1044357191"
+    },
+    {
+      "canonicalName": "西兰花炒虾仁",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.225Z",
+      "createdAt": "2026-07-19T09:41:08.225Z",
+      "_id": "d197286c-293f-4621-9556-dd34c6a42f2a"
+    },
+    {
+      "canonicalName": "西红柿炒鸡蛋",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.225Z",
+      "createdAt": "2026-07-19T09:41:08.225Z",
+      "_id": "0610446f-09e6-49d2-b5c0-605f6cc62e80"
+    },
+    {
+      "canonicalName": "豆瓣鱼",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.226Z",
+      "createdAt": "2026-07-19T09:41:08.226Z",
+      "_id": "652dc030-dc6a-4921-865a-0ba35e33b64e"
+    },
+    {
+      "canonicalName": "豆腐炖鱼",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.226Z",
+      "createdAt": "2026-07-19T09:41:08.226Z",
+      "_id": "f0f2a767-1236-4e02-8ac7-499ed1485faf"
+    },
+    {
+      "canonicalName": "豆腐烧蘑菇",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.227Z",
+      "createdAt": "2026-07-19T09:41:08.227Z",
+      "_id": "e446225f-a4c7-4e28-9f0a-8d6104b66cbd"
+    },
+    {
+      "canonicalName": "豆腐酿肉",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.228Z",
+      "createdAt": "2026-07-19T09:41:08.228Z",
+      "_id": "c9e3cff5-cb2c-45d5-a6e5-4f2970fd8c7b"
+    },
+    {
+      "canonicalName": "豆角焖肉",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.228Z",
+      "createdAt": "2026-07-19T09:41:08.228Z",
+      "_id": "e5188410-9e86-4d5d-b53f-ba5548c29c92"
+    },
+    {
+      "canonicalName": "豉汁蒸排骨",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.229Z",
+      "createdAt": "2026-07-19T09:41:08.229Z",
+      "_id": "1bf9221b-3bb3-4cee-b40d-acd2e9b2197b"
+    },
+    {
+      "canonicalName": "辣子鸡丁",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.229Z",
+      "createdAt": "2026-07-19T09:41:08.229Z",
+      "_id": "4d39f10c-428a-470a-98e3-d7935633e3ff"
+    },
+    {
+      "canonicalName": "辣炒花蛤",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.230Z",
+      "createdAt": "2026-07-19T09:41:08.230Z",
+      "_id": "73d73719-0df3-4ed1-959c-114545090823"
+    },
+    {
+      "canonicalName": "辣炒鱿鱼",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.231Z",
+      "createdAt": "2026-07-19T09:41:08.231Z",
+      "_id": "70843bdf-e149-4db8-88fd-cbc99eb19211"
+    },
+    {
+      "canonicalName": "酱烧豆腐",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.232Z",
+      "createdAt": "2026-07-19T09:41:08.232Z",
+      "_id": "a7f03f4b-6c7c-42f5-b859-5fe124ce1138"
+    },
+    {
+      "canonicalName": "酸汤肥牛",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.232Z",
+      "createdAt": "2026-07-19T09:41:08.232Z",
+      "_id": "dd5d63ad-b10c-4805-8341-bb1ac2528dc5"
+    },
+    {
+      "canonicalName": "酸菜鱼",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.233Z",
+      "createdAt": "2026-07-19T09:41:08.233Z",
+      "_id": "a2fb1a57-1998-4a4b-8a8d-0b8fffa18e96"
+    },
+    {
+      "canonicalName": "酸萝卜老鸭汤",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.233Z",
+      "createdAt": "2026-07-19T09:41:08.233Z",
+      "_id": "777a5bcc-ee42-4a2e-afe0-2ff16fd04f4c"
+    },
+    {
+      "canonicalName": "酸辣土豆丝",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.234Z",
+      "createdAt": "2026-07-19T09:41:08.234Z",
+      "_id": "1f0d7006-1139-4bdc-8647-b4b1121bd426"
+    },
+    {
+      "canonicalName": "醋溜白菜",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.234Z",
+      "createdAt": "2026-07-19T09:41:08.234Z",
+      "_id": "fb259830-f90c-4cdd-9a42-5945a32aba98"
+    },
+    {
+      "canonicalName": "金针菇肥牛",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.235Z",
+      "createdAt": "2026-07-19T09:41:08.235Z",
+      "_id": "b9227e2b-1364-4ac5-b4f6-601b4118ce3c"
+    },
+    {
+      "canonicalName": "青椒土豆丝",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.236Z",
+      "createdAt": "2026-07-19T09:41:08.236Z",
+      "_id": "511e1ecc-40f1-47a8-b16c-d377f63ecdcf"
+    },
+    {
+      "canonicalName": "青椒炒肉丝",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.236Z",
+      "createdAt": "2026-07-19T09:41:08.236Z",
+      "_id": "e04831bb-0cac-4ec0-918c-bac8918dea1b"
+    },
+    {
+      "canonicalName": "青椒炒香干",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.237Z",
+      "createdAt": "2026-07-19T09:41:08.237Z",
+      "_id": "edc2a999-3419-44bc-8b9a-1a87a0149f08"
+    },
+    {
+      "canonicalName": "青椒炒鸡蛋",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.237Z",
+      "createdAt": "2026-07-19T09:41:08.237Z",
+      "_id": "1485f279-7f3f-48a1-b52a-629f345eb664"
+    },
+    {
+      "canonicalName": "青椒鸡丁",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.238Z",
+      "createdAt": "2026-07-19T09:41:08.238Z",
+      "_id": "859702f5-ffad-436f-adde-44caf3558e2b"
+    },
+    {
+      "canonicalName": "韭菜炒鱿鱼",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.238Z",
+      "createdAt": "2026-07-19T09:41:08.238Z",
+      "_id": "cbf872d7-62e3-4f96-826f-6a05479a7ac4"
+    },
+    {
+      "canonicalName": "韭菜炒鸡蛋",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.239Z",
+      "createdAt": "2026-07-19T09:41:08.239Z",
+      "_id": "08814820-53db-4f82-ad88-da402cf5b3bf"
+    },
+    {
+      "canonicalName": "香干炒肉",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.240Z",
+      "createdAt": "2026-07-19T09:41:08.240Z",
+      "_id": "09f531b5-d0f4-4b5d-a9a9-d293084e678e"
+    },
+    {
+      "canonicalName": "香干炒芹菜",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.240Z",
+      "createdAt": "2026-07-19T09:41:08.240Z",
+      "_id": "49d9c227-a405-49ea-83e3-3ca0a87196e7"
+    },
+    {
+      "canonicalName": "香干炒韭菜",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.241Z",
+      "createdAt": "2026-07-19T09:41:08.241Z",
+      "_id": "78e3255f-9759-447a-b6ab-08ed70311605"
+    },
+    {
+      "canonicalName": "香椿炒鸡蛋",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.241Z",
+      "createdAt": "2026-07-19T09:41:08.241Z",
+      "_id": "2ca66f87-0dd8-49cf-bc9c-bc28d3367be1"
+    },
+    {
+      "canonicalName": "香煎三文鱼",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.242Z",
+      "createdAt": "2026-07-19T09:41:08.242Z",
+      "_id": "f1775992-34af-4425-b36e-bde1931b2fcb"
+    },
+    {
+      "canonicalName": "香煎带鱼",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.243Z",
+      "createdAt": "2026-07-19T09:41:08.243Z",
+      "_id": "25d31df4-5569-4a4f-af5c-d6761e617143"
+    },
+    {
+      "canonicalName": "香煎豆腐",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.243Z",
+      "createdAt": "2026-07-19T09:41:08.243Z",
+      "_id": "9898edc9-c720-499a-8b29-704e03c3032c"
+    },
+    {
+      "canonicalName": "香菇炖鸡",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.244Z",
+      "createdAt": "2026-07-19T09:41:08.244Z",
+      "_id": "97a34fab-76df-46bf-b898-67dd89146bdd"
+    },
+    {
+      "canonicalName": "香菜炒牛肉",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.245Z",
+      "createdAt": "2026-07-19T09:41:08.245Z",
+      "_id": "ff0a306f-796e-436a-ad94-00e7eb42fd1b"
+    },
+    {
+      "canonicalName": "香辣鸭翅",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.245Z",
+      "createdAt": "2026-07-19T09:41:08.245Z",
+      "_id": "4eab028c-3029-412f-8d40-5caa88054816"
+    },
+    {
+      "canonicalName": "鱼香肉丝",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.246Z",
+      "createdAt": "2026-07-19T09:41:08.246Z",
+      "_id": "a67ec17a-7faa-4468-854d-3d126e11e1bd"
+    },
+    {
+      "canonicalName": "鱼香茄子",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.246Z",
+      "createdAt": "2026-07-19T09:41:08.246Z",
+      "_id": "afbd3a7b-f0f6-4878-a2c5-fbef656f4a42"
+    },
+    {
+      "canonicalName": "鲫鱼豆腐汤",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.247Z",
+      "createdAt": "2026-07-19T09:41:08.247Z",
+      "_id": "511c965b-8c9d-4c8f-bf58-3ed86cb40cc4"
+    },
+    {
+      "canonicalName": "鸡肉炖蘑菇",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.248Z",
+      "createdAt": "2026-07-19T09:41:08.248Z",
+      "_id": "e91c8b9f-4042-49e6-8ede-1d3d67a411fe"
+    },
+    {
+      "canonicalName": "麻婆豆腐",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.248Z",
+      "createdAt": "2026-07-19T09:41:08.248Z",
+      "_id": "fc9c0689-4f36-4180-8aea-b1eda27550ac"
+    },
+    {
+      "canonicalName": "黄焖鸡",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.249Z",
+      "createdAt": "2026-07-19T09:41:08.249Z",
+      "_id": "d63c8e26-ba6f-4600-b07a-37f324900544"
+    },
+    {
+      "canonicalName": "黄瓜炒虾仁",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.250Z",
+      "createdAt": "2026-07-19T09:41:08.250Z",
+      "_id": "2d7e9e89-a1f0-4ef9-a58c-15c7a393aa9b"
+    },
+    {
+      "canonicalName": "黄瓜炒鸡蛋",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.251Z",
+      "createdAt": "2026-07-19T09:41:08.251Z",
+      "_id": "cfbb37dd-6889-468e-b78b-ecf01311f57f"
+    },
+    {
+      "canonicalName": "黑椒牛柳",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.251Z",
+      "createdAt": "2026-07-19T09:41:08.251Z",
+      "_id": "fa917ef0-2cc4-4bee-9c8f-d7939a452b00"
+    },
+    {
+      "canonicalName": "黑椒鸡丁",
+      "aliases": [],
+      "ingredientSignature": [],
+      "category": "待归类",
+      "updatedAt": "2026-07-19T09:41:08.252Z",
+      "createdAt": "2026-07-19T09:41:08.252Z",
+      "_id": "d1efd85b-192b-4aa4-a6fd-2e0cbb55ca7a"
     }
   ]
 }
