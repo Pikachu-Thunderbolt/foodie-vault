@@ -1,0 +1,159 @@
+/* Tab Bar：米色纸卡 + 统一深褐线稿 */
+
+.tab-bar {
+  min-height: 104rpx;
+  padding: 7rpx 10rpx calc(5rpx + env(safe-area-inset-bottom));
+  display: flex;
+  flex: none;
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 100;
+  box-sizing: content-box;
+  background:
+    repeating-linear-gradient(7deg, transparent 0 8rpx, rgba(95, 62, 36, 0.018) 8rpx 10rpx),
+    #fbf3e4;
+  border-top: 2rpx solid rgba(82, 55, 35, 0.27);
+  box-shadow: 0 -5rpx 13rpx rgba(72, 46, 28, 0.07);
+}
+
+.tab-bar::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -5rpx;
+  height: 7rpx;
+  pointer-events: none;
+  background:
+    linear-gradient(176deg, transparent 0 42%, rgba(91, 58, 34, 0.24) 43% 53%, transparent 54%) 0 0 / 37rpx 7rpx repeat-x,
+    linear-gradient(184deg, transparent 0 44%, #fbf3e4 45% 100%) 0 0 / 43rpx 7rpx repeat-x;
+}
+
+.tab-item {
+  min-width: 0;
+  min-height: 96rpx;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  color: #625747;
+  transition: opacity 120ms ease-out, color 160ms ease-out;
+}
+
+.tab-item--pressed { opacity: 0.46; }
+.tab-item--active { color: #df5537; }
+
+.tab-icon {
+  width: 44rpx;
+  height: 42rpx;
+  margin-bottom: 2rpx;
+  position: relative;
+  color: inherit;
+  box-sizing: border-box;
+}
+
+.tab-symbol::before,
+.tab-symbol::after,
+.tab-symbol__detail {
+  content: '';
+  position: absolute;
+  box-sizing: border-box;
+}
+
+/* 食材：手绘小屋/食材柜 */
+.tab-symbol--pantry::before {
+  left: 9rpx;
+  top: 2rpx;
+  width: 25rpx;
+  height: 25rpx;
+  border-left: 3rpx solid currentColor;
+  border-top: 3rpx solid currentColor;
+  border-radius: 4rpx 2rpx 3rpx 2rpx;
+  transform: rotate(45deg) skew(-4deg, -4deg);
+}
+
+.tab-symbol--pantry::after {
+  left: 8rpx;
+  bottom: 2rpx;
+  width: 29rpx;
+  height: 24rpx;
+  border: 3rpx solid currentColor;
+  border-top: 0;
+  border-radius: 2rpx 3rpx 5rpx 4rpx;
+  background: transparent;
+}
+
+.tab-symbol--pantry .tab-symbol__detail { left: 19rpx; bottom: 2rpx; width: 8rpx; height: 14rpx; border: 2rpx solid currentColor; border-bottom: 0; }
+
+/* 菜谱：摊开的书 */
+.tab-symbol--recipe::before,
+.tab-symbol--recipe::after {
+  top: 7rpx;
+  width: 20rpx;
+  height: 29rpx;
+  border: 3rpx solid currentColor;
+  background: rgba(255, 250, 236, 0.3);
+}
+
+.tab-symbol--recipe::before { left: 2rpx; border-radius: 8rpx 2rpx 3rpx 6rpx; transform: rotate(-5deg); }
+.tab-symbol--recipe::after { right: 2rpx; border-radius: 2rpx 8rpx 6rpx 3rpx; transform: rotate(5deg); }
+.tab-symbol--recipe .tab-symbol__detail { left: 21rpx; top: 9rpx; width: 2rpx; height: 27rpx; background: currentColor; border-radius: 50%; }
+
+/* 扫描：四角取景框 + 中心食物框 */
+.tab-symbol--scan::before {
+  top: 3rpx; right: 3rpx; bottom: 3rpx; left: 3rpx;
+  background:
+    linear-gradient(currentColor, currentColor) left top / 13rpx 3rpx no-repeat,
+    linear-gradient(currentColor, currentColor) left top / 3rpx 13rpx no-repeat,
+    linear-gradient(currentColor, currentColor) right top / 13rpx 3rpx no-repeat,
+    linear-gradient(currentColor, currentColor) right top / 3rpx 13rpx no-repeat,
+    linear-gradient(currentColor, currentColor) left bottom / 13rpx 3rpx no-repeat,
+    linear-gradient(currentColor, currentColor) left bottom / 3rpx 13rpx no-repeat,
+    linear-gradient(currentColor, currentColor) right bottom / 13rpx 3rpx no-repeat,
+    linear-gradient(currentColor, currentColor) right bottom / 3rpx 13rpx no-repeat;
+  transform: rotate(-1deg);
+}
+
+.tab-symbol--scan::after { left: 13rpx; top: 12rpx; width: 19rpx; height: 17rpx; border: 2rpx solid currentColor; border-radius: 5rpx 7rpx 4rpx 6rpx; transform: rotate(2deg); }
+.tab-symbol--scan .tab-symbol__detail { left: 16rpx; top: 18rpx; width: 13rpx; height: 2rpx; background: currentColor; border-radius: 50%; }
+
+/* 清单：夹板与横线 */
+.tab-symbol--checklist::before { left: 8rpx; top: 5rpx; width: 29rpx; height: 35rpx; border: 3rpx solid currentColor; border-radius: 4rpx 7rpx 5rpx 6rpx; transform: rotate(-2deg); }
+.tab-symbol--checklist::after { left: 15rpx; top: 1rpx; width: 16rpx; height: 10rpx; border: 3rpx solid currentColor; border-radius: 5rpx 5rpx 3rpx 3rpx; background: #fbf3e4; }
+.tab-symbol--checklist .tab-symbol__detail { left: 15rpx; top: 18rpx; width: 15rpx; height: 2rpx; background: currentColor; border-radius: 50%; box-shadow: 0 8rpx 0 currentColor; transform: rotate(-1deg); }
+
+/* 我的：头像线稿 */
+.tab-symbol--profile::before { left: 14rpx; top: 2rpx; width: 17rpx; height: 17rpx; border: 3rpx solid currentColor; border-radius: 50% 47% 52% 48%; }
+.tab-symbol--profile::after { left: 6rpx; bottom: 1rpx; width: 33rpx; height: 20rpx; border: 3rpx solid currentColor; border-bottom: 0; border-radius: 50% 50% 5rpx 5rpx; transform: rotate(-1deg); }
+
+.tab-label {
+  color: inherit;
+  font-family: 'STKaiti', 'KaiTi', 'PingFang SC', sans-serif;
+  font-size: 20rpx;
+  line-height: 27rpx;
+  font-weight: 500;
+  letter-spacing: 1rpx;
+}
+
+.tab-item--active .tab-label { font-weight: 700; }
+
+.tab-indicator {
+  position: absolute;
+  left: 50%;
+  bottom: 3rpx;
+  width: 41rpx;
+  height: 3rpx;
+  margin-left: -20rpx;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.36;
+  transform: rotate(-3deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tab-item { transition-duration: 0.01ms; }
+}

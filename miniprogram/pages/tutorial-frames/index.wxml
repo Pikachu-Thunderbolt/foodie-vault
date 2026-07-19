@@ -1,0 +1,27 @@
+<!-- pages/tutorial-frames/index.wxml — 用户为自己上传的教程逐步挑代表帧 -->
+<navigation-bar title="挑选教程配图" back="{{true}}" />
+<view class="page">
+  <view wx:if="{{loading}}" class="hint">加载中…</view>
+  <view wx:elif="{{error}}" class="hint error">{{error}}</view>
+  <block wx:else>
+    <view class="title">{{recipeName}}</view>
+    <view class="sub">每个步骤选一张最能展示动作的图，提交后进入处理与发布流程。</view>
+
+    <view class="step" wx:for="{{steps}}" wx:key="stepIndex" wx:for-item="step">
+      <view class="step-head">步骤 {{step.stepIndex + 1}}：{{step.name}}</view>
+      <view class="step-desc">{{step.description}}</view>
+      <scroll-view class="cands" scroll-x="{{true}}">
+        <view
+          class="cand {{selected[step.stepIndex] === item.frameType + ':' + item.slot ? 'on' : ''}}"
+          wx:for="{{step.candidates}}" wx:key="frameType"
+          data-step="{{step.stepIndex}}" data-val="{{item.frameType}}:{{item.slot}}"
+          bindtap="onPick">
+          <image class="cand-img" src="{{item.url}}" mode="aspectFill" />
+          <view class="cand-tag">{{item.frameType}}</view>
+        </view>
+      </scroll-view>
+    </view>
+
+    <button class="submit" loading="{{submitting}}" bindtap="onSubmit">确认挑帧并提交</button>
+  </block>
+</view>

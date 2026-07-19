@@ -1,0 +1,275 @@
+<!-- 参考 overall-design.png：扫描入库四步流程 -->
+<navigation-bar
+  wx:if="{{step !== 'results'}}"
+  title="{{step === 'confirm' ? '入库完成' : '扫描入库'}}"
+  back="{{false}}"
+  color="#3D2E1F"
+  background="#F7F2E9"
+></navigation-bar>
+
+<view class="page paper-bg">
+  <view wx:if="{{step !== 'results'}}" class="flow-progress" aria-label="扫描入库进度">
+    <view class="flow-step {{step === 'viewfinder' ? 'active' : ''}} {{step !== 'viewfinder' ? 'done' : ''}}">
+      <text class="flow-number">1</text>
+      <text class="flow-label">取景框</text>
+    </view>
+    <view class="flow-line {{step !== 'viewfinder' ? 'done' : ''}}"></view>
+    <view class="flow-step {{step === 'scanning' ? 'active' : ''}} {{step === 'results' || step === 'confirm' ? 'done' : ''}}">
+      <text class="flow-number">2</text>
+      <text class="flow-label">扫描中</text>
+    </view>
+    <view class="flow-line {{step === 'results' || step === 'confirm' ? 'done' : ''}}"></view>
+    <view class="flow-step {{step === 'results' ? 'active' : ''}} {{step === 'confirm' ? 'done' : ''}}">
+      <text class="flow-number">3</text>
+      <text class="flow-label">识别结果</text>
+    </view>
+    <view class="flow-line {{step === 'confirm' ? 'done' : ''}}"></view>
+    <view class="flow-step {{step === 'confirm' ? 'active' : ''}}">
+      <text class="flow-number">4</text>
+      <text class="flow-label">确认</text>
+    </view>
+  </view>
+
+  <!-- 1. 取景框 -->
+  <view wx:if="{{step === 'viewfinder'}}" class="step-viewfinder">
+    <view class="step-heading">
+      <text class="step-kicker">STEP 01</text>
+      <text class="step-title">把食材放进取景框</text>
+      <text class="step-desc">保持画面完整、光线充足，包装文字尽量朝上</text>
+    </view>
+
+    <view
+      class="camera-frame {{captureAnimating ? 'camera-frame--shutter' : ''}}"
+      bindtap="capturePhoto"
+      hover-class="camera-frame-pressed"
+      aria-role="button"
+      aria-label="打开相机拍摄食材"
+    >
+      <image
+        wx:if="{{showPhotoPreview}}"
+        class="camera-photo"
+        src="{{photoPath}}"
+        mode="aspectFill"
+      ></image>
+      <view wx:else class="camera-demo camera-demo--{{mode}} {{captureAnimating ? 'camera-demo--capturing' : ''}}" aria-hidden="true">
+        <image wx:if="{{mode === 'packaging'}}" class="camera-demo-image" src="../../resource/generated/scan-packaging-counter.png" mode="aspectFill"></image>
+        <image wx:else class="camera-demo-image" src="../../resource/generated/scan-receipt-counter.png" mode="aspectFill"></image>
+      </view>
+      <view class="camera-grain"></view>
+      <image wx:if="{{captureAnimating && shutterFrame > 0 && mode === 'packaging'}}" class="camera-shutter" src="../../resource/generated/packaging-shutter-effect-{{shutterFrame}}.png" mode="aspectFill" aria-hidden="true"></image>
+      <image wx:if="{{captureAnimating && shutterFrame > 0 && mode === 'receipt'}}" class="camera-shutter" src="../../resource/generated/packaging-shutter-effect-{{shutterFrame}}.png" mode="aspectFill" aria-hidden="true"></image>
+      <view class="focus-ring {{focusPulse ? 'focus-ring--active' : ''}}" aria-hidden="true"></view>
+      <view class="focus-corner corner-tl"></view>
+      <view class="focus-corner corner-tr"></view>
+      <view class="focus-corner corner-bl"></view>
+      <view class="focus-corner corner-br"></view>
+      <view class="camera-tip">
+        <text>{{showPhotoPreview ? '画面已准备好' : '轻触画面或快门拍摄'}}</text>
+      </view>
+    </view>
+
+    <view class="mode-switch" aria-label="识别模式">
+      <view
+        class="mode-option {{mode === 'packaging' ? 'active' : ''}}"
+        bindtap="switchMode"
+        data-mode="packaging"
+        aria-role="button"
+      >单件包装</view>
+      <view
+        class="mode-option {{mode === 'receipt' ? 'active' : ''}}"
+        bindtap="switchMode"
+        data-mode="receipt"
+        aria-role="button"
+      >购物小票</view>
+    </view>
+
+    <view wx:if="{{!showPhotoPreview}}" class="capture-controls">
+      <view class="control-placeholder control-placeholder--action" bindtap="chooseFromAlbum" aria-role="button" aria-label="从相册选择食材图片">
+        <view class="mini-picture-mark"></view>
+      </view>
+      <view
+        class="shutter-button"
+        bindtap="capturePhoto"
+        hover-class="shutter-pressed"
+        aria-role="button"
+        aria-label="拍照"
+      >
+        <view class="shutter-inner"></view>
+      </view>
+      <view class="control-spacer" aria-hidden="true"></view>
+    </view>
+
+    <view wx:else class="viewfinder-actions">
+      <view class="paper-button secondary" bindtap="retakePhoto" hover-class="button-pressed">重新拍摄</view>
+      <view class="paper-button primary" bindtap="startScanning" hover-class="button-pressed">开始识别</view>
+    </view>
+  </view>
+
+  <!-- 2. 扫描中 -->
+  <view wx:if="{{step === 'scanning'}}" class="step-scanning">
+    <view class="step-heading scanning-heading">
+      <text class="step-kicker">STEP 02</text>
+      <text class="step-title">正在扫描画面</text>
+    </view>
+    <view class="camera-frame scanning-frame">
+      <image class="camera-photo scan-photo" src="{{photoPath}}" mode="aspectFill"></image>
+      <view class="scan-shade"></view>
+      <view class="scan-hatch"></view>
+      <view class="focus-corner corner-tl light"></view>
+      <view class="focus-corner corner-tr light"></view>
+      <view class="focus-corner corner-bl light"></view>
+      <view class="focus-corner corner-br light"></view>
+      <view class="scan-line"></view>
+      <view class="scan-stamp {{scanStatusIndex > 1 ? 'scan-stamp--visible' : ''}}" aria-hidden="true">已识别</view>
+      <view class="scan-copy">
+        <text class="scan-status-text">{{scanStatusText}}</text>
+        <text class="scan-time">约 1.8 秒</text>
+      </view>
+    </view>
+    <view class="scan-dots" aria-hidden="true">
+      <view class="scan-dot dot-one"></view>
+      <view class="scan-dot dot-two"></view>
+      <view class="scan-dot dot-three"></view>
+    </view>
+  </view>
+
+  <!-- 3. 识别结果 -->
+  <scroll-view
+    wx:if="{{step === 'results'}}"
+    class="step-results"
+    scroll-y
+    enhanced="{{true}}"
+    show-scrollbar="{{false}}"
+  >
+    <view class="results-content results-content--tabletop">
+      <view class="results-topbar">
+        <view class="results-back" bindtap="retakePhoto" hover-class="results-back--pressed" aria-role="button" aria-label="返回取景框重新拍摄">
+          <text class="results-back-arrow">‹</text><text>返回</text>
+        </view>
+        <text class="results-page-title">识别结果</text>
+      </view>
+      <text class="results-page-subtitle">食材已经整理到桌面上啦</text>
+
+      <view wx:if="{{showEmptyResult}}" class="empty-results">
+        <view class="empty-lens" aria-hidden="true"></view>
+        <text class="empty-title">这次没有认出来</text>
+        <text class="empty-desc">换个角度重新拍摄，确保包装和食材没有被遮挡</text>
+        <view class="empty-actions">
+          <view class="paper-button secondary" bindtap="retakePhoto">重新拍摄</view>
+          <view class="paper-button primary" bindtap="goManual">手动录入</view>
+        </view>
+      </view>
+
+      <block wx:else>
+        <view class="tabletop-board {{showLandingAnimation ? 'is-landing' : ''}}" aria-label="已识别食材桌面">
+          <image class="tabletop-board-image" src="../../resource/generated/kitchen-countertop-1.png" mode="aspectFill" aria-hidden="true"></image>
+          <view class="tabletop-warm-glow" aria-hidden="true"></view>
+          <block wx:for="{{recognizedItems}}" wx:key="id">
+            <view wx:if="{{index < 16 && !item.isPlaced}}" class="tabletop-sticker tabletop-sticker-{{index}} {{selectedStickerIndex >= 0 && selectedStickerIndex !== index ? 'is-muted' : ''}} {{selectedStickerIndex === index ? 'is-lifted' : ''}} {{draggingIndex === index && dragMoved ? 'is-being-dragged' : ''}}" data-index="{{index}}" bindtouchstart="onTabletopDragStart" catchtouchmove="onPageTouchMove" catchtouchend="onPageTouchEnd" aria-role="button" aria-label="按住{{item.name}}并拖动到存放空间">
+              <view class="tabletop-sticker-shadow" aria-hidden="true"></view>
+              <image wx:if="{{item.foodVisual.type === 'image'}}" class="tabletop-sticker-image" src="{{item.foodVisual.value}}" mode="aspectFit"></image>
+              <view wx:else class="tabletop-fallback food-visual food-visual--{{item.visualKey}}"><view></view></view>
+              <view wx:if="{{selectedStickerIndex === index && !dragMoved}}" class="sticker-attribute sticker-attribute--name">{{item.name}}</view>
+              <view wx:if="{{selectedStickerIndex === index && !dragMoved}}" class="sticker-attribute sticker-attribute--type">{{item.category}}</view>
+              <view wx:if="{{selectedStickerIndex === index && !dragMoved}}" class="sticker-attribute sticker-attribute--expiry">保质至 {{item.expiryShort}}</view>
+            </view>
+          </block>
+        </view>
+        <view class="tabletop-summary">识别到 {{recognizedItems.length}} 种食材 · 按住贴纸拖到存放空间</view>
+        <view class="storage-result-panel">
+          <text class="storage-result-title">已放入存储区</text>
+          <view class="storage-result-zones">
+            <view wx:for="{{zones}}" wx:key="id" wx:for-index="zoneIndex" class="storage-result-zone storage-drop-target {{highlightedZone === zoneIndex ? 'highlighted' : ''}} zone-{{item.id}}" aria-label="{{item.label}}存储区">
+              <image class="storage-result-art storage-result-art--{{item.id}}" src="../../resource/generated/storage-zones-watercolor.png" mode="widthFix" aria-hidden="true"></image>
+              <text class="storage-result-name">{{item.label}}</text>
+              <text class="storage-result-count">{{item.items.length ? '已放 ' + item.items.length + ' 件' : '暂未放入'}}</text>
+              <view wx:if="{{item.items.length}}" class="storage-result-items">
+                <view wx:for="{{item.items}}" wx:for-item="placedIndex" wx:key="*this" class="storage-result-item" data-index="{{placedIndex}}" data-zone-index="{{zoneIndex}}" bindtap="undoPlacement" aria-label="撤回{{recognizedItems[placedIndex].name}}">
+                  <image wx:if="{{recognizedItems[placedIndex].foodVisual.type === 'image'}}" class="storage-result-food" src="{{recognizedItems[placedIndex].foodVisual.value}}" mode="aspectFit"></image>
+                  <view wx:else class="storage-result-food food-visual food-visual--{{recognizedItems[placedIndex].visualKey}}"><view></view></view>
+                </view>
+              </view>
+            </view>
+          </view>
+          <text wx:if="{{placedItems.length}}" class="storage-result-hint">点击已放入的贴纸可撤回到桌面</text>
+        </view>
+        <view class="tabletop-help">
+          <text>还有食材没找到？</text>
+          <view bindtap="goManual" aria-role="button">手动添加 <text>›</text></view>
+        </view>
+        <view class="tabletop-actions {{showLandingAnimation ? 'is-disabled' : ''}}">
+          <view class="tabletop-button tabletop-button--secondary" bindtap="retakePhoto">重新识别</view>
+          <view class="tabletop-button tabletop-button--primary {{saving || placedItems.length === 0 ? 'is-saving' : ''}}" bindtap="confirmImport">{{saving ? '正在入库…' : '确认入库（' + placedItems.length + '件）'}}</view>
+        </view>
+      </block>
+    </view>
+  </scroll-view>
+
+  <!-- 4. 确认 -->
+  <scroll-view
+    wx:if="{{step === 'confirm'}}"
+    class="step-confirm"
+    scroll-y
+    enhanced="{{true}}"
+    show-scrollbar="{{false}}"
+  >
+    <view class="confirm-content">
+      <view class="landing-note">
+        <view class="landing-heading">
+          <text class="landing-kicker">食材已入库</text>
+          <text class="landing-title">贴纸都落到桌面啦！</text>
+          <text class="landing-count">已整理 {{savedCount}} 件食材</text>
+        </view>
+        <view class="landing-table">
+          <image class="landing-table-image" src="../../resource/generated/kitchen-countertop-1.png" mode="aspectFill" aria-hidden="true"></image>
+          <block wx:for="{{recognizedItems}}" wx:key="id">
+            <view wx:if="{{item.isPlaced}}" class="landing-sticker landing-sticker-{{index}}" aria-label="{{item.name}} 已入库">
+              <view class="landing-impact" aria-hidden="true"></view>
+              <image wx:if="{{item.foodVisual.type === 'image'}}" class="landing-sticker-image" src="{{item.foodVisual.value}}" mode="aspectFit"></image>
+              <view wx:else class="landing-fallback food-visual food-visual--{{item.visualKey}}"><view></view></view>
+            </view>
+          </block>
+        </view>
+      </view>
+
+      <view class="confirm-list">
+        <view
+          wx:for="{{recognizedItems}}"
+          wx:key="id"
+          wx:if="{{item.isPlaced}}"
+          class="confirm-item"
+        >
+          <image wx:if="{{item.foodVisual.type === 'image'}}" class="confirm-item-image" src="{{item.foodVisual.value}}" mode="aspectFit"></image>
+          <view wx:else class="confirm-item-food food-visual food-visual--{{item.visualKey}}"><view></view></view>
+          <view class="confirm-item-info">
+            <text class="confirm-item-name">{{item.name}}</text>
+            <text class="confirm-item-meta">{{item.quantity}}{{item.unit}} · 保质至 {{item.expiryShort}}</text>
+          </view>
+          <text class="confirm-check">✓</text>
+        </view>
+      </view>
+
+      <view class="confirm-actions">
+        <view class="paper-button secondary" bindtap="goAddMore">继续添加</view>
+        <view class="paper-button primary" bindtap="goBack">完成</view>
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- 跟随手指的食品贴纸 -->
+  <view
+    wx:if="{{(draggingIndex >= 0 && dragMoved) || flyingItemIndex >= 0}}"
+    class="drag-ghost {{flyingItemIndex >= 0 ? 'is-flying' : ''}}"
+    style="left: {{dragCurrentX - dragOffsetX}}px; top: {{dragCurrentY - dragOffsetY}}px"
+    aria-hidden="true"
+  >
+    <view class="ghost-paper"><image wx:if="{{ghostFoodVisual.type === 'image'}}" class="ghost-food-image" src="{{ghostFoodVisual.value}}" mode="aspectFit"></image><view wx:else class="food-visual food-visual--{{ghostVisualKey}}"><view></view></view></view>
+    <view wx:if="{{draggingIndex >= 0 && dragMoved}}" class="drag-sticker-attributes" aria-hidden="true">
+      <view class="drag-sticker-label drag-sticker-label--name">{{recognizedItems[draggingIndex].name}}</view>
+      <view class="drag-sticker-label drag-sticker-label--type">{{recognizedItems[draggingIndex].category}}</view>
+      <view class="drag-sticker-label drag-sticker-label--expiry">保质至 {{recognizedItems[draggingIndex].expiryShort}}</view>
+    </view>
+  </view>
+</view>
+
+<tab-bar wx:if="{{step !== 'results' && step !== 'confirm'}}" active="scan-import"></tab-bar>

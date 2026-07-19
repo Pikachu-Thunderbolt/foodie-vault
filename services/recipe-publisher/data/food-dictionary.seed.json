@@ -1,0 +1,3537 @@
+[
+  {
+    "dictionaryId": "ing_鹌鹑蛋",
+    "kind": "ingredient",
+    "canonicalName": "鹌鹑蛋",
+    "aliases": [],
+    "category": "肉禽蛋",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_八角",
+    "kind": "ingredient",
+    "canonicalName": "八角",
+    "aliases": [],
+    "category": "调料",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_巴旦木",
+    "kind": "ingredient",
+    "canonicalName": "巴旦木",
+    "aliases": [],
+    "category": "水果坚果",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_白胡椒",
+    "kind": "ingredient",
+    "canonicalName": "白胡椒",
+    "aliases": [],
+    "category": "调料",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_白酒",
+    "kind": "ingredient",
+    "canonicalName": "白酒",
+    "aliases": [],
+    "category": "调料",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_白萝卜",
+    "kind": "ingredient",
+    "canonicalName": "白萝卜",
+    "aliases": [
+      "萝卜"
+    ],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_白砂糖",
+    "kind": "ingredient",
+    "canonicalName": "白砂糖",
+    "aliases": [
+      "白糖"
+    ],
+    "category": "调料",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_白玉菇",
+    "kind": "ingredient",
+    "canonicalName": "白玉菇",
+    "aliases": [],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_白芸豆",
+    "kind": "ingredient",
+    "canonicalName": "白芸豆",
+    "aliases": [],
+    "category": "蛋奶豆",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_百合",
+    "kind": "ingredient",
+    "canonicalName": "百合",
+    "aliases": [],
+    "category": "干货腌制",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_百香果",
+    "kind": "ingredient",
+    "canonicalName": "百香果",
+    "aliases": [],
+    "category": "水果坚果",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_包菜",
+    "kind": "ingredient",
+    "canonicalName": "包菜",
+    "aliases": [],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_鲍鱼",
+    "kind": "ingredient",
+    "canonicalName": "鲍鱼",
+    "aliases": [],
+    "category": "水产",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_鲍鱼菇",
+    "kind": "ingredient",
+    "canonicalName": "鲍鱼菇",
+    "aliases": [],
+    "category": "其他",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_贝贝南瓜",
+    "kind": "ingredient",
+    "canonicalName": "贝贝南瓜",
+    "aliases": [],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_荸荠",
+    "kind": "ingredient",
+    "canonicalName": "荸荠",
+    "aliases": [],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_冰糖",
+    "kind": "ingredient",
+    "canonicalName": "冰糖",
+    "aliases": [],
+    "category": "调料",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_菠菜",
+    "kind": "ingredient",
+    "canonicalName": "菠菜",
+    "aliases": [],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_菠萝",
+    "kind": "ingredient",
+    "canonicalName": "菠萝",
+    "aliases": [],
+    "category": "水果坚果",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_彩椒",
+    "kind": "ingredient",
+    "canonicalName": "彩椒",
+    "aliases": [],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_菜心",
+    "kind": "ingredient",
+    "canonicalName": "菜心",
+    "aliases": [],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_菜籽油",
+    "kind": "ingredient",
+    "canonicalName": "菜籽油",
+    "aliases": [],
+    "category": "调料",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_蚕豆",
+    "kind": "ingredient",
+    "canonicalName": "蚕豆",
+    "aliases": [],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_糙米",
+    "kind": "ingredient",
+    "canonicalName": "糙米",
+    "aliases": [],
+    "category": "主食谷物",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_草果",
+    "kind": "ingredient",
+    "canonicalName": "草果",
+    "aliases": [],
+    "category": "调料",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_草莓",
+    "kind": "ingredient",
+    "canonicalName": "草莓",
+    "aliases": [],
+    "category": "水果坚果",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_草鱼",
+    "kind": "ingredient",
+    "canonicalName": "草鱼",
+    "aliases": [],
+    "category": "水产",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_鲳鱼",
+    "kind": "ingredient",
+    "canonicalName": "鲳鱼",
+    "aliases": [],
+    "category": "水产",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_鲳鱼片",
+    "kind": "ingredient",
+    "canonicalName": "鲳鱼片",
+    "aliases": [],
+    "category": "水产",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_炒饭",
+    "kind": "ingredient",
+    "canonicalName": "炒饭",
+    "aliases": [],
+    "category": "主食谷物",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_陈醋",
+    "kind": "ingredient",
+    "canonicalName": "陈醋",
+    "aliases": [],
+    "category": "调料",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_蛏子",
+    "kind": "ingredient",
+    "canonicalName": "蛏子",
+    "aliases": [],
+    "category": "水产",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_橙子",
+    "kind": "ingredient",
+    "canonicalName": "橙子",
+    "aliases": [],
+    "category": "水果坚果",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_春卷皮",
+    "kind": "ingredient",
+    "canonicalName": "春卷皮",
+    "aliases": [],
+    "category": "主食谷物",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_春笋",
+    "kind": "ingredient",
+    "canonicalName": "春笋",
+    "aliases": [],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_慈姑",
+    "kind": "ingredient",
+    "canonicalName": "慈姑",
+    "aliases": [],
+    "category": "其他",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_醋",
+    "kind": "ingredient",
+    "canonicalName": "醋",
+    "aliases": [],
+    "category": "调料",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_大白菜",
+    "kind": "ingredient",
+    "canonicalName": "大白菜",
+    "aliases": [
+      "白菜",
+      "黄芽白"
+    ],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_大葱",
+    "kind": "ingredient",
+    "canonicalName": "大葱",
+    "aliases": [
+      "葱白"
+    ],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_大米",
+    "kind": "ingredient",
+    "canonicalName": "大米",
+    "aliases": [],
+    "category": "主食谷物",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_大虾",
+    "kind": "ingredient",
+    "canonicalName": "大虾",
+    "aliases": [],
+    "category": "水产",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_带鱼",
+    "kind": "ingredient",
+    "canonicalName": "带鱼",
+    "aliases": [],
+    "category": "水产",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_带子",
+    "kind": "ingredient",
+    "canonicalName": "带子",
+    "aliases": [],
+    "category": "水产",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_淡奶油",
+    "kind": "ingredient",
+    "canonicalName": "淡奶油",
+    "aliases": [],
+    "category": "蛋奶豆",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_蛋黄酱",
+    "kind": "ingredient",
+    "canonicalName": "蛋黄酱",
+    "aliases": [],
+    "category": "调料",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_低筋面粉",
+    "kind": "ingredient",
+    "canonicalName": "低筋面粉",
+    "aliases": [],
+    "category": "主食谷物",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_丁香",
+    "kind": "ingredient",
+    "canonicalName": "丁香",
+    "aliases": [],
+    "category": "调料",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_冬瓜",
+    "kind": "ingredient",
+    "canonicalName": "冬瓜",
+    "aliases": [],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_冬笋",
+    "kind": "ingredient",
+    "canonicalName": "冬笋",
+    "aliases": [],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_豆瓣酱",
+    "kind": "ingredient",
+    "canonicalName": "豆瓣酱",
+    "aliases": [],
+    "category": "调料",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_豆豉",
+    "kind": "ingredient",
+    "canonicalName": "豆豉",
+    "aliases": [],
+    "category": "蛋奶豆",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_豆腐",
+    "kind": "ingredient",
+    "canonicalName": "豆腐",
+    "aliases": [
+      "嫩豆腐",
+      "老豆腐",
+      "内酯豆腐"
+    ],
+    "category": "蛋奶豆",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_豆腐皮",
+    "kind": "ingredient",
+    "canonicalName": "豆腐皮",
+    "aliases": [],
+    "category": "蛋奶豆",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_豆干",
+    "kind": "ingredient",
+    "canonicalName": "豆干",
+    "aliases": [],
+    "category": "蛋奶豆",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_豆浆",
+    "kind": "ingredient",
+    "canonicalName": "豆浆",
+    "aliases": [],
+    "category": "蛋奶豆",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_豆角",
+    "kind": "ingredient",
+    "canonicalName": "豆角",
+    "aliases": [],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_豆蔻",
+    "kind": "ingredient",
+    "canonicalName": "豆蔻",
+    "aliases": [],
+    "category": "调料",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_豆皮",
+    "kind": "ingredient",
+    "canonicalName": "豆皮",
+    "aliases": [
+      "豆腐皮"
+    ],
+    "category": "蛋奶豆",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_多宝鱼",
+    "kind": "ingredient",
+    "canonicalName": "多宝鱼",
+    "aliases": [],
+    "category": "水产",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_番茄",
+    "kind": "ingredient",
+    "canonicalName": "番茄",
+    "aliases": [
+      "西红柿",
+      "圣女果",
+      "小番茄"
+    ],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_番茄酱",
+    "kind": "ingredient",
+    "canonicalName": "番茄酱",
+    "aliases": [],
+    "category": "调料",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_方便面",
+    "kind": "ingredient",
+    "canonicalName": "方便面",
+    "aliases": [],
+    "category": "主食谷物",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_粉丝",
+    "kind": "ingredient",
+    "canonicalName": "粉丝",
+    "aliases": [
+      "细粉丝"
+    ],
+    "category": "干货腌制",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_粉条",
+    "kind": "ingredient",
+    "canonicalName": "粉条",
+    "aliases": [
+      "红薯粉条"
+    ],
+    "category": "干货腌制",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_蜂蜜",
+    "kind": "ingredient",
+    "canonicalName": "蜂蜜",
+    "aliases": [],
+    "category": "调料",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_佛手瓜",
+    "kind": "ingredient",
+    "canonicalName": "佛手瓜",
+    "aliases": [],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_腐竹",
+    "kind": "ingredient",
+    "canonicalName": "腐竹",
+    "aliases": [],
+    "category": "干货腌制",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_甘蓝",
+    "kind": "ingredient",
+    "canonicalName": "甘蓝",
+    "aliases": [],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_橄榄油",
+    "kind": "ingredient",
+    "canonicalName": "橄榄油",
+    "aliases": [],
+    "category": "调料",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_干贝",
+    "kind": "ingredient",
+    "canonicalName": "干贝",
+    "aliases": [],
+    "category": "干货腌制",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_干辣椒",
+    "kind": "ingredient",
+    "canonicalName": "干辣椒",
+    "aliases": [],
+    "category": "干货腌制",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_干香菇",
+    "kind": "ingredient",
+    "canonicalName": "干香菇",
+    "aliases": [],
+    "category": "干货腌制",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_高筋面粉",
+    "kind": "ingredient",
+    "canonicalName": "高筋面粉",
+    "aliases": [],
+    "category": "主食谷物",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_高粱米",
+    "kind": "ingredient",
+    "canonicalName": "高粱米",
+    "aliases": [],
+    "category": "主食谷物",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_鸽子蛋",
+    "kind": "ingredient",
+    "canonicalName": "鸽子蛋",
+    "aliases": [],
+    "category": "肉禽蛋",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_枸杞",
+    "kind": "ingredient",
+    "canonicalName": "枸杞",
+    "aliases": [],
+    "category": "干货腌制",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_挂面",
+    "kind": "ingredient",
+    "canonicalName": "挂面",
+    "aliases": [],
+    "category": "主食谷物",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_桂皮",
+    "kind": "ingredient",
+    "canonicalName": "桂皮",
+    "aliases": [],
+    "category": "调料",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_桂圆",
+    "kind": "ingredient",
+    "canonicalName": "桂圆",
+    "aliases": [],
+    "category": "干货腌制",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_哈密瓜",
+    "kind": "ingredient",
+    "canonicalName": "哈密瓜",
+    "aliases": [],
+    "category": "水果坚果",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_蛤蜊",
+    "kind": "ingredient",
+    "canonicalName": "蛤蜊",
+    "aliases": [],
+    "category": "水产",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_海参",
+    "kind": "ingredient",
+    "canonicalName": "海参",
+    "aliases": [],
+    "category": "水产",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_海带",
+    "kind": "ingredient",
+    "canonicalName": "海带",
+    "aliases": [
+      "海带结"
+    ],
+    "category": "干货腌制",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_海虹",
+    "kind": "ingredient",
+    "canonicalName": "海虹",
+    "aliases": [],
+    "category": "水产",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_海鲜菇",
+    "kind": "ingredient",
+    "canonicalName": "海鲜菇",
+    "aliases": [],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_海蜇",
+    "kind": "ingredient",
+    "canonicalName": "海蜇",
+    "aliases": [],
+    "category": "水产",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_杭椒",
+    "kind": "ingredient",
+    "canonicalName": "杭椒",
+    "aliases": [],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_蚝油",
+    "kind": "ingredient",
+    "canonicalName": "蚝油",
+    "aliases": [],
+    "category": "调料",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_河粉",
+    "kind": "ingredient",
+    "canonicalName": "河粉",
+    "aliases": [],
+    "category": "主食谷物",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_河虾",
+    "kind": "ingredient",
+    "canonicalName": "河虾",
+    "aliases": [],
+    "category": "水产",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_核桃",
+    "kind": "ingredient",
+    "canonicalName": "核桃",
+    "aliases": [],
+    "category": "水果坚果",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_荷兰豆",
+    "kind": "ingredient",
+    "canonicalName": "荷兰豆",
+    "aliases": [],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_黑豆",
+    "kind": "ingredient",
+    "canonicalName": "黑豆",
+    "aliases": [],
+    "category": "蛋奶豆",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_黑胡椒",
+    "kind": "ingredient",
+    "canonicalName": "黑胡椒",
+    "aliases": [],
+    "category": "调料",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_黑米",
+    "kind": "ingredient",
+    "canonicalName": "黑米",
+    "aliases": [],
+    "category": "主食谷物",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_黑糖",
+    "kind": "ingredient",
+    "canonicalName": "黑糖",
+    "aliases": [],
+    "category": "调料",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_黑鱼",
+    "kind": "ingredient",
+    "canonicalName": "黑鱼",
+    "aliases": [],
+    "category": "水产",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_红豆",
+    "kind": "ingredient",
+    "canonicalName": "红豆",
+    "aliases": [],
+    "category": "蛋奶豆",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_红椒",
+    "kind": "ingredient",
+    "canonicalName": "红椒",
+    "aliases": [],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_红薯",
+    "kind": "ingredient",
+    "canonicalName": "红薯",
+    "aliases": [],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_红薯粉",
+    "kind": "ingredient",
+    "canonicalName": "红薯粉",
+    "aliases": [],
+    "category": "主食谷物",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_红糖",
+    "kind": "ingredient",
+    "canonicalName": "红糖",
+    "aliases": [],
+    "category": "调料",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_红枣",
+    "kind": "ingredient",
+    "canonicalName": "红枣",
+    "aliases": [],
+    "category": "干货腌制",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_猴头菇",
+    "kind": "ingredient",
+    "canonicalName": "猴头菇",
+    "aliases": [],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_胡椒粉",
+    "kind": "ingredient",
+    "canonicalName": "胡椒粉",
+    "aliases": [],
+    "category": "调料",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_胡萝卜",
+    "kind": "ingredient",
+    "canonicalName": "胡萝卜",
+    "aliases": [
+      "红萝卜"
+    ],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_花菜",
+    "kind": "ingredient",
+    "canonicalName": "花菜",
+    "aliases": [
+      "菜花",
+      "白花菜"
+    ],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_花蛤",
+    "kind": "ingredient",
+    "canonicalName": "花蛤",
+    "aliases": [],
+    "category": "水产",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_花椒",
+    "kind": "ingredient",
+    "canonicalName": "花椒",
+    "aliases": [],
+    "category": "调料",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_花卷",
+    "kind": "ingredient",
+    "canonicalName": "花卷",
+    "aliases": [],
+    "category": "主食谷物",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_花生",
+    "kind": "ingredient",
+    "canonicalName": "花生",
+    "aliases": [
+      "花生米"
+    ],
+    "category": "干货腌制",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_花生酱",
+    "kind": "ingredient",
+    "canonicalName": "花生酱",
+    "aliases": [],
+    "category": "蛋奶豆",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_花生油",
+    "kind": "ingredient",
+    "canonicalName": "花生油",
+    "aliases": [],
+    "category": "调料",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_花蟹",
+    "kind": "ingredient",
+    "canonicalName": "花蟹",
+    "aliases": [],
+    "category": "水产",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_黄豆",
+    "kind": "ingredient",
+    "canonicalName": "黄豆",
+    "aliases": [],
+    "category": "蛋奶豆",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_黄豆酱",
+    "kind": "ingredient",
+    "canonicalName": "黄豆酱",
+    "aliases": [],
+    "category": "调料",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_黄豆芽",
+    "kind": "ingredient",
+    "canonicalName": "黄豆芽",
+    "aliases": [],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_黄瓜",
+    "kind": "ingredient",
+    "canonicalName": "黄瓜",
+    "aliases": [
+      "青瓜"
+    ],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_黄花菜",
+    "kind": "ingredient",
+    "canonicalName": "黄花菜",
+    "aliases": [],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_黄花鱼",
+    "kind": "ingredient",
+    "canonicalName": "黄花鱼",
+    "aliases": [],
+    "category": "其他",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_黄酒",
+    "kind": "ingredient",
+    "canonicalName": "黄酒",
+    "aliases": [],
+    "category": "调料",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_黄秋葵",
+    "kind": "ingredient",
+    "canonicalName": "黄秋葵",
+    "aliases": [],
+    "category": "其他",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_黄油",
+    "kind": "ingredient",
+    "canonicalName": "黄油",
+    "aliases": [],
+    "category": "调料",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_黄鱼",
+    "kind": "ingredient",
+    "canonicalName": "黄鱼",
+    "aliases": [],
+    "category": "水产",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_馄饨皮",
+    "kind": "ingredient",
+    "canonicalName": "馄饨皮",
+    "aliases": [],
+    "category": "主食谷物",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_火龙果",
+    "kind": "ingredient",
+    "canonicalName": "火龙果",
+    "aliases": [],
+    "category": "水果坚果",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_火腿",
+    "kind": "ingredient",
+    "canonicalName": "火腿",
+    "aliases": [],
+    "category": "肉禽蛋",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_鸡翅",
+    "kind": "ingredient",
+    "canonicalName": "鸡翅",
+    "aliases": [],
+    "category": "肉禽蛋",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_鸡翅根",
+    "kind": "ingredient",
+    "canonicalName": "鸡翅根",
+    "aliases": [],
+    "category": "肉禽蛋",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_鸡蛋",
+    "kind": "ingredient",
+    "canonicalName": "鸡蛋",
+    "aliases": [
+      "草鸡蛋",
+      "土鸡蛋",
+      "无菌鸡蛋"
+    ],
+    "category": "肉禽蛋",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_鸡精",
+    "kind": "ingredient",
+    "canonicalName": "鸡精",
+    "aliases": [],
+    "category": "调料",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_鸡肉",
+    "kind": "ingredient",
+    "canonicalName": "鸡肉",
+    "aliases": [
+      "鸡腿肉",
+      "鸡胸肉"
+    ],
+    "category": "肉禽蛋",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_鸡腿",
+    "kind": "ingredient",
+    "canonicalName": "鸡腿",
+    "aliases": [],
+    "category": "肉禽蛋",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_鸡腿肉",
+    "kind": "ingredient",
+    "canonicalName": "鸡腿肉",
+    "aliases": [],
+    "category": "肉禽蛋",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_鸡心",
+    "kind": "ingredient",
+    "canonicalName": "鸡心",
+    "aliases": [],
+    "category": "肉禽蛋",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_鸡胸肉",
+    "kind": "ingredient",
+    "canonicalName": "鸡胸肉",
+    "aliases": [],
+    "category": "肉禽蛋",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_鸡爪",
+    "kind": "ingredient",
+    "canonicalName": "鸡爪",
+    "aliases": [],
+    "category": "肉禽蛋",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_鸡胗",
+    "kind": "ingredient",
+    "canonicalName": "鸡胗",
+    "aliases": [],
+    "category": "肉禽蛋",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_基围虾",
+    "kind": "ingredient",
+    "canonicalName": "基围虾",
+    "aliases": [],
+    "category": "水产",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_荠菜",
+    "kind": "ingredient",
+    "canonicalName": "荠菜",
+    "aliases": [],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_鲫鱼",
+    "kind": "ingredient",
+    "canonicalName": "鲫鱼",
+    "aliases": [],
+    "category": "水产",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_茄子",
+    "kind": "ingredient",
+    "canonicalName": "茄子",
+    "aliases": [],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_尖椒",
+    "kind": "ingredient",
+    "canonicalName": "尖椒",
+    "aliases": [],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_豇豆",
+    "kind": "ingredient",
+    "canonicalName": "豇豆",
+    "aliases": [],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_酱油",
+    "kind": "ingredient",
+    "canonicalName": "酱油",
+    "aliases": [],
+    "category": "调料",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_茭白",
+    "kind": "ingredient",
+    "canonicalName": "茭白",
+    "aliases": [],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_饺子皮",
+    "kind": "ingredient",
+    "canonicalName": "饺子皮",
+    "aliases": [],
+    "category": "主食谷物",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_芥蓝",
+    "kind": "ingredient",
+    "canonicalName": "芥蓝",
+    "aliases": [],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_芥末",
+    "kind": "ingredient",
+    "canonicalName": "芥末",
+    "aliases": [],
+    "category": "调料",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_芥末苗",
+    "kind": "ingredient",
+    "canonicalName": "芥末苗",
+    "aliases": [],
+    "category": "其他",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_金枪鱼",
+    "kind": "ingredient",
+    "canonicalName": "金枪鱼",
+    "aliases": [],
+    "category": "水产",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_金针菇",
+    "kind": "ingredient",
+    "canonicalName": "金针菇",
+    "aliases": [],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_韭菜",
+    "kind": "ingredient",
+    "canonicalName": "韭菜",
+    "aliases": [],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_酒酿",
+    "kind": "ingredient",
+    "canonicalName": "酒酿",
+    "aliases": [],
+    "category": "干货腌制",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_咖喱粉",
+    "kind": "ingredient",
+    "canonicalName": "咖喱粉",
+    "aliases": [],
+    "category": "调料",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_咖喱块",
+    "kind": "ingredient",
+    "canonicalName": "咖喱块",
+    "aliases": [],
+    "category": "调料",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_空心菜",
+    "kind": "ingredient",
+    "canonicalName": "空心菜",
+    "aliases": [],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_口蘑",
+    "kind": "ingredient",
+    "canonicalName": "口蘑",
+    "aliases": [],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_苦瓜",
+    "kind": "ingredient",
+    "canonicalName": "苦瓜",
+    "aliases": [],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_宽粉",
+    "kind": "ingredient",
+    "canonicalName": "宽粉",
+    "aliases": [],
+    "category": "主食谷物",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_腊肠",
+    "kind": "ingredient",
+    "canonicalName": "腊肠",
+    "aliases": [],
+    "category": "干货腌制",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_腊肉",
+    "kind": "ingredient",
+    "canonicalName": "腊肉",
+    "aliases": [],
+    "category": "干货腌制",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_辣椒粉",
+    "kind": "ingredient",
+    "canonicalName": "辣椒粉",
+    "aliases": [],
+    "category": "调料",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_蓝莓",
+    "kind": "ingredient",
+    "canonicalName": "蓝莓",
+    "aliases": [],
+    "category": "水果坚果",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_老抽",
+    "kind": "ingredient",
+    "canonicalName": "老抽",
+    "aliases": [
+      "老抽酱油"
+    ],
+    "category": "调料",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_老豆腐",
+    "kind": "ingredient",
+    "canonicalName": "老豆腐",
+    "aliases": [],
+    "category": "蛋奶豆",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_梨",
+    "kind": "ingredient",
+    "canonicalName": "梨",
+    "aliases": [],
+    "category": "水果坚果",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_藜麦",
+    "kind": "ingredient",
+    "canonicalName": "藜麦",
+    "aliases": [],
+    "category": "主食谷物",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_李子",
+    "kind": "ingredient",
+    "canonicalName": "李子",
+    "aliases": [],
+    "category": "水果坚果",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_荔枝",
+    "kind": "ingredient",
+    "canonicalName": "荔枝",
+    "aliases": [],
+    "category": "水果坚果",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_莲藕",
+    "kind": "ingredient",
+    "canonicalName": "莲藕",
+    "aliases": [],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_莲子",
+    "kind": "ingredient",
+    "canonicalName": "莲子",
+    "aliases": [],
+    "category": "干货腌制",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_炼乳",
+    "kind": "ingredient",
+    "canonicalName": "炼乳",
+    "aliases": [],
+    "category": "蛋奶豆",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_料酒",
+    "kind": "ingredient",
+    "canonicalName": "料酒",
+    "aliases": [],
+    "category": "调料",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_菱角",
+    "kind": "ingredient",
+    "canonicalName": "菱角",
+    "aliases": [],
+    "category": "其他",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_龙利鱼",
+    "kind": "ingredient",
+    "canonicalName": "龙利鱼",
+    "aliases": [],
+    "category": "水产",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_龙眼",
+    "kind": "ingredient",
+    "canonicalName": "龙眼",
+    "aliases": [],
+    "category": "水果坚果",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_芦蒿",
+    "kind": "ingredient",
+    "canonicalName": "芦蒿",
+    "aliases": [],
+    "category": "其他",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_芦笋",
+    "kind": "ingredient",
+    "canonicalName": "芦笋",
+    "aliases": [],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_鲈鱼",
+    "kind": "ingredient",
+    "canonicalName": "鲈鱼",
+    "aliases": [],
+    "category": "水产",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_绿豆",
+    "kind": "ingredient",
+    "canonicalName": "绿豆",
+    "aliases": [],
+    "category": "蛋奶豆",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_绿豆芽",
+    "kind": "ingredient",
+    "canonicalName": "绿豆芽",
+    "aliases": [],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_绿萝卜",
+    "kind": "ingredient",
+    "canonicalName": "绿萝卜",
+    "aliases": [],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_萝卜干",
+    "kind": "ingredient",
+    "canonicalName": "萝卜干",
+    "aliases": [],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_螺蛳粉",
+    "kind": "ingredient",
+    "canonicalName": "螺蛳粉",
+    "aliases": [],
+    "category": "主食谷物",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_马兰头",
+    "kind": "ingredient",
+    "canonicalName": "马兰头",
+    "aliases": [],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_马苏里拉",
+    "kind": "ingredient",
+    "canonicalName": "马苏里拉",
+    "aliases": [],
+    "category": "蛋奶豆",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_馒头",
+    "kind": "ingredient",
+    "canonicalName": "馒头",
+    "aliases": [],
+    "category": "主食谷物",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_鳗鱼",
+    "kind": "ingredient",
+    "canonicalName": "鳗鱼",
+    "aliases": [],
+    "category": "水产",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_芒果",
+    "kind": "ingredient",
+    "canonicalName": "芒果",
+    "aliases": [],
+    "category": "水果坚果",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_毛豆",
+    "kind": "ingredient",
+    "canonicalName": "毛豆",
+    "aliases": [],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_梅干菜",
+    "kind": "ingredient",
+    "canonicalName": "梅干菜",
+    "aliases": [],
+    "category": "干货腌制",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_梅花肉",
+    "kind": "ingredient",
+    "canonicalName": "梅花肉",
+    "aliases": [],
+    "category": "肉禽蛋",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_猕猴桃",
+    "kind": "ingredient",
+    "canonicalName": "猕猴桃",
+    "aliases": [],
+    "category": "水果坚果",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_米醋",
+    "kind": "ingredient",
+    "canonicalName": "米醋",
+    "aliases": [],
+    "category": "调料",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_米饭",
+    "kind": "ingredient",
+    "canonicalName": "米饭",
+    "aliases": [],
+    "category": "主食谷物",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_米粉",
+    "kind": "ingredient",
+    "canonicalName": "米粉",
+    "aliases": [],
+    "category": "主食谷物",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_米酒",
+    "kind": "ingredient",
+    "canonicalName": "米酒",
+    "aliases": [],
+    "category": "干货腌制",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_米线",
+    "kind": "ingredient",
+    "canonicalName": "米线",
+    "aliases": [],
+    "category": "主食谷物",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_面包",
+    "kind": "ingredient",
+    "canonicalName": "面包",
+    "aliases": [],
+    "category": "主食谷物",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_面粉",
+    "kind": "ingredient",
+    "canonicalName": "面粉",
+    "aliases": [],
+    "category": "主食谷物",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_面条",
+    "kind": "ingredient",
+    "canonicalName": "面条",
+    "aliases": [],
+    "category": "主食谷物",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_墨鱼",
+    "kind": "ingredient",
+    "canonicalName": "墨鱼",
+    "aliases": [],
+    "category": "水产",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_木耳",
+    "kind": "ingredient",
+    "canonicalName": "木耳",
+    "aliases": [],
+    "category": "干货腌制",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_木瓜",
+    "kind": "ingredient",
+    "canonicalName": "木瓜",
+    "aliases": [],
+    "category": "水果坚果",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_木薯",
+    "kind": "ingredient",
+    "canonicalName": "木薯",
+    "aliases": [],
+    "category": "其他",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_奶酪",
+    "kind": "ingredient",
+    "canonicalName": "奶酪",
+    "aliases": [
+      "芝士",
+      "芝士片"
+    ],
+    "category": "蛋奶豆",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_奶油奶酪",
+    "kind": "ingredient",
+    "canonicalName": "奶油奶酪",
+    "aliases": [],
+    "category": "蛋奶豆",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_南瓜",
+    "kind": "ingredient",
+    "canonicalName": "南瓜",
+    "aliases": [],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_南瓜子",
+    "kind": "ingredient",
+    "canonicalName": "南瓜子",
+    "aliases": [],
+    "category": "水果坚果",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_内酯豆腐",
+    "kind": "ingredient",
+    "canonicalName": "内酯豆腐",
+    "aliases": [],
+    "category": "蛋奶豆",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_嫩豆腐",
+    "kind": "ingredient",
+    "canonicalName": "嫩豆腐",
+    "aliases": [],
+    "category": "蛋奶豆",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_年糕",
+    "kind": "ingredient",
+    "canonicalName": "年糕",
+    "aliases": [],
+    "category": "主食谷物",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_鲶鱼",
+    "kind": "ingredient",
+    "canonicalName": "鲶鱼",
+    "aliases": [],
+    "category": "水产",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_柠檬",
+    "kind": "ingredient",
+    "canonicalName": "柠檬",
+    "aliases": [],
+    "category": "水果坚果",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_牛百叶",
+    "kind": "ingredient",
+    "canonicalName": "牛百叶",
+    "aliases": [],
+    "category": "肉禽蛋",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_牛腱子",
+    "kind": "ingredient",
+    "canonicalName": "牛腱子",
+    "aliases": [],
+    "category": "肉禽蛋",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_牛筋",
+    "kind": "ingredient",
+    "canonicalName": "牛筋",
+    "aliases": [],
+    "category": "肉禽蛋",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_牛里脊",
+    "kind": "ingredient",
+    "canonicalName": "牛里脊",
+    "aliases": [],
+    "category": "肉禽蛋",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_牛奶",
+    "kind": "ingredient",
+    "canonicalName": "牛奶",
+    "aliases": [
+      "鲜牛奶",
+      "纯牛奶",
+      "全脂牛奶",
+      "低脂牛奶"
+    ],
+    "category": "蛋奶豆",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_牛腩",
+    "kind": "ingredient",
+    "canonicalName": "牛腩",
+    "aliases": [],
+    "category": "肉禽蛋",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_牛排",
+    "kind": "ingredient",
+    "canonicalName": "牛排",
+    "aliases": [],
+    "category": "肉禽蛋",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_牛肉",
+    "kind": "ingredient",
+    "canonicalName": "牛肉",
+    "aliases": [],
+    "category": "肉禽蛋",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_牛尾",
+    "kind": "ingredient",
+    "canonicalName": "牛尾",
+    "aliases": [],
+    "category": "其他",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_牛油果",
+    "kind": "ingredient",
+    "canonicalName": "牛油果",
+    "aliases": [],
+    "category": "水果坚果",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_糯米",
+    "kind": "ingredient",
+    "canonicalName": "糯米",
+    "aliases": [],
+    "category": "主食谷物",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_排骨",
+    "kind": "ingredient",
+    "canonicalName": "排骨",
+    "aliases": [],
+    "category": "肉禽蛋",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_螃蟹",
+    "kind": "ingredient",
+    "canonicalName": "螃蟹",
+    "aliases": [],
+    "category": "水产",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_泡菜",
+    "kind": "ingredient",
+    "canonicalName": "泡菜",
+    "aliases": [],
+    "category": "干货腌制",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_泡椒",
+    "kind": "ingredient",
+    "canonicalName": "泡椒",
+    "aliases": [],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_培根",
+    "kind": "ingredient",
+    "canonicalName": "培根",
+    "aliases": [],
+    "category": "肉禽蛋",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_皮蛋",
+    "kind": "ingredient",
+    "canonicalName": "皮蛋",
+    "aliases": [],
+    "category": "肉禽蛋",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_啤酒",
+    "kind": "ingredient",
+    "canonicalName": "啤酒",
+    "aliases": [],
+    "category": "调料",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_苤蓝",
+    "kind": "ingredient",
+    "canonicalName": "苤蓝",
+    "aliases": [],
+    "category": "其他",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_平菇",
+    "kind": "ingredient",
+    "canonicalName": "平菇",
+    "aliases": [],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_苹果",
+    "kind": "ingredient",
+    "canonicalName": "苹果",
+    "aliases": [],
+    "category": "水果坚果",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_葡萄",
+    "kind": "ingredient",
+    "canonicalName": "葡萄",
+    "aliases": [],
+    "category": "水果坚果",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_千张",
+    "kind": "ingredient",
+    "canonicalName": "千张",
+    "aliases": [],
+    "category": "蛋奶豆",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_荞麦",
+    "kind": "ingredient",
+    "canonicalName": "荞麦",
+    "aliases": [],
+    "category": "主食谷物",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_芹菜",
+    "kind": "ingredient",
+    "canonicalName": "芹菜",
+    "aliases": [],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_芹菜根",
+    "kind": "ingredient",
+    "canonicalName": "芹菜根",
+    "aliases": [],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_青花鱼",
+    "kind": "ingredient",
+    "canonicalName": "青花鱼",
+    "aliases": [],
+    "category": "水产",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_青椒",
+    "kind": "ingredient",
+    "canonicalName": "青椒",
+    "aliases": [],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_青萝卜",
+    "kind": "ingredient",
+    "canonicalName": "青萝卜",
+    "aliases": [],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_青柠",
+    "kind": "ingredient",
+    "canonicalName": "青柠",
+    "aliases": [],
+    "category": "水果坚果",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_秋葵",
+    "kind": "ingredient",
+    "canonicalName": "秋葵",
+    "aliases": [],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_肉丸",
+    "kind": "ingredient",
+    "canonicalName": "肉丸",
+    "aliases": [],
+    "category": "肉禽蛋",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_三文鱼",
+    "kind": "ingredient",
+    "canonicalName": "三文鱼",
+    "aliases": [],
+    "category": "水产",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_沙拉酱",
+    "kind": "ingredient",
+    "canonicalName": "沙拉酱",
+    "aliases": [],
+    "category": "调料",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_山药",
+    "kind": "ingredient",
+    "canonicalName": "山药",
+    "aliases": [],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_扇贝",
+    "kind": "ingredient",
+    "canonicalName": "扇贝",
+    "aliases": [],
+    "category": "水产",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_上海青",
+    "kind": "ingredient",
+    "canonicalName": "上海青",
+    "aliases": [
+      "青菜",
+      "青江菜"
+    ],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_生菜",
+    "kind": "ingredient",
+    "canonicalName": "生菜",
+    "aliases": [],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_生抽",
+    "kind": "ingredient",
+    "canonicalName": "生抽",
+    "aliases": [
+      "生抽酱油"
+    ],
+    "category": "调料",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_生蚝",
+    "kind": "ingredient",
+    "canonicalName": "生蚝",
+    "aliases": [],
+    "category": "水产",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_生蚝肉",
+    "kind": "ingredient",
+    "canonicalName": "生蚝肉",
+    "aliases": [],
+    "category": "水产",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_十三香",
+    "kind": "ingredient",
+    "canonicalName": "十三香",
+    "aliases": [],
+    "category": "调料",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_石榴",
+    "kind": "ingredient",
+    "canonicalName": "石榴",
+    "aliases": [],
+    "category": "水果坚果",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_食盐",
+    "kind": "ingredient",
+    "canonicalName": "食盐",
+    "aliases": [
+      "盐",
+      "食用盐"
+    ],
+    "category": "调料",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_柿子",
+    "kind": "ingredient",
+    "canonicalName": "柿子",
+    "aliases": [],
+    "category": "水果坚果",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_双皮奶",
+    "kind": "ingredient",
+    "canonicalName": "双皮奶",
+    "aliases": [],
+    "category": "蛋奶豆",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_丝瓜",
+    "kind": "ingredient",
+    "canonicalName": "丝瓜",
+    "aliases": [],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_四季豆",
+    "kind": "ingredient",
+    "canonicalName": "四季豆",
+    "aliases": [],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_松子",
+    "kind": "ingredient",
+    "canonicalName": "松子",
+    "aliases": [],
+    "category": "水果坚果",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_酸菜",
+    "kind": "ingredient",
+    "canonicalName": "酸菜",
+    "aliases": [],
+    "category": "干货腌制",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_酸豇豆",
+    "kind": "ingredient",
+    "canonicalName": "酸豇豆",
+    "aliases": [],
+    "category": "干货腌制",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_酸奶",
+    "kind": "ingredient",
+    "canonicalName": "酸奶",
+    "aliases": [
+      "原味酸奶",
+      "希腊酸奶",
+      "无糖酸奶"
+    ],
+    "category": "蛋奶豆",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_蒜",
+    "kind": "ingredient",
+    "canonicalName": "蒜",
+    "aliases": [
+      "大蒜",
+      "蒜头"
+    ],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_蒜苗",
+    "kind": "ingredient",
+    "canonicalName": "蒜苗",
+    "aliases": [],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_蒜苔",
+    "kind": "ingredient",
+    "canonicalName": "蒜苔",
+    "aliases": [],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_笋干",
+    "kind": "ingredient",
+    "canonicalName": "笋干",
+    "aliases": [],
+    "category": "干货腌制",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_梭子蟹",
+    "kind": "ingredient",
+    "canonicalName": "梭子蟹",
+    "aliases": [],
+    "category": "水产",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_汤圆",
+    "kind": "ingredient",
+    "canonicalName": "汤圆",
+    "aliases": [],
+    "category": "主食谷物",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_桃子",
+    "kind": "ingredient",
+    "canonicalName": "桃子",
+    "aliases": [],
+    "category": "水果坚果",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_藤椒",
+    "kind": "ingredient",
+    "canonicalName": "藤椒",
+    "aliases": [],
+    "category": "调料",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_甜豆",
+    "kind": "ingredient",
+    "canonicalName": "甜豆",
+    "aliases": [],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_甜面酱",
+    "kind": "ingredient",
+    "canonicalName": "甜面酱",
+    "aliases": [],
+    "category": "调料",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_茼蒿",
+    "kind": "ingredient",
+    "canonicalName": "茼蒿",
+    "aliases": [],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_土豆",
+    "kind": "ingredient",
+    "canonicalName": "土豆",
+    "aliases": [
+      "马铃薯",
+      "洋芋"
+    ],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_吐司",
+    "kind": "ingredient",
+    "canonicalName": "吐司",
+    "aliases": [],
+    "category": "主食谷物",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_娃娃菜",
+    "kind": "ingredient",
+    "canonicalName": "娃娃菜",
+    "aliases": [],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_豌豆",
+    "kind": "ingredient",
+    "canonicalName": "豌豆",
+    "aliases": [],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_豌豆尖",
+    "kind": "ingredient",
+    "canonicalName": "豌豆尖",
+    "aliases": [],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_豌豆苗",
+    "kind": "ingredient",
+    "canonicalName": "豌豆苗",
+    "aliases": [],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_味精",
+    "kind": "ingredient",
+    "canonicalName": "味精",
+    "aliases": [],
+    "category": "调料",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_莴苣",
+    "kind": "ingredient",
+    "canonicalName": "莴苣",
+    "aliases": [],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_莴笋",
+    "kind": "ingredient",
+    "canonicalName": "莴笋",
+    "aliases": [],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_五花肉",
+    "kind": "ingredient",
+    "canonicalName": "五花肉",
+    "aliases": [],
+    "category": "肉禽蛋",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_五香粉",
+    "kind": "ingredient",
+    "canonicalName": "五香粉",
+    "aliases": [],
+    "category": "调料",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_午餐肉",
+    "kind": "ingredient",
+    "canonicalName": "午餐肉",
+    "aliases": [],
+    "category": "肉禽蛋",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_西瓜",
+    "kind": "ingredient",
+    "canonicalName": "西瓜",
+    "aliases": [],
+    "category": "水果坚果",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_西红柿",
+    "kind": "ingredient",
+    "canonicalName": "西红柿",
+    "aliases": [],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_西葫芦",
+    "kind": "ingredient",
+    "canonicalName": "西葫芦",
+    "aliases": [],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_西兰花",
+    "kind": "ingredient",
+    "canonicalName": "西兰花",
+    "aliases": [
+      "西蓝花",
+      "绿花椰菜"
+    ],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_虾",
+    "kind": "ingredient",
+    "canonicalName": "虾",
+    "aliases": [
+      "大虾",
+      "鲜虾"
+    ],
+    "category": "水产",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_虾米",
+    "kind": "ingredient",
+    "canonicalName": "虾米",
+    "aliases": [],
+    "category": "干货腌制",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_虾皮",
+    "kind": "ingredient",
+    "canonicalName": "虾皮",
+    "aliases": [],
+    "category": "干货腌制",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_虾仁",
+    "kind": "ingredient",
+    "canonicalName": "虾仁",
+    "aliases": [
+      "去皮虾仁",
+      "冷冻虾仁"
+    ],
+    "category": "水产",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_咸菜",
+    "kind": "ingredient",
+    "canonicalName": "咸菜",
+    "aliases": [],
+    "category": "干货腌制",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_咸鸭蛋",
+    "kind": "ingredient",
+    "canonicalName": "咸鸭蛋",
+    "aliases": [],
+    "category": "肉禽蛋",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_苋菜",
+    "kind": "ingredient",
+    "canonicalName": "苋菜",
+    "aliases": [],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_香菜",
+    "kind": "ingredient",
+    "canonicalName": "香菜",
+    "aliases": [
+      "芫荽"
+    ],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_香肠",
+    "kind": "ingredient",
+    "canonicalName": "香肠",
+    "aliases": [],
+    "category": "肉禽蛋",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_香醋",
+    "kind": "ingredient",
+    "canonicalName": "香醋",
+    "aliases": [],
+    "category": "调料",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_香干",
+    "kind": "ingredient",
+    "canonicalName": "香干",
+    "aliases": [
+      "豆腐干"
+    ],
+    "category": "蛋奶豆",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_香菇",
+    "kind": "ingredient",
+    "canonicalName": "香菇",
+    "aliases": [],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_香蕉",
+    "kind": "ingredient",
+    "canonicalName": "香蕉",
+    "aliases": [],
+    "category": "水果坚果",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_香叶",
+    "kind": "ingredient",
+    "canonicalName": "香叶",
+    "aliases": [],
+    "category": "调料",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_香油",
+    "kind": "ingredient",
+    "canonicalName": "香油",
+    "aliases": [],
+    "category": "调料",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_小白菜",
+    "kind": "ingredient",
+    "canonicalName": "小白菜",
+    "aliases": [],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_小葱",
+    "kind": "ingredient",
+    "canonicalName": "小葱",
+    "aliases": [
+      "香葱",
+      "葱花"
+    ],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_小茴香",
+    "kind": "ingredient",
+    "canonicalName": "小茴香",
+    "aliases": [],
+    "category": "调料",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_小龙虾",
+    "kind": "ingredient",
+    "canonicalName": "小龙虾",
+    "aliases": [],
+    "category": "水产",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_小麦胚芽",
+    "kind": "ingredient",
+    "canonicalName": "小麦胚芽",
+    "aliases": [],
+    "category": "主食谷物",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_小米",
+    "kind": "ingredient",
+    "canonicalName": "小米",
+    "aliases": [],
+    "category": "主食谷物",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_小米椒",
+    "kind": "ingredient",
+    "canonicalName": "小米椒",
+    "aliases": [],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_小南瓜",
+    "kind": "ingredient",
+    "canonicalName": "小南瓜",
+    "aliases": [],
+    "category": "其他",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_蟹",
+    "kind": "ingredient",
+    "canonicalName": "蟹",
+    "aliases": [],
+    "category": "水产",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_蟹味菇",
+    "kind": "ingredient",
+    "canonicalName": "蟹味菇",
+    "aliases": [],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_杏鲍菇",
+    "kind": "ingredient",
+    "canonicalName": "杏鲍菇",
+    "aliases": [],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_杏仁",
+    "kind": "ingredient",
+    "canonicalName": "杏仁",
+    "aliases": [],
+    "category": "水果坚果",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_雪菜",
+    "kind": "ingredient",
+    "canonicalName": "雪菜",
+    "aliases": [],
+    "category": "干货腌制",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_鳕鱼",
+    "kind": "ingredient",
+    "canonicalName": "鳕鱼",
+    "aliases": [],
+    "category": "水产",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_鸭翅",
+    "kind": "ingredient",
+    "canonicalName": "鸭翅",
+    "aliases": [],
+    "category": "肉禽蛋",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_鸭蛋",
+    "kind": "ingredient",
+    "canonicalName": "鸭蛋",
+    "aliases": [],
+    "category": "肉禽蛋",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_鸭肉",
+    "kind": "ingredient",
+    "canonicalName": "鸭肉",
+    "aliases": [],
+    "category": "肉禽蛋",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_鸭舌",
+    "kind": "ingredient",
+    "canonicalName": "鸭舌",
+    "aliases": [],
+    "category": "肉禽蛋",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_鸭腿",
+    "kind": "ingredient",
+    "canonicalName": "鸭腿",
+    "aliases": [],
+    "category": "肉禽蛋",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_鸭血",
+    "kind": "ingredient",
+    "canonicalName": "鸭血",
+    "aliases": [],
+    "category": "肉禽蛋",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_燕麦片",
+    "kind": "ingredient",
+    "canonicalName": "燕麦片",
+    "aliases": [],
+    "category": "主食谷物",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_羊肚",
+    "kind": "ingredient",
+    "canonicalName": "羊肚",
+    "aliases": [],
+    "category": "肉禽蛋",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_羊排",
+    "kind": "ingredient",
+    "canonicalName": "羊排",
+    "aliases": [],
+    "category": "肉禽蛋",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_羊肉",
+    "kind": "ingredient",
+    "canonicalName": "羊肉",
+    "aliases": [],
+    "category": "肉禽蛋",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_羊蝎子",
+    "kind": "ingredient",
+    "canonicalName": "羊蝎子",
+    "aliases": [],
+    "category": "肉禽蛋",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_杨梅",
+    "kind": "ingredient",
+    "canonicalName": "杨梅",
+    "aliases": [],
+    "category": "水果坚果",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_洋葱",
+    "kind": "ingredient",
+    "canonicalName": "洋葱",
+    "aliases": [
+      "圆葱",
+      "洋葱头"
+    ],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_腰果",
+    "kind": "ingredient",
+    "canonicalName": "腰果",
+    "aliases": [],
+    "category": "水果坚果",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_椰浆",
+    "kind": "ingredient",
+    "canonicalName": "椰浆",
+    "aliases": [],
+    "category": "调料",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_椰奶",
+    "kind": "ingredient",
+    "canonicalName": "椰奶",
+    "aliases": [],
+    "category": "调料",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_意面",
+    "kind": "ingredient",
+    "canonicalName": "意面",
+    "aliases": [],
+    "category": "主食谷物",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_银耳",
+    "kind": "ingredient",
+    "canonicalName": "银耳",
+    "aliases": [],
+    "category": "干货腌制",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_樱桃",
+    "kind": "ingredient",
+    "canonicalName": "樱桃",
+    "aliases": [],
+    "category": "水果坚果",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_鹰嘴豆",
+    "kind": "ingredient",
+    "canonicalName": "鹰嘴豆",
+    "aliases": [],
+    "category": "蛋奶豆",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_油豆腐",
+    "kind": "ingredient",
+    "canonicalName": "油豆腐",
+    "aliases": [],
+    "category": "蛋奶豆",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_油麦菜",
+    "kind": "ingredient",
+    "canonicalName": "油麦菜",
+    "aliases": [
+      "油麦"
+    ],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_鱿鱼",
+    "kind": "ingredient",
+    "canonicalName": "鱿鱼",
+    "aliases": [],
+    "category": "水产",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_鱿鱼圈",
+    "kind": "ingredient",
+    "canonicalName": "鱿鱼圈",
+    "aliases": [],
+    "category": "水产",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_柚子",
+    "kind": "ingredient",
+    "canonicalName": "柚子",
+    "aliases": [],
+    "category": "水果坚果",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_鱼片",
+    "kind": "ingredient",
+    "canonicalName": "鱼片",
+    "aliases": [],
+    "category": "水产",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_鱼丸",
+    "kind": "ingredient",
+    "canonicalName": "鱼丸",
+    "aliases": [],
+    "category": "水产",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_羽衣甘蓝",
+    "kind": "ingredient",
+    "canonicalName": "羽衣甘蓝",
+    "aliases": [],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_玉米碴",
+    "kind": "ingredient",
+    "canonicalName": "玉米碴",
+    "aliases": [],
+    "category": "主食谷物",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_玉米面",
+    "kind": "ingredient",
+    "canonicalName": "玉米面",
+    "aliases": [],
+    "category": "主食谷物",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_芋头",
+    "kind": "ingredient",
+    "canonicalName": "芋头",
+    "aliases": [],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_元宵",
+    "kind": "ingredient",
+    "canonicalName": "元宵",
+    "aliases": [],
+    "category": "主食谷物",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_芸豆",
+    "kind": "ingredient",
+    "canonicalName": "芸豆",
+    "aliases": [],
+    "category": "其他",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_枣",
+    "kind": "ingredient",
+    "canonicalName": "枣",
+    "aliases": [],
+    "category": "水果坚果",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_榨菜",
+    "kind": "ingredient",
+    "canonicalName": "榨菜",
+    "aliases": [],
+    "category": "干货腌制",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_章鱼",
+    "kind": "ingredient",
+    "canonicalName": "章鱼",
+    "aliases": [],
+    "category": "水产",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_芝麻",
+    "kind": "ingredient",
+    "canonicalName": "芝麻",
+    "aliases": [],
+    "category": "水果坚果",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_芝麻酱",
+    "kind": "ingredient",
+    "canonicalName": "芝麻酱",
+    "aliases": [],
+    "category": "蛋奶豆",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_芝麻油",
+    "kind": "ingredient",
+    "canonicalName": "芝麻油",
+    "aliases": [
+      "香油"
+    ],
+    "category": "调料",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_芝士",
+    "kind": "ingredient",
+    "canonicalName": "芝士",
+    "aliases": [],
+    "category": "蛋奶豆",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_粥",
+    "kind": "ingredient",
+    "canonicalName": "粥",
+    "aliases": [],
+    "category": "主食谷物",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_猪大肠",
+    "kind": "ingredient",
+    "canonicalName": "猪大肠",
+    "aliases": [],
+    "category": "肉禽蛋",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_猪肚",
+    "kind": "ingredient",
+    "canonicalName": "猪肚",
+    "aliases": [],
+    "category": "肉禽蛋",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_猪耳朵",
+    "kind": "ingredient",
+    "canonicalName": "猪耳朵",
+    "aliases": [],
+    "category": "肉禽蛋",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_猪肝",
+    "kind": "ingredient",
+    "canonicalName": "猪肝",
+    "aliases": [],
+    "category": "肉禽蛋",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_猪里脊",
+    "kind": "ingredient",
+    "canonicalName": "猪里脊",
+    "aliases": [],
+    "category": "肉禽蛋",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_猪肉",
+    "kind": "ingredient",
+    "canonicalName": "猪肉",
+    "aliases": [
+      "猪肉片",
+      "猪肉丝"
+    ],
+    "category": "肉禽蛋",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_猪肉馅",
+    "kind": "ingredient",
+    "canonicalName": "猪肉馅",
+    "aliases": [],
+    "category": "肉禽蛋",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_猪蹄",
+    "kind": "ingredient",
+    "canonicalName": "猪蹄",
+    "aliases": [],
+    "category": "肉禽蛋",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_猪心",
+    "kind": "ingredient",
+    "canonicalName": "猪心",
+    "aliases": [],
+    "category": "肉禽蛋",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_猪腰",
+    "kind": "ingredient",
+    "canonicalName": "猪腰",
+    "aliases": [],
+    "category": "肉禽蛋",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_猪油",
+    "kind": "ingredient",
+    "canonicalName": "猪油",
+    "aliases": [],
+    "category": "调料",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_竹荪",
+    "kind": "ingredient",
+    "canonicalName": "竹荪",
+    "aliases": [],
+    "category": "其他",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_竹笋",
+    "kind": "ingredient",
+    "canonicalName": "竹笋",
+    "aliases": [],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_孜然",
+    "kind": "ingredient",
+    "canonicalName": "孜然",
+    "aliases": [],
+    "category": "调料",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_紫菜",
+    "kind": "ingredient",
+    "canonicalName": "紫菜",
+    "aliases": [
+      "干紫菜"
+    ],
+    "category": "干货腌制",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_紫甘蓝",
+    "kind": "ingredient",
+    "canonicalName": "紫甘蓝",
+    "aliases": [],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_紫米",
+    "kind": "ingredient",
+    "canonicalName": "紫米",
+    "aliases": [],
+    "category": "主食谷物",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "ing_紫薯",
+    "kind": "ingredient",
+    "canonicalName": "紫薯",
+    "aliases": [],
+    "category": "蔬菜",
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  }
+]

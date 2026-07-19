@@ -1,0 +1,106 @@
+<!-- 烹饪成果记录与分享页 -->
+<navigation-bar title="记录成果" color="#3D2E1F" background="#F7F2E9"></navigation-bar>
+
+<view class="page">
+  <scroll-view class="content" scroll-y>
+    <!-- 菜谱信息 -->
+    <view class="recipe-info">
+      <text class="recipe-label">完成的菜谱</text>
+      <text class="recipe-name">{{recipeName || '未指定菜谱'}}</text>
+    </view>
+
+    <view class="section quick-review">
+      <view class="section-heading"><view class="share-mark share-mark--rating"></view><text class="section-title">这次做得怎么样？</text></view>
+      <view class="rating-row"><text wx:for="{{ratingOptions}}" wx:key="*this" class="rating-dot {{rating >= item ? 'rating-dot--active' : ''}}" bindtap="selectRating" data-value="{{item}}">{{item}}</text></view>
+      <view class="result-tags"><text wx:for="{{resultTagChoices}}" wx:key="name" class="result-tag {{item.selected ? 'result-tag--active' : ''}}" bindtap="toggleResultTag" data-tag="{{item.name}}">{{item.name}}</text></view>
+      <view class="satisfied-check {{satisfied ? 'satisfied-check--active' : ''}}" bindtap="toggleSatisfied" hover-class="tap-pressed"><view class="satisfied-mark"></view><text>这次我很满意，值得记住</text></view>
+    </view>
+
+    <!-- 上传图片 -->
+    <view class="section">
+      <view class="section-heading"><view class="share-mark share-mark--camera"></view><text class="section-title">成品照片</text></view>
+      <view class="image-area" bindtap="chooseImage" wx:if="{{!imageUrl}}">
+        <view class="image-placeholder"><view class="camera-lens"></view></view>
+        <text class="image-text">点击拍照或选择图片</text>
+        <text class="image-hint">记录你的烹饪成果</text>
+      </view>
+      <view wx:if="{{imageUrl}}" class="image-preview-wrapper">
+        <image class="image-preview" src="{{imageUrl}}" mode="widthFix" bindtap="chooseImage"></image>
+        <text class="retake-hint">点击重新拍摄</text>
+      </view>
+    </view>
+
+    <!-- 心得体会 -->
+    <view class="section">
+      <view class="section-heading"><view class="share-mark share-mark--pen"></view><text class="section-title">烹饪心得</text></view>
+      <textarea
+        class="notes-input"
+        placeholder="分享你的烹饪心得、改良建议或心情..."
+        value="{{notes}}"
+        bindinput="onNotesInput"
+        maxlength="500"
+        auto-height
+      />
+      <text class="char-count">{{notes.length}}/500</text>
+      <text class="field-label">这次有什么自己的改法？（可选）</text>
+      <input class="line-input" placeholder="例如：盐减半，鸡蛋只炒到八成熟" value="{{changeNote}}" bindinput="onChangeNoteInput" />
+      <text class="field-label">谁吃了这道菜？（可选）</text>
+      <input class="line-input" placeholder="例如：妈妈、朋友、小朋友" value="{{diners}}" bindinput="onDinersInput" />
+    </view>
+
+    <!-- 操作按钮 -->
+    <view class="actions">
+      <view class="save-btn" bindtap="saveRecord" wx:if="{{!saved}}">
+        <text>保存记录</text>
+      </view>
+      <view class="preview-btn" bindtap="previewShare" wx:if="{{saved}}">
+        <text>分享我的成果</text>
+      </view>
+      <view class="archive-btn" bindtap="goSignatureDish" wx:if="{{saved && candidateDish}}"><text>查看这道菜的成长档案</text></view>
+      <view class="home-btn" bindtap="goHome">
+        <text>返回首页</text>
+      </view>
+    </view>
+
+    <view class="bottom-spacer"></view>
+  </scroll-view>
+
+  <!-- 分享预览弹窗 -->
+  <view class="preview-overlay" wx:if="{{showSharePreview}}">
+    <view class="preview-card">
+      <view class="preview-close" bindtap="closePreview" hover-class="preview-close--pressed" aria-role="button" aria-label="关闭分享预览"><text>✕</text><text>关闭</text></view>
+
+      <!-- 分享卡片预览 -->
+      <view class="share-card">
+        <view class="share-card-header">
+          <text class="share-app-name">食光宝盒 · 厨房手账</text>
+        </view>
+        <image class="share-image" src="{{imageUrl}}" mode="aspectFill" wx:if="{{imageUrl}}"></image>
+        <view class="share-image-placeholder" wx:else><view class="preview-dish"><view></view></view></view>
+        <view class="share-card-body">
+          <text class="share-title">我完成了 {{recipeName}}！</text>
+          <text class="share-notes" wx:if="{{notes}}">"{{notes}}"</text>
+          <text class="share-invite">快来食光宝盒，用现有食材发现美味菜谱 →</text>
+        </view>
+      </view>
+
+      <!-- 分享按钮 -->
+      <view class="share-actions">
+        <button class="share-btn friend" open-type="share">
+          <text>分享给好友</text>
+        </button>
+      </view>
+    </view>
+  </view>
+
+  <view class="candidate-overlay" wx:if="{{showCandidate}}">
+    <view class="candidate-card">
+      <view class="candidate-stamp">待确认</view>
+      <text class="candidate-title">{{candidateDish.canonicalName}} 可以设为拿手菜了</text>
+      <text class="candidate-desc">你已经制作过 {{candidateDish.cookCount}} 次并留下记录。可以沿用原菜名，也可以换一个自己的名字。</text>
+      <text class="field-label">菜名</text><input class="candidate-input" value="{{personalName}}" bindinput="onPersonalNameInput" placeholder="例如：我的焦香番茄炒蛋" />
+      <text class="field-label">我的诀窍（可选）</text><input class="candidate-input" value="{{tagline}}" bindinput="onTaglineInput" placeholder="例如：鸡蛋八成熟再回锅" />
+      <view class="candidate-actions"><view class="candidate-later" bindtap="dismissCandidate">暂不设置</view><view class="candidate-confirm" bindtap="confirmCandidate">设为拿手菜</view></view>
+    </view>
+  </view>
+</view>

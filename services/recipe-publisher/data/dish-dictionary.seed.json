@@ -1,0 +1,1482 @@
+[
+  {
+    "dictionaryId": "dish_艾窝窝",
+    "kind": "dish",
+    "canonicalName": "艾窝窝",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_奥尔良烤鸡翅",
+    "kind": "dish",
+    "canonicalName": "奥尔良烤鸡翅",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_拔丝地瓜",
+    "kind": "dish",
+    "canonicalName": "拔丝地瓜",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_拔丝苹果",
+    "kind": "dish",
+    "canonicalName": "拔丝苹果",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_白菜炖豆腐",
+    "kind": "dish",
+    "canonicalName": "白菜炖豆腐",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_白菜炖肉",
+    "kind": "dish",
+    "canonicalName": "白菜炖肉",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_白萝卜炖羊肉",
+    "kind": "dish",
+    "canonicalName": "白萝卜炖羊肉",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_白切鸡",
+    "kind": "dish",
+    "canonicalName": "白切鸡",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_白灼生菜",
+    "kind": "dish",
+    "canonicalName": "白灼生菜",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_白灼西兰花",
+    "kind": "dish",
+    "canonicalName": "白灼西兰花",
+    "aliases": [
+      "白灼西蓝花"
+    ],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_白灼虾",
+    "kind": "dish",
+    "canonicalName": "白灼虾",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_板栗烧鸡",
+    "kind": "dish",
+    "canonicalName": "板栗烧鸡",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_冰糖雪梨",
+    "kind": "dish",
+    "canonicalName": "冰糖雪梨",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_菠菜鸡蛋饼",
+    "kind": "dish",
+    "canonicalName": "菠菜鸡蛋饼",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_菠萝炒饭",
+    "kind": "dish",
+    "canonicalName": "菠萝炒饭",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_部队锅",
+    "kind": "dish",
+    "canonicalName": "部队锅",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_菜脯煎蛋",
+    "kind": "dish",
+    "canonicalName": "菜脯煎蛋",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_茶叶蛋",
+    "kind": "dish",
+    "canonicalName": "茶叶蛋",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_炒面",
+    "kind": "dish",
+    "canonicalName": "炒面",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_豉油皇炒面",
+    "kind": "dish",
+    "canonicalName": "豉油皇炒面",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_豉汁蒸排骨",
+    "kind": "dish",
+    "canonicalName": "豉汁蒸排骨",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_重庆小面",
+    "kind": "dish",
+    "canonicalName": "重庆小面",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_葱爆牛肉",
+    "kind": "dish",
+    "canonicalName": "葱爆牛肉",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_葱爆羊肉",
+    "kind": "dish",
+    "canonicalName": "葱爆羊肉",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_葱花煎蛋",
+    "kind": "dish",
+    "canonicalName": "葱花煎蛋",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_葱烧鱼",
+    "kind": "dish",
+    "canonicalName": "葱烧鱼",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_葱油拌面",
+    "kind": "dish",
+    "canonicalName": "葱油拌面",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_葱油饼",
+    "kind": "dish",
+    "canonicalName": "葱油饼",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_葱油鸡",
+    "kind": "dish",
+    "canonicalName": "葱油鸡",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_醋溜白菜",
+    "kind": "dish",
+    "canonicalName": "醋溜白菜",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_脆皮烧肉",
+    "kind": "dish",
+    "canonicalName": "脆皮烧肉",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_脆皮香蕉",
+    "kind": "dish",
+    "canonicalName": "脆皮香蕉",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_大盘鸡",
+    "kind": "dish",
+    "canonicalName": "大盘鸡",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_蛋炒饭",
+    "kind": "dish",
+    "canonicalName": "蛋炒饭",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_地三鲜",
+    "kind": "dish",
+    "canonicalName": "地三鲜",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_东坡肉",
+    "kind": "dish",
+    "canonicalName": "东坡肉",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_冬瓜炖排骨",
+    "kind": "dish",
+    "canonicalName": "冬瓜炖排骨",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_冬瓜焖鸭",
+    "kind": "dish",
+    "canonicalName": "冬瓜焖鸭",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_冬瓜虾皮汤",
+    "kind": "dish",
+    "canonicalName": "冬瓜虾皮汤",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_冬阴功汤",
+    "kind": "dish",
+    "canonicalName": "冬阴功汤",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_豆瓣鱼",
+    "kind": "dish",
+    "canonicalName": "豆瓣鱼",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_豆腐炖鱼",
+    "kind": "dish",
+    "canonicalName": "豆腐炖鱼",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_豆腐酿肉",
+    "kind": "dish",
+    "canonicalName": "豆腐酿肉",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_豆腐烧蘑菇",
+    "kind": "dish",
+    "canonicalName": "豆腐烧蘑菇",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_豆花牛肉",
+    "kind": "dish",
+    "canonicalName": "豆花牛肉",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_豆角焖肉",
+    "kind": "dish",
+    "canonicalName": "豆角焖肉",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_剁椒鱼头",
+    "kind": "dish",
+    "canonicalName": "剁椒鱼头",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_剁椒蒸排骨",
+    "kind": "dish",
+    "canonicalName": "剁椒蒸排骨",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_法式吐司",
+    "kind": "dish",
+    "canonicalName": "法式吐司",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_番茄蛋汤",
+    "kind": "dish",
+    "canonicalName": "番茄蛋汤",
+    "aliases": [
+      "西红柿蛋汤"
+    ],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_番茄炖牛腩",
+    "kind": "dish",
+    "canonicalName": "番茄炖牛腩",
+    "aliases": [
+      "西红柿炖牛腩"
+    ],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_番茄肥牛",
+    "kind": "dish",
+    "canonicalName": "番茄肥牛",
+    "aliases": [
+      "西红柿肥牛"
+    ],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_番茄肉酱意面",
+    "kind": "dish",
+    "canonicalName": "番茄肉酱意面",
+    "aliases": [
+      "西红柿肉酱意面"
+    ],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_番茄烧豆腐",
+    "kind": "dish",
+    "canonicalName": "番茄烧豆腐",
+    "aliases": [
+      "西红柿烧豆腐"
+    ],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_番茄鱼片",
+    "kind": "dish",
+    "canonicalName": "番茄鱼片",
+    "aliases": [
+      "西红柿鱼片"
+    ],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_饭团",
+    "kind": "dish",
+    "canonicalName": "饭团",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_粉丝蒸娃娃菜",
+    "kind": "dish",
+    "canonicalName": "粉丝蒸娃娃菜",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_粉蒸排骨",
+    "kind": "dish",
+    "canonicalName": "粉蒸排骨",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_蜂蜜蒸山药",
+    "kind": "dish",
+    "canonicalName": "蜂蜜蒸山药",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_腐竹烧肉",
+    "kind": "dish",
+    "canonicalName": "腐竹烧肉",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_腐竹烧香菇",
+    "kind": "dish",
+    "canonicalName": "腐竹烧香菇",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_干煸豆角",
+    "kind": "dish",
+    "canonicalName": "干煸豆角",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_干锅花菜",
+    "kind": "dish",
+    "canonicalName": "干锅花菜",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_干锅土豆片",
+    "kind": "dish",
+    "canonicalName": "干锅土豆片",
+    "aliases": [
+      "干锅马铃薯片"
+    ],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_干锅虾",
+    "kind": "dish",
+    "canonicalName": "干锅虾",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_干烧鲫鱼",
+    "kind": "dish",
+    "canonicalName": "干烧鲫鱼",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_宫保鸡丁",
+    "kind": "dish",
+    "canonicalName": "宫保鸡丁",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_关东煮",
+    "kind": "dish",
+    "canonicalName": "关东煮",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_广式烧鸭",
+    "kind": "dish",
+    "canonicalName": "广式烧鸭",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_桂花糕",
+    "kind": "dish",
+    "canonicalName": "桂花糕",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_锅贴",
+    "kind": "dish",
+    "canonicalName": "锅贴",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_蛤蜊豆腐汤",
+    "kind": "dish",
+    "canonicalName": "蛤蜊豆腐汤",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_蛤蜊蒸蛋",
+    "kind": "dish",
+    "canonicalName": "蛤蜊蒸蛋",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_海带豆腐汤",
+    "kind": "dish",
+    "canonicalName": "海带豆腐汤",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_海带炖排骨",
+    "kind": "dish",
+    "canonicalName": "海带炖排骨",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_海鲜豆腐锅",
+    "kind": "dish",
+    "canonicalName": "海鲜豆腐锅",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_海鲜意面",
+    "kind": "dish",
+    "canonicalName": "海鲜意面",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_海鲜粥",
+    "kind": "dish",
+    "canonicalName": "海鲜粥",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_韩式辣炒年糕",
+    "kind": "dish",
+    "canonicalName": "韩式辣炒年糕",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_韩式泡菜锅",
+    "kind": "dish",
+    "canonicalName": "韩式泡菜锅",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_蚝油豆腐",
+    "kind": "dish",
+    "canonicalName": "蚝油豆腐",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_蚝油生菜",
+    "kind": "dish",
+    "canonicalName": "蚝油生菜",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_荷包蛋",
+    "kind": "dish",
+    "canonicalName": "荷包蛋",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_荷叶蒸鸡",
+    "kind": "dish",
+    "canonicalName": "荷叶蒸鸡",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_黑椒鸡丁",
+    "kind": "dish",
+    "canonicalName": "黑椒鸡丁",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_黑椒牛柳",
+    "kind": "dish",
+    "canonicalName": "黑椒牛柳",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_黑椒牛柳意面",
+    "kind": "dish",
+    "canonicalName": "黑椒牛柳意面",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_红豆糕",
+    "kind": "dish",
+    "canonicalName": "红豆糕",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_红豆沙",
+    "kind": "dish",
+    "canonicalName": "红豆沙",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_红豆汤",
+    "kind": "dish",
+    "canonicalName": "红豆汤",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_红焖羊肉",
+    "kind": "dish",
+    "canonicalName": "红焖羊肉",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_红烧带鱼",
+    "kind": "dish",
+    "canonicalName": "红烧带鱼",
+    "aliases": [
+      "红焖带鱼"
+    ],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_红烧豆腐",
+    "kind": "dish",
+    "canonicalName": "红烧豆腐",
+    "aliases": [
+      "红焖豆腐"
+    ],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_红烧鸡翅",
+    "kind": "dish",
+    "canonicalName": "红烧鸡翅",
+    "aliases": [
+      "红焖鸡翅"
+    ],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_红烧茄子",
+    "kind": "dish",
+    "canonicalName": "红烧茄子",
+    "aliases": [
+      "红焖茄子"
+    ],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_红烧牛肉",
+    "kind": "dish",
+    "canonicalName": "红烧牛肉",
+    "aliases": [
+      "红焖牛肉"
+    ],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_红烧排骨",
+    "kind": "dish",
+    "canonicalName": "红烧排骨",
+    "aliases": [
+      "红焖排骨"
+    ],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_红烧肉",
+    "kind": "dish",
+    "canonicalName": "红烧肉",
+    "aliases": [
+      "红焖肉"
+    ],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_红烧鸭块",
+    "kind": "dish",
+    "canonicalName": "红烧鸭块",
+    "aliases": [
+      "红焖鸭块"
+    ],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_红烧鱼",
+    "kind": "dish",
+    "canonicalName": "红烧鱼",
+    "aliases": [
+      "红焖鱼"
+    ],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_红糖糍粑",
+    "kind": "dish",
+    "canonicalName": "红糖糍粑",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_红糖发糕",
+    "kind": "dish",
+    "canonicalName": "红糖发糕",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_红枣银耳羹",
+    "kind": "dish",
+    "canonicalName": "红枣银耳羹",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_红枣蒸南瓜",
+    "kind": "dish",
+    "canonicalName": "红枣蒸南瓜",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_胡辣汤",
+    "kind": "dish",
+    "canonicalName": "胡辣汤",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_花生糊",
+    "kind": "dish",
+    "canonicalName": "花生糊",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_黄瓜炒鸡蛋",
+    "kind": "dish",
+    "canonicalName": "黄瓜炒鸡蛋",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_黄瓜炒虾仁",
+    "kind": "dish",
+    "canonicalName": "黄瓜炒虾仁",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_黄焖鸡",
+    "kind": "dish",
+    "canonicalName": "黄焖鸡",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_回锅肉",
+    "kind": "dish",
+    "canonicalName": "回锅肉",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_火腿芝士卷",
+    "kind": "dish",
+    "canonicalName": "火腿芝士卷",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_鸡蛋灌饼",
+    "kind": "dish",
+    "canonicalName": "鸡蛋灌饼",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_鸡肉炖蘑菇",
+    "kind": "dish",
+    "canonicalName": "鸡肉炖蘑菇",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_鲫鱼豆腐汤",
+    "kind": "dish",
+    "canonicalName": "鲫鱼豆腐汤",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_茄汁大虾",
+    "kind": "dish",
+    "canonicalName": "茄汁大虾",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_茄子烧豆角",
+    "kind": "dish",
+    "canonicalName": "茄子烧豆角",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_家常豆腐",
+    "kind": "dish",
+    "canonicalName": "家常豆腐",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_家常蒸蛋",
+    "kind": "dish",
+    "canonicalName": "家常蒸蛋",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_尖椒炒肉",
+    "kind": "dish",
+    "canonicalName": "尖椒炒肉",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_尖椒干豆腐",
+    "kind": "dish",
+    "canonicalName": "尖椒干豆腐",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_煎饺",
+    "kind": "dish",
+    "canonicalName": "煎饺",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_姜葱炒蟹",
+    "kind": "dish",
+    "canonicalName": "姜葱炒蟹",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_姜母鸭",
+    "kind": "dish",
+    "canonicalName": "姜母鸭",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_姜撞奶",
+    "kind": "dish",
+    "canonicalName": "姜撞奶",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_酱烧豆腐",
+    "kind": "dish",
+    "canonicalName": "酱烧豆腐",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_茭白炒肉",
+    "kind": "dish",
+    "canonicalName": "茭白炒肉",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_椒盐排骨",
+    "kind": "dish",
+    "canonicalName": "椒盐排骨",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_椒盐虾",
+    "kind": "dish",
+    "canonicalName": "椒盐虾",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_金针菇肥牛",
+    "kind": "dish",
+    "canonicalName": "金针菇肥牛",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_京酱肉丝",
+    "kind": "dish",
+    "canonicalName": "京酱肉丝",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_韭菜炒鸡蛋",
+    "kind": "dish",
+    "canonicalName": "韭菜炒鸡蛋",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_韭菜炒鱿鱼",
+    "kind": "dish",
+    "canonicalName": "韭菜炒鱿鱼",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_韭菜盒子",
+    "kind": "dish",
+    "canonicalName": "韭菜盒子",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_酒酿蛋",
+    "kind": "dish",
+    "canonicalName": "酒酿蛋",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_酒酿圆子",
+    "kind": "dish",
+    "canonicalName": "酒酿圆子",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_菌菇奶油烩饭",
+    "kind": "dish",
+    "canonicalName": "菌菇奶油烩饭",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_菌菇汤",
+    "kind": "dish",
+    "canonicalName": "菌菇汤",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_咖喱鸡",
+    "kind": "dish",
+    "canonicalName": "咖喱鸡",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_咖喱牛肉",
+    "kind": "dish",
+    "canonicalName": "咖喱牛肉",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_烤茄子",
+    "kind": "dish",
+    "canonicalName": "烤茄子",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_烤鲈鱼",
+    "kind": "dish",
+    "canonicalName": "烤鲈鱼",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_烤南瓜",
+    "kind": "dish",
+    "canonicalName": "烤南瓜",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_烤生蚝",
+    "kind": "dish",
+    "canonicalName": "烤生蚝",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_烤五花肉",
+    "kind": "dish",
+    "canonicalName": "烤五花肉",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_烤玉米",
+    "kind": "dish",
+    "canonicalName": "烤玉米",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_可乐鸡翅",
+    "kind": "dish",
+    "canonicalName": "可乐鸡翅",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_可乐排骨",
+    "kind": "dish",
+    "canonicalName": "可乐排骨",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_口水鸡",
+    "kind": "dish",
+    "canonicalName": "口水鸡",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_苦瓜炒鸡蛋",
+    "kind": "dish",
+    "canonicalName": "苦瓜炒鸡蛋",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_腊味煲仔饭",
+    "kind": "dish",
+    "canonicalName": "腊味煲仔饭",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_辣白菜炒饭",
+    "kind": "dish",
+    "canonicalName": "辣白菜炒饭",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_辣炒花蛤",
+    "kind": "dish",
+    "canonicalName": "辣炒花蛤",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_辣炒鱿鱼",
+    "kind": "dish",
+    "canonicalName": "辣炒鱿鱼",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_辣子鸡丁",
+    "kind": "dish",
+    "canonicalName": "辣子鸡丁",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_兰州牛肉面",
+    "kind": "dish",
+    "canonicalName": "兰州牛肉面",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_莲藕排骨汤",
+    "kind": "dish",
+    "canonicalName": "莲藕排骨汤",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_凉拌豆腐皮",
+    "kind": "dish",
+    "canonicalName": "凉拌豆腐皮",
+    "aliases": [
+      "凉调豆腐皮"
+    ],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_凉拌黄瓜",
+    "kind": "dish",
+    "canonicalName": "凉拌黄瓜",
+    "aliases": [
+      "凉调黄瓜"
+    ],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_凉皮",
+    "kind": "dish",
+    "canonicalName": "凉皮",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_卤鸡蛋",
+    "kind": "dish",
+    "canonicalName": "卤鸡蛋",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_驴打滚",
+    "kind": "dish",
+    "canonicalName": "驴打滚",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_绿豆糕",
+    "kind": "dish",
+    "canonicalName": "绿豆糕",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_绿豆沙",
+    "kind": "dish",
+    "canonicalName": "绿豆沙",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_绿豆汤",
+    "kind": "dish",
+    "canonicalName": "绿豆汤",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_罗宋汤",
+    "kind": "dish",
+    "canonicalName": "罗宋汤",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_萝卜炖牛腩",
+    "kind": "dish",
+    "canonicalName": "萝卜炖牛腩",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_萝卜炖排骨",
+    "kind": "dish",
+    "canonicalName": "萝卜炖排骨",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_萝卜烧肉",
+    "kind": "dish",
+    "canonicalName": "萝卜烧肉",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_麻辣香锅",
+    "kind": "dish",
+    "canonicalName": "麻辣香锅",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_麻婆豆腐",
+    "kind": "dish",
+    "canonicalName": "麻婆豆腐",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_麻薯",
+    "kind": "dish",
+    "canonicalName": "麻薯",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_马蹄糕",
+    "kind": "dish",
+    "canonicalName": "马蹄糕",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_芒果西米露",
+    "kind": "dish",
+    "canonicalName": "芒果西米露",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_梅菜扣肉",
+    "kind": "dish",
+    "canonicalName": "梅菜扣肉",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_迷迭香烤土豆",
+    "kind": "dish",
+    "canonicalName": "迷迭香烤土豆",
+    "aliases": [
+      "迷迭香烤马铃薯"
+    ],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_米糕",
+    "kind": "dish",
+    "canonicalName": "米糕",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_蜜汁叉烧",
+    "kind": "dish",
+    "canonicalName": "蜜汁叉烧",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_蜜汁鸡翅",
+    "kind": "dish",
+    "canonicalName": "蜜汁鸡翅",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_木耳炒鸡蛋",
+    "kind": "dish",
+    "canonicalName": "木耳炒鸡蛋",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  },
+  {
+    "dictionaryId": "dish_木耳炒肉",
+    "kind": "dish",
+    "canonicalName": "木耳炒肉",
+    "aliases": [],
+    "status": "ACTIVE",
+    "seedVersion": "p0-20260718"
+  }
+]

@@ -1,0 +1,154 @@
+<!-- 食材详情页 -->
+<navigation-bar title="食材详情" color="#3D2E1F" background="#F7F2E9"></navigation-bar>
+
+<view class="page" wx:if="{{ingredient}}">
+  <scroll-view class="content" scroll-y>
+    <!-- 食材头部 -->
+    <view class="header-card">
+      <view class="header-icon" aria-role="img" aria-label="{{ingredient.name}}插画">
+        <image wx:if="{{foodVisual.type === 'image'}}" class="header-food-image" src="{{foodVisual.value}}" mode="aspectFit"></image>
+        <view wx:else class="food-sketch food-sketch--{{ingredient.category === '冷藏' ? 'leaf' : ingredient.category === '冷冻' ? 'meat' : ingredient.category === '调料' ? 'bottle' : 'root'}}">
+          <view class="food-detail"></view>
+        </view>
+      </view>
+      <text class="header-name">{{ingredient.canonicalName || ingredient.name}}</text>
+      <text wx:if="{{ingredient.brand || ingredient.variant}}" class="header-batch">{{ingredient.brand}}{{ingredient.brand && ingredient.variant ? ' · ' : ''}}{{ingredient.variant}}</text>
+      <view class="tag tag-doodle tag-{{ingredient.status}} transition-status">
+        <text wx:if="{{ingredient.status === 'fresh'}}">新鲜</text>
+        <text wx:elif="{{ingredient.status === 'expiring'}}">临期 · 剩{{remainingDays}}天</text>
+        <text wx:else>已过期</text>
+      </view>
+    </view>
+
+    <!-- 信息卡片 - 查看模式 -->
+    <view class="info-card" wx:if="{{!isEditing}}">
+      <view class="batch-overview" wx:if="{{isMasterView}}"><text>共 {{batchList.length}} 个库存批次</text><text>默认展示最早到期的一批</text></view>
+      <view class="tracking-note" wx:if="{{ingredient.trackingMode === 'estimated'}}"><text>估算型库存</text><text>余量以状态记录；同款重复使用后会学习餐份习惯</text></view>
+      <view class="tracking-note" wx:if="{{ingredient.trackingMode === 'presence'}}"><text>常备调料</text><text>做菜会记录用量，不强制扣除难以量化的余量</text></view>
+      <view class="info-grid">
+        <view class="info-item">
+          <text class="info-label">分类</text>
+          <text class="info-value">{{ingredient.category}}</text>
+        </view>
+        <view class="info-item" wx:if="{{ingredient.brand}}">
+          <text class="info-label">品牌</text>
+          <text class="info-value">{{ingredient.brand}}</text>
+        </view>
+        <view class="info-item" wx:if="{{ingredient.variant}}">
+          <text class="info-label">规格/品种</text>
+          <text class="info-value">{{ingredient.variant}}</text>
+        </view>
+        <view class="info-item" wx:if="{{ingredient.packageSize}}"><text class="info-label">包装规格</text><text class="info-value">{{ingredient.packageSize}}</text></view>
+        <view class="info-item">
+          <text class="info-label">数量</text>
+          <text class="info-value">{{ingredient.quantity}}{{ingredient.unit}}</text>
+        </view>
+        <view class="info-item">
+          <text class="info-label">采购日期</text>
+          <text class="info-value">{{ingredient.purchaseDate}}</text>
+        </view>
+        <view class="info-item">
+          <text class="info-label">保质期至</text>
+          <text class="info-value {{ingredient.status === 'expired' ? 'danger' : ''}}">{{ingredient.expiryDate}}</text>
+        </view>
+        <view class="info-item full" wx:if="{{ingredient.storageLocation}}">
+          <text class="info-label">存放位置</text>
+          <text class="info-value">{{ingredient.storageLocation}}</text>
+        </view>
+        <view class="info-item full" wx:if="{{ingredient.notes}}">
+          <text class="info-label">备注</text>
+          <text class="info-value">{{ingredient.notes}}</text>
+        </view>
+      </view>
+
+      <view class="action-btns">
+        <view wx:if="{{ingredient.trackingMode === 'exact'}}" class="action-btn consume" bindtap="showConsumeSheet" hover-class="action-btn--pressed"><text>消耗 / 减量</text></view>
+        <view wx:if="{{ingredient.trackingMode === 'estimated'}}" class="action-btn consume" bindtap="showUsageSheet" hover-class="action-btn--pressed"><text>记录一次使用</text></view>
+        <view class="action-btn primary" bindtap="goRecipes">
+          <text>用此食材做菜</text>
+        </view>
+        <view class="action-btn secondary" bindtap="startEdit">
+          <text>编辑信息</text>
+        </view>
+        <view class="action-btn danger" bindtap="showDeleteConfirm">
+          <text>删除食材</text>
+        </view>
+      </view>
+      <view class="pantry-level-card" wx:if="{{ingredient.trackingMode === 'estimated' || ingredient.trackingMode === 'level' || ingredient.trackingMode === 'presence'}}">
+        <text class="pantry-level-title">当前余量：{{ingredient.pantryLevel === 'full' ? '满' : ingredient.pantryLevel === 'sufficient' ? '充足' : ingredient.pantryLevel === 'half' ? '过半' : ingredient.pantryLevel === 'low' ? '将尽' : ingredient.pantryLevel === 'empty' ? '空' : '未记录'}}</text>
+        <view class="pantry-level-options"><text wx:for="{{pantryLevels}}" wx:key="key" class="pantry-level-option {{ingredient.pantryLevel === item.key ? 'pantry-level-option--active' : ''}}" bindtap="selectPantryLevel" data-level="{{item.key}}">{{item.label}}</text></view>
+      </view>
+      <view class="profile-card" wx:if="{{ingredient.trackingMode === 'estimated'}}"><text class="profile-title">同款使用习惯</text><text class="profile-desc" wx:if="{{pantryProfile}}">已记录 {{pantryProfile.useCount}} 次 · {{pantryProfile.confidence === 'low' ? '仍在了解你的用量' : pantryProfile.confidence === 'medium' ? '已有初步规律' : '习惯已较稳定'}}</text><text class="profile-desc" wx:else>先随手记两次用量，再决定是否开启餐份估算</text><view wx:if="{{pantryProfile && pantryProfile.useCount >= 2}}" class="profile-action" bindtap="openServingSetup">{{pantryProfile.typicalServingsPerPackage ? '这包约可做 ' + pantryProfile.typicalServingsPerPackage + ' 餐 · 修改' : '设置这包通常够做几餐'}}</view></view>
+    </view>
+
+    <view class="batch-card" wx:if="{{isMasterView && batchList.length > 1}}">
+      <text class="batch-card-title">全部库存批次</text>
+      <view wx:for="{{batchList}}" wx:key="id" class="batch-line"><view><text class="batch-line-name">{{item.brand || '未记录品牌'}}{{item.variant ? ' · ' + item.variant : ''}}</text><text class="batch-line-meta">{{item.purchaseDate}} 购入 · {{item.storageLocation || '未记录位置'}}</text></view><view><text class="batch-line-qty">{{item.quantity}}{{item.unit}}</text><text class="batch-line-expiry">{{item.expiryDate}} 到期</text></view></view>
+    </view>
+
+    <!-- 信息卡片 - 编辑模式 -->
+    <view class="info-card" wx:if="{{isEditing}}">
+      <view class="form-group">
+        <text class="form-label">食材种类</text>
+        <input class="form-input" value="{{editForm.name}}" data-field="name" bindinput="onFieldChange" />
+      </view>
+      <view class="form-row">
+        <view class="form-group half"><text class="form-label">品牌</text><input class="form-input" value="{{editForm.brand}}" data-field="brand" bindinput="onFieldChange" /></view>
+        <view class="form-group half"><text class="form-label">规格/品种</text><input class="form-input" value="{{editForm.variant}}" data-field="variant" bindinput="onFieldChange" /></view>
+      </view>
+      <view class="form-group"><text class="form-label">包装规格</text><input class="form-input" value="{{editForm.packageSize}}" data-field="packageSize" bindinput="onFieldChange" /></view>
+      <view class="form-group">
+        <text class="form-label">分类</text>
+        <input class="form-input" value="{{editForm.category}}" data-field="category" bindinput="onFieldChange" />
+      </view>
+      <view class="form-row">
+        <view class="form-group half">
+          <text class="form-label">数量</text>
+          <input class="form-input" type="number" value="{{editForm.quantity}}" data-field="quantity" bindinput="onFieldChange" />
+        </view>
+        <view class="form-group half">
+          <text class="form-label">单位</text>
+          <input class="form-input" value="{{editForm.unit}}" data-field="unit" bindinput="onFieldChange" />
+        </view>
+      </view>
+      <view class="form-group">
+        <text class="form-label">存放位置</text>
+        <input class="form-input" value="{{editForm.storageLocation}}" data-field="storageLocation" bindinput="onFieldChange" />
+      </view>
+      <view class="form-group">
+        <text class="form-label">备注</text>
+        <input class="form-input" value="{{editForm.notes}}" data-field="notes" bindinput="onFieldChange" />
+      </view>
+
+      <view class="edit-btns">
+        <view class="edit-btn cancel" bindtap="cancelEdit">取消</view>
+        <view class="edit-btn save" bindtap="saveEdit">保存修改</view>
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- 删除确认弹窗 -->
+  <view class="modal-overlay" wx:if="{{showDeleteConfirm}}">
+    <view class="modal">
+      <text class="modal-title">确认删除</text>
+      <text class="modal-desc">确定要删除"{{ingredient.name}}"吗？删除后无法恢复。</text>
+      <view class="modal-btns">
+        <text class="modal-btn cancel" bindtap="hideDeleteConfirm">取消</text>
+        <text class="modal-btn confirm" bindtap="confirmDelete">删除</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="consume-mask" wx:if="{{showConsumeSheet}}" bindtap="hideConsumeSheet">
+    <view class="consume-sheet" catchtap="noop">
+      <view class="sheet-handle"></view>
+      <text class="consume-title">记录 {{ingredient.name}} 的减少</text>
+      <text class="consume-hint">默认优先扣除最早到期的库存批次</text>
+      <view class="consume-stepper"><view bindtap="changeConsumeQuantity" data-delta="-1" class="consume-step">−</view><text class="consume-amount">{{consumeQuantity}} {{ingredient.unit}}</text><view bindtap="changeConsumeQuantity" data-delta="1" class="consume-step">＋</view></view>
+      <view class="consume-reasons"><text class="consume-reason {{consumeReason === 'quick_use' ? 'consume-reason--active' : ''}}" bindtap="selectConsumeReason" data-reason="quick_use">用掉了</text><text class="consume-reason {{consumeReason === 'expired' ? 'consume-reason--active' : ''}}" bindtap="selectConsumeReason" data-reason="expired">过期</text><text class="consume-reason {{consumeReason === 'discard' ? 'consume-reason--active' : ''}}" bindtap="selectConsumeReason" data-reason="discard">丢弃</text></view>
+      <view class="consume-confirm" bindtap="confirmConsume" hover-class="consume-confirm--pressed">确认减少</view>
+    </view>
+  </view>
+  <view class="consume-mask" wx:if="{{showUsageSheet}}" bindtap="hideUsageSheet"><view class="consume-sheet" catchtap="noop"><view class="sheet-handle"></view><text class="consume-title">这次大约用了多少？</text><text class="consume-hint">只记餐份，不需要称重</text><view class="usage-options"><text bindtap="recordUsage" data-units="0.5">少量</text><text bindtap="recordUsage" data-units="1">1 餐</text><text bindtap="recordUsage" data-units="2">2 餐</text><text bindtap="recordUsage" data-units="3">较多</text></view></view></view>
+  <view class="consume-mask" wx:if="{{showServingSetup}}"><view class="consume-sheet"><view class="sheet-handle"></view><text class="consume-title">这款包装通常够做几餐？</text><text class="consume-hint">填写大概值即可，之后仍可随时改余量状态</text><input class="serving-input" type="number" placeholder="例如 20" value="{{typicalServingsInput}}" bindinput="onTypicalServingsInput"/><view class="consume-confirm" bindtap="saveServingSetup">记住这个习惯</view></view></view>
+</view>

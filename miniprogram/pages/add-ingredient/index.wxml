@@ -1,0 +1,228 @@
+<!-- overall-design.png：纸张手账风添加食材页 -->
+<navigation-bar title="添加食材" color="#3D2E1F" background="#F7F2E9"></navigation-bar>
+
+<view class="page paper-bg">
+  <view class="method-tabs" aria-label="录入方式">
+    <view class="method-item active" bindtap="switchTab" data-tab="manual" aria-role="button">
+      <view class="method-mark mark-pencil" aria-hidden="true"></view>
+      <text>手动录入</text>
+    </view>
+    <view class="method-item" bindtap="switchTab" data-tab="photo" aria-role="button">
+      <view class="method-mark mark-camera" aria-hidden="true"></view>
+      <text>拍照识别</text>
+    </view>
+    <view class="method-item" bindtap="switchTab" data-tab="scan" aria-role="button">
+      <view class="method-mark mark-receipt" aria-hidden="true"></view>
+      <text>小票识别</text>
+    </view>
+  </view>
+
+  <scroll-view class="content" scroll-y enhanced="{{true}}" show-scrollbar="{{false}}">
+    <view class="content-inner">
+      <view class="intro-note">
+        <view class="intro-copy">
+          <text class="intro-kicker">TODAY'S INGREDIENT</text>
+          <text class="intro-title">记下今天带回家的食材</text>
+          <text class="intro-desc">存放位置和保质期会帮你一起记住</text>
+        </view>
+        <view class="food-sketch" aria-hidden="true">
+          <view class="tomato-body"></view>
+          <view class="tomato-leaf"></view>
+          <view class="tomato-line line-one"></view>
+          <view class="tomato-line line-two"></view>
+        </view>
+      </view>
+
+      <view class="quick-section">
+        <view class="section-heading">
+          <text class="section-index">01</text>
+          <text class="section-title">常用食材</text>
+          <view class="heading-line"></view>
+        </view>
+        <view class="quick-tags">
+          <view
+            wx:for="{{commonIngredients}}"
+            wx:key="*this"
+            class="quick-tag {{form.name === item ? 'selected' : ''}}"
+            bindtap="selectIngredient"
+            data-name="{{item}}"
+            hover-class="tag-pressed"
+            aria-role="button"
+          >{{item}}</view>
+        </view>
+      </view>
+
+      <view class="form-sheet">
+        <view class="binding-holes" aria-hidden="true">
+          <view></view><view></view><view></view><view></view><view></view><view></view>
+          <view></view><view></view><view></view><view></view><view></view><view></view>
+        </view>
+
+        <view class="section-heading form-heading">
+          <text class="section-index">02</text>
+          <text class="section-title">食材档案</text>
+          <view class="heading-line"></view>
+        </view>
+
+        <view class="form-group">
+          <text class="form-label">食材种类 <text class="required">*</text></text>
+          <input
+            class="form-input"
+            placeholder="例如：鸡蛋、牛奶、番茄"
+            placeholder-class="input-placeholder"
+            value="{{form.name}}"
+            bindinput="onNameInput"
+            bindblur="onNameBlur"
+            confirm-type="next"
+          ></input>
+          <text wx:if="{{trackingHint}}" class="tracking-hint">{{trackingHint}}</text>
+        </view>
+
+        <view class="form-row">
+          <view class="form-group half">
+            <text class="form-label">品牌（可选）</text>
+            <input class="form-input" placeholder="例如：盒马" placeholder-class="input-placeholder" value="{{form.brand}}" bindinput="onBrandInput"></input>
+          </view>
+          <view class="form-group half">
+            <text class="form-label">规格/品种（可选）</text>
+            <input class="form-input" placeholder="例如：草鸡蛋、全脂" placeholder-class="input-placeholder" value="{{form.variant}}" bindinput="onVariantInput"></input>
+          </view>
+        </view>
+        <view class="form-group" wx:if="{{isEstimated}}">
+          <text class="form-label">包装规格（推荐填写）</text>
+          <input class="form-input" placeholder="例如：5kg、900ml、1L" placeholder-class="input-placeholder" value="{{form.packageSize}}" bindinput="onPackageSizeInput"></input>
+          <text class="tracking-hint">品牌、品种和包装规格相同时，会沿用你的餐份习惯。</text>
+        </view>
+
+        <view class="form-group">
+          <text class="form-label">存放分类</text>
+          <view class="category-options">
+            <view
+              wx:for="{{categories}}"
+              wx:key="name"
+              class="category-option tone-{{item.tone}} {{form.category === item.name ? 'selected' : ''}}"
+              bindtap="selectCategory"
+              data-category="{{item.name}}"
+              hover-class="category-pressed"
+              aria-role="button"
+              aria-label="{{item.name}}，{{item.description}}"
+            >
+              <view class="category-mark">{{item.mark}}</view>
+              <text class="category-name">{{item.name}}</text>
+              <text class="category-desc">{{item.description}}</text>
+            </view>
+            <view
+              class="category-option tone-paper {{showCustomCategory ? 'selected' : ''}}"
+              bindtap="openCustomCategory"
+              hover-class="category-pressed"
+              aria-role="button"
+            >
+              <view class="category-mark custom-mark">＋</view>
+              <text class="category-name">自定义</text>
+              <text class="category-desc">新建存放分区</text>
+            </view>
+          </view>
+          <view wx:if="{{showCustomCategory}}" class="custom-category-input">
+            <input
+              class="form-input"
+              placeholder="输入自定义分类名称"
+              placeholder-class="input-placeholder"
+              value="{{customCategory}}"
+              bindinput="onCustomCategoryInput"
+              bindblur="confirmCustomCategory"
+            ></input>
+          </view>
+        </view>
+
+        <view class="form-row">
+          <view class="form-group half">
+            <text class="form-label">采购日期</text>
+            <picker
+              mode="date"
+              value="{{form.purchaseDate || today}}"
+              start="2020-01-01"
+              end="{{today}}"
+              bindchange="onPurchaseDateChange"
+            >
+              <view class="form-picker">
+                <text>{{form.purchaseDate || today}}</text>
+                <view class="calendar-mark" aria-hidden="true"><view></view><view></view></view>
+              </view>
+            </picker>
+          </view>
+          <view class="form-group half">
+            <text class="form-label">保质期</text>
+            <view class="expiry-field">
+              <input
+                class="number-input"
+                type="number"
+                value="{{expiryDays}}"
+                bindinput="onExpiryDaysInput"
+              ></input>
+              <text class="field-unit">天</text>
+            </view>
+          </view>
+        </view>
+        <view class="expiry-note">预计保质至 {{expiryEndDate}}</view>
+
+        <view class="form-row quantity-row">
+          <view class="form-group quantity-group">
+            <text class="form-label">数量</text>
+            <input class="form-input" type="number" value="{{form.quantity}}" bindinput="onQuantityInput"></input>
+          </view>
+          <view class="form-group unit-group">
+            <text class="form-label">单位</text>
+            <view class="unit-options">
+              <view
+                wx:for="{{unitOptions}}"
+                wx:key="*this"
+                wx:if="{{index < 4}}"
+                class="unit-tag {{form.unit === item ? 'selected' : ''}}"
+                bindtap="selectUnit"
+                data-unit="{{item}}"
+                aria-role="button"
+              >{{item}}</view>
+              <picker
+                class="unit-more"
+                mode="selector"
+                range="{{unitOptions}}"
+                value="{{selectedUnitIndex}}"
+                bindchange="onUnitChange"
+              >
+                <view class="unit-tag more">更多 <text class="down-mark">⌄</text></view>
+              </picker>
+            </view>
+          </view>
+        </view>
+
+        <view class="form-group">
+          <text class="form-label">存放位置</text>
+          <input
+            class="form-input"
+            placeholder="例如：冰箱上层、厨房储物柜"
+            placeholder-class="input-placeholder"
+            value="{{form.storageLocation}}"
+            bindinput="onStorageInput"
+          ></input>
+        </view>
+
+        <view class="form-group last-group">
+          <text class="form-label">备注</text>
+          <textarea
+            class="form-textarea"
+            placeholder="写点挑选或保存小贴士（可选）"
+            placeholder-class="input-placeholder"
+            value="{{form.notes}}"
+            maxlength="100"
+            bindinput="onNotesInput"
+          ></textarea>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+
+  <view class="submit-bar">
+    <view class="submit-secondary" bindtap="switchTab" data-tab="photo" hover-class="submit-pressed">拍照识别</view>
+    <view class="submit-primary" bindtap="submitForm" hover-class="submit-pressed">保存食材</view>
+  </view>
+</view>

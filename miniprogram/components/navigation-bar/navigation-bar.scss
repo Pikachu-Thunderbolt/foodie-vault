@@ -1,0 +1,183 @@
+/* Navigation Bar：参考图中的撕边便签纸条 */
+
+.navigation {
+  --nav-height: 44px;
+  flex: none;
+  position: relative;
+  z-index: 100;
+  overflow: visible;
+}
+
+.navigation__inner--android { --nav-height: 48px; }
+
+.navigation__inner {
+  width: 100%;
+  height: calc(var(--nav-height) + env(safe-area-inset-top));
+  padding-top: env(safe-area-inset-top);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-sizing: border-box;
+  color: var(--nav-color, #392b21);
+  background-color: #fbf3e4;
+  background-image:
+    repeating-linear-gradient(6deg, transparent 0 8px, rgba(102, 68, 39, 0.018) 8px 10px),
+    linear-gradient(90deg, rgba(241, 219, 174, 0.24), transparent 28%, rgba(245, 224, 183, 0.18));
+}
+
+.navigation__inner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(78deg, transparent 0 9px, rgba(93, 59, 33, 0.018) 9px 11px);
+}
+
+.navigation::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -3px;
+  height: 5px;
+  z-index: 2;
+  pointer-events: none;
+  background:
+    linear-gradient(176deg, transparent 0 42%, rgba(94, 60, 35, 0.23) 43% 54%, transparent 55%) 0 0 / 19px 5px repeat-x,
+    linear-gradient(184deg, transparent 0 45%, #fbf3e4 46% 100%) 0 0 / 23px 5px repeat-x;
+  opacity: 0.9;
+}
+
+.navigation__left {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  min-width: 48px;
+  height: var(--nav-height);
+  padding-left: 8px;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  z-index: 2;
+}
+
+.navigation__right {
+  position: absolute;
+  right: 88px;
+  bottom: 0;
+  height: var(--nav-height);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  z-index: 2;
+}
+
+.navigation__center {
+  min-width: 0;
+  max-width: 52%;
+  height: var(--nav-height);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+
+.navigation__title {
+  color: inherit;
+  font-family: 'STKaiti', 'KaiTi', 'PingFang SC', sans-serif;
+  font-size: 18px;
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-shadow: 0.5px 0.5px 0 rgba(91, 57, 32, 0.08);
+}
+
+.navigation__title::after {
+  content: '';
+  position: absolute;
+  left: 10%;
+  right: 8%;
+  bottom: 6px;
+  height: 1.5px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.08;
+  transform: rotate(-1deg);
+}
+
+.navigation__touch {
+  min-width: 68px;
+  height: 44px;
+  padding: 0 9px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  color: #6d513c;
+  border: 1px solid rgba(109, 81, 60, 0.17);
+  border-radius: 10px 13px 9px 12px;
+  background: rgba(255, 249, 235, 0.68);
+  box-shadow: 1px 2px 0 rgba(61, 46, 31, 0.06);
+  transition: opacity 120ms ease-out, transform 120ms ease-out;
+}
+
+.navigation__touch--pressed { opacity: 0.72; transform: translateY(1px) scale(0.97); }
+
+.navigation__back {
+  width: 10px;
+  height: 10px;
+  border-left: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg);
+  border-radius: 1px 0 1px 0;
+}
+
+.navigation__back-label { font-family: 'STKaiti', 'KaiTi', 'PingFang SC', sans-serif; font-size: 14px; font-weight: 700; }
+
+.navigation__home {
+  width: 19px;
+  height: 16px;
+  margin-top: 5px;
+  border: 2px solid currentColor;
+  border-top: 0;
+  border-radius: 1px 1px 3px 3px;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.navigation__home::before {
+  content: '';
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  left: 0;
+  top: -8px;
+  border-left: 2px solid currentColor;
+  border-top: 2px solid currentColor;
+  transform: rotate(45deg);
+  border-radius: 2px;
+}
+
+.navigation__home view { position: absolute; left: 6px; bottom: 0; width: 4px; height: 8px; border: 1.5px solid currentColor; border-bottom: 0; }
+
+.navigation__loading {
+  width: 15px;
+  height: 15px;
+  margin-right: 7px;
+  box-sizing: border-box;
+  border: 2px solid rgba(67, 49, 35, 0.24);
+  border-top-color: currentColor;
+  border-radius: 50%;
+  animation: navigation-loading 800ms steps(8, end) infinite;
+}
+
+@keyframes navigation-loading {
+  to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .navigation__loading { animation-duration: 1.6s; }
+}

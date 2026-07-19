@@ -1,0 +1,136 @@
+<navigation-bar title="我的拿手菜" color="#3D2E1F" background="#F7F2E9"></navigation-bar>
+
+<view class="page" wx:if="{{dish}}">
+  <scroll-view class="content" scroll-y enhanced show-scrollbar="{{false}}">
+    <view class="hero">
+      <view class="hero-photo">
+        <image src="{{heroImage}}" mode="aspectFill" aria-label="{{dish.personalName}}的代表照片"></image>
+        <view class="photo-tape"></view>
+      </view>
+      <view class="hero-copy">
+        <text class="stage">{{growthLabel}}</text>
+        <text class="name">{{dish.personalName}}</text>
+        <text class="canonical" wx:if="{{dish.personalName !== dish.canonicalName}}">原菜谱：{{dish.canonicalName}}</text>
+        <text class="tagline" wx:if="{{dish.tagline}}">“{{dish.tagline}}”</text>
+        <view class="numbers"><text>做过 {{dish.cookCount}} 次</text><text wx:if="{{dish.averageRating}}">平均 {{dish.averageRating}} 分</text></view>
+      </view>
+    </view>
+
+    <view class="quick-entry">
+      <view class="quick-entry-copy"><text>又做了一次？</text><text>简单记下结果，制作总结会自动更新。</text></view>
+      <view class="quick-entry-actions">
+        <view class="quick-record-button" bindtap="openQuickRecord" hover-class="quick-record-button--pressed" aria-role="button" aria-label="快速记录这次制作">记录这次</view>
+        <view class="recipe-link" bindtap="goRecipe" hover-class="tap-pressed" aria-role="button">查看原菜谱</view>
+      </view>
+    </view>
+
+    <view class="candidate-banner" wx:if="{{dish.candidate}}">
+      <view><text>可以设为拿手菜了</text><text>你已经做过几次，也留下了自己的做法。</text></view>
+      <view bindtap="openConfirm">设为拿手菜</view>
+    </view>
+
+    <view class="section digest-section" wx:if="{{insights}}">
+      <view class="section-head">
+        <view><text class="kicker">自动整理</text><text class="section-title">制作总结</text></view>
+        <text class="evidence-count">已记录 {{insights.attemptCount}} 次</text>
+      </view>
+      <text class="digest-explain">根据每次下厨时记下的评分、结果和心得整理。记录越多，内容越完整。</text>
+
+      <block wx:if="{{insights.hasEvidence}}">
+        <view class="insight-block" wx:if="{{insights.changes.length}}">
+          <text class="insight-label">常用改法</text>
+          <view class="change-list"><view wx:for="{{insights.changes}}" wx:key="text"><text>{{item.text}}</text><text wx:if="{{item.count > 1}}">用了 {{item.count}} 次</text></view></view>
+        </view>
+        <view class="insight-block" wx:if="{{insights.feedback.length}}">
+          <text class="insight-label">常见结果</text>
+          <view class="insight-chips"><view wx:for="{{insights.feedback}}" wx:key="text"><text>{{item.text}}</text><text wx:if="{{item.count > 1}}"> · {{item.count}}次</text></view></view>
+        </view>
+        <view class="insight-stats" wx:if="{{insights.averageRating || insights.satisfiedCount}}">
+          <view wx:if="{{insights.averageRating}}"><text>{{insights.averageRating}}</text><text>平均评分</text></view>
+          <view wx:if="{{insights.satisfiedCount}}"><text>{{insights.satisfiedCount}}</text><text>次特别满意</text></view>
+        </view>
+        <view class="insight-block" wx:if="{{insights.diners.length}}">
+          <text class="insight-label">和谁一起吃过</text>
+          <view class="diner-list"><view wx:for="{{insights.diners}}" wx:key="text"><text>{{item.text}}</text><text wx:if="{{item.count > 1}}"> · {{item.count}}次</text></view></view>
+        </view>
+        <view class="insight-block" wx:if="{{insights.notes.length}}">
+          <text class="insight-label">最近心得</text>
+          <view class="note-list"><view wx:for="{{insights.notes}}" wx:key="date"><text>“{{item.text}}”</text><text>{{item.date}}</text></view></view>
+        </view>
+      </block>
+      <view class="digest-empty" wx:else><text>还没有足够的信息</text><text>下次做完后选一个结果，或者记一句改法，这里就会自动整理。</text></view>
+    </view>
+
+    <view class="section identity-section">
+      <view class="section-head">
+        <view><text class="kicker">可选</text><text class="section-title">菜名与故事</text></view>
+        <text wx:if="{{isEditing}}" class="edit-link" bindtap="cancelEdit">取消</text>
+        <text wx:else class="edit-link" bindtap="startEdit">编辑</text>
+      </view>
+      <block wx:if="{{!isEditing}}">
+        <text class="identity-name">{{dish.personalName}}</text>
+        <text class="identity-tagline" wx:if="{{dish.tagline}}">诀窍：{{dish.tagline}}</text>
+        <text class="identity-story" wx:if="{{dish.story}}">{{dish.story}}</text>
+        <block wx:if="{{!dish.tagline}}"><text class="identity-hint" wx:if="{{!dish.story}}">想给它改个名字，或者留下一句话时再填写。</text></block>
+      </block>
+      <block wx:else>
+        <text class="field-label">菜名</text><input class="field" value="{{editForm.personalName}}" data-field="personalName" bindinput="onEditInput" />
+        <text class="field-label">我的诀窍</text><input class="field" value="{{editForm.tagline}}" data-field="tagline" bindinput="onEditInput" />
+        <text class="field-label">想记住的故事（可选）</text><textarea class="story-field" value="{{editForm.story}}" data-field="story" bindinput="onEditInput" />
+        <view class="save-version" bindtap="saveIdentity" hover-class="save-version--pressed">保存</view>
+      </block>
+    </view>
+
+    <view class="section">
+      <view class="section-head"><view><text class="kicker">每次下厨</text><text class="section-title">制作记录</text></view></view>
+      <view class="timeline">
+        <view wx:for="{{visibleAttempts}}" wx:key="id" class="timeline-item">
+          <view class="timeline-line"><view class="timeline-dot {{item.isMilestone ? 'timeline-dot--milestone' : ''}}"></view></view>
+          <view class="attempt">
+            <view class="attempt-head"><text>{{item.indexLabel}}</text><text>{{item.dateLabel}}</text></view>
+            <image wx:if="{{item.imageUrls.length}}" src="{{item.imageUrls[0]}}" mode="aspectFill" aria-label="{{item.indexLabel}}制作照片"></image>
+            <text class="milestone" wx:if="{{item.milestoneTitle}}">{{item.milestoneTitle}}</text>
+            <text class="attempt-note" wx:if="{{item.note}}">{{item.note}}</text>
+            <text class="change" wx:if="{{item.changeNote}}">这次改了：{{item.changeNote}}</text>
+            <view class="tag-list" wx:if="{{item.resultTags.length}}"><text wx:for="{{item.resultTags}}" wx:key="*this">{{item}}</text></view>
+          </view>
+        </view>
+      </view>
+      <view class="timeline-more" wx:if="{{attempts.length > 5}}" bindtap="toggleTimeline">{{timelineToggleText}}</view>
+    </view>
+
+    <view class="share-section">
+      <text>分享与隐私</text>
+      <view class="visibility"><text class="{{dish.visibility === 'private' ? 'visibility--active' : ''}}" bindtap="setVisibility" data-visibility="private">仅自己</text><text class="{{dish.visibility === 'friends' ? 'visibility--active' : ''}}" bindtap="setVisibility" data-visibility="friends">家人好友</text><text class="{{dish.visibility === 'public' ? 'visibility--active' : ''}}" bindtap="setVisibility" data-visibility="public">公开分享</text></view>
+      <button open-type="share">分享这道拿手菜</button>
+      <text class="privacy-note">分享内容包括代表照片、菜名和部分制作记录。</text>
+    </view>
+    <view class="bottom-space"></view>
+  </scroll-view>
+
+  <view class="quick-mask" wx:if="{{showQuickRecord}}">
+    <view class="quick-sheet">
+      <view class="quick-sheet-handle"></view>
+      <view class="quick-sheet-head"><view><text>记录这次</text><text>保存后会更新制作次数和总结</text></view><text class="quick-close" bindtap="closeQuickRecord">关闭</text></view>
+      <scroll-view class="quick-sheet-body" scroll-y enhanced>
+        <text class="quick-label">给这次打个分（可选）</text>
+        <view class="quick-rating"><text wx:for="{{quickRatingOptions}}" wx:key="*this" class="{{quickRating >= item ? 'quick-rating--active' : ''}}" bindtap="selectQuickRating" data-value="{{item}}">{{item}}</text></view>
+        <view class="quick-tags"><text wx:for="{{quickTagChoices}}" wx:key="name" class="{{item.selected ? 'quick-tag--active' : ''}}" bindtap="toggleQuickTag" data-tag="{{item.name}}">{{item.name}}</text></view>
+        <view class="quick-satisfied {{quickSatisfied ? 'quick-satisfied--active' : ''}}" bindtap="toggleQuickSatisfied"><view></view><text>我对这次的结果很满意</text></view>
+        <text class="quick-label">做法有变化吗？（可选）</text>
+        <input class="quick-input" value="{{quickChangeNote}}" data-field="quickChangeNote" bindinput="onQuickInput" placeholder="例如：鸡蛋八成熟再回锅" />
+        <text class="quick-label">补充一句（可选）</text>
+        <textarea class="quick-textarea" value="{{quickNote}}" data-field="quickNote" bindinput="onQuickInput" placeholder="味道、火候或家人的反馈" />
+        <view class="quick-photo" bindtap="chooseQuickImage">
+          <image wx:if="{{quickImageUrl}}" src="{{quickImageUrl}}" mode="aspectFill"></image>
+          <view wx:else class="quick-photo-placeholder"><view class="quick-camera"></view><text>添加成品照（可选）</text></view>
+        </view>
+      </scroll-view>
+      <view class="quick-save {{quickSaving ? 'quick-save--disabled' : ''}}" bindtap="saveQuickRecord" hover-class="quick-save--pressed">{{quickSaving ? '正在保存…' : '保存这次记录'}}</view>
+    </view>
+  </view>
+
+  <view class="confirm-mask" wx:if="{{showConfirm}}">
+    <view class="confirm-card"><view class="stamp">拿手菜</view><text class="confirm-title">设为你的拿手菜？</text><text class="confirm-desc">确认后会显示在拿手菜列表中，以后的制作记录仍会继续更新。</text><view class="confirm-actions"><view bindtap="closeConfirm">暂不设置</view><view bindtap="confirmSignature">设为拿手菜</view></view></view>
+  </view>
+</view>

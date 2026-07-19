@@ -1,0 +1,2 @@
+<!-- app.json 开启 custom tabBar 时所需的系统占位；页面内的手绘 tab-bar 负责实际呈现。 -->
+<view class="native-tab-placeholder"></view>

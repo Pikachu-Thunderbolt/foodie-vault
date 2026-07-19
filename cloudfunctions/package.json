@@ -1,0 +1,8 @@
+{
+  "name": "foodie-vault-cloudfunctions",
+  "version": "1.0.0",
+  "description": "云函数聚合根，所有子函数共享 wx-server-sdk。",
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  }
+}

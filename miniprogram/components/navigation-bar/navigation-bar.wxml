@@ -1,0 +1,43 @@
+<!-- 撕边纸条式自定义导航 -->
+<view class="navigation {{extClass}}">
+  <view
+    class="navigation__inner {{ios ? 'navigation__inner--ios' : 'navigation__inner--android'}}"
+    style="--nav-color: {{color}}; color: {{color}}; background: {{background}}; {{displayStyle}}; {{safeAreaTop}};"
+  >
+    <view class="navigation__left" style="{{leftWidth}}">
+      <view
+        wx:if="{{back}}"
+        class="navigation__touch"
+        bindtap="back"
+        hover-class="navigation__touch--pressed"
+        hover-stay-time="100"
+        aria-role="button"
+        aria-label="返回"
+      >
+        <view class="navigation__back"></view><text class="navigation__back-label">返回</text>
+      </view>
+      <view
+        wx:if="{{homeButton}}"
+        class="navigation__touch"
+        bindtap="home"
+        hover-class="navigation__touch--pressed"
+        hover-stay-time="100"
+        aria-role="button"
+        aria-label="返回食材首页"
+      >
+        <view class="navigation__home"><view></view></view>
+      </view>
+      <slot wx:if="{{!back && !homeButton}}" name="left"></slot>
+    </view>
+
+    <view class="navigation__center">
+      <view wx:if="{{loading}}" class="navigation__loading" aria-role="img" aria-label="加载中"></view>
+      <text wx:if="{{title}}" class="navigation__title">{{title}}</text>
+      <slot wx:else name="center"></slot>
+    </view>
+
+    <view class="navigation__right" style="{{rightStyle}}">
+      <slot name="right"></slot>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,57 @@
+<navigation-bar title="我的清单" back="{{false}}" color="#3D2E1F" background="#F7F2E9"></navigation-bar>
+
+<view class="page paper-bg">
+  <view class="checklist-hero">
+    <view class="hero-copy">
+      <text class="hero-kicker">厨房手账 · 采购计划</text>
+      <text class="hero-title">这次要买什么？</text>
+      <text class="hero-sub">还有 {{pendingCount}} 件没有买</text>
+    </view>
+    <view class="clipboard-art" aria-role="img" aria-label="购物清单插画">
+      <view class="clip"></view>
+      <view class="paper-sheet">
+        <view class="paper-row"><view></view><text></text></view>
+        <view class="paper-row"><view></view><text></text></view>
+        <view class="paper-row"><view></view><text></text></view>
+      </view>
+    </view>
+  </view>
+
+  <view class="add-note">
+    <view class="notebook-holes"></view>
+    <input class="note-input" value="{{draft}}" placeholder="写下要买的食材" bindinput="onDraftInput" bindconfirm="addItem" confirm-type="done" aria-label="要购买的食材" />
+    <view class="add-button" bindtap="addItem" aria-role="button" aria-label="添加到清单"><view class="plus-line"></view></view>
+  </view>
+
+  <view class="list-heading" wx:if="{{items.length}}">
+    <text>采购便签</text>
+    <text class="clear-link" wx:if="{{completedCount}}" bindtap="clearCompleted">清除已完成</text>
+  </view>
+
+  <scroll-view class="checklist-scroll" scroll-y enhanced show-scrollbar="{{false}}">
+    <view
+      wx:for="{{items}}"
+      wx:key="id"
+      class="check-row {{item.checked ? 'is-checked' : ''}} anim-slide-up"
+      bindtap="toggleItem"
+      data-id="{{item.id}}"
+    >
+      <view class="check-box"><view class="check-mark"></view></view>
+      <view class="check-copy">
+        <text class="check-name">{{item.name}}</text>
+        <text class="check-source">{{item.source}}</text>
+      </view>
+      <view class="remove-button" catchtap="removeItem" data-id="{{item.id}}" aria-role="button" aria-label="移除{{item.name}}"><view></view></view>
+    </view>
+
+    <view class="empty-note" wx:if="{{!items.length}}">
+      <view class="empty-basket" aria-role="img" aria-label="空购物篮插画"><view class="basket-handle"></view><view class="basket-body"></view></view>
+      <text class="empty-title">采购清单还是空的</text>
+      <text class="empty-copy">从菜谱补齐缺少的食材，或在上面写下一项</text>
+      <view class="outline-button" bindtap="goRecipes">去看看菜谱</view>
+    </view>
+    <view class="bottom-space"></view>
+  </scroll-view>
+</view>
+
+<tab-bar active="checklist"></tab-bar>

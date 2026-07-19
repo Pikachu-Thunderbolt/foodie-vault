@@ -1,0 +1,397 @@
+{
+  "tutorials": [
+    {
+      "tutorialId": "tutorial_bilibili_BV1abcDEF12_system",
+      "platform": "bilibili",
+      "bvid": "BV1abcDEF12",
+      "sourceUrl": "https://www.bilibili.com/video/BV1abcDEF12",
+      "sourceTitle": "",
+      "ownerType": "SYSTEM",
+      "ownerId": null,
+      "visibility": "PUBLIC",
+      "requestedVisibility": "PUBLIC",
+      "lifecycleStatus": "PREFLIGHT_PENDING",
+      "processingStatus": "NOT_QUEUED",
+      "reviewPolicy": "SYSTEM_REQUIRED",
+      "currentVersionId": null,
+      "currentPublishedVersionId": null,
+      "revisionCount": 0,
+      "sourceRightsStatus": "cleared",
+      "createdAt": "2026-07-19T03:21:39.568Z",
+      "updatedAt": "2026-07-19T03:21:39.568Z",
+      "_id": "d41199cc-bc56-4e39-9857-2e112ea63351"
+    },
+    {
+      "tutorialId": "tutorial_bilibili_BV1zzTEST99_system",
+      "platform": "bilibili",
+      "bvid": "BV1zzTEST99",
+      "sourceUrl": "https://www.bilibili.com/video/BV1zzTEST99",
+      "sourceTitle": "红烧排骨做法教程",
+      "ownerType": "SYSTEM",
+      "ownerId": null,
+      "visibility": "PUBLIC",
+      "requestedVisibility": "PUBLIC",
+      "lifecycleStatus": "PUBLISHED",
+      "processingStatus": "COMPLETE",
+      "reviewPolicy": "SYSTEM_REQUIRED",
+      "currentVersionId": "version-z",
+      "currentPublishedVersionId": "version-z",
+      "revisionCount": 1,
+      "sourceRightsStatus": "cleared",
+      "createdAt": "2026-07-19T03:22:02.052Z",
+      "updatedAt": "2026-07-19T03:22:02.174Z",
+      "_id": "9c7462c2-cbe1-4dbb-b287-a736b455b456",
+      "sourceMetadata": {
+        "title": "红烧排骨做法教程",
+        "description": "焯水下锅翻炒炖煮",
+        "durationSeconds": 300,
+        "category": "美食制作"
+      },
+      "preflight": {
+        "verdict": "PASSED",
+        "score": 105,
+        "reasons": [
+          "标题/描述/标签含做菜教程信号",
+          "B站分区为美食相关",
+          "时长适合步骤型教程",
+          "存在烹饪动作或食材信号"
+        ],
+        "checkedAt": "2026-07-19T03:22:02.066Z",
+        "checkedBy": "content-service"
+      },
+      "activeTaskId": "task_tutorial_bilibili_BV1zzTEST99_system_1784431322111",
+      "publishedAt": "2026-07-19T03:22:02.174Z"
+    },
+    {
+      "tutorialId": "tutorial_bilibili_BV1frame01_system",
+      "platform": "bilibili",
+      "bvid": "BV1frame01",
+      "sourceUrl": "https://www.bilibili.com/video/BV1frame01",
+      "sourceTitle": "糖醋排骨做法教程",
+      "ownerType": "SYSTEM",
+      "ownerId": null,
+      "visibility": "PUBLIC",
+      "requestedVisibility": "PUBLIC",
+      "lifecycleStatus": "READY_TO_EXPORT",
+      "processingStatus": "EXPORTING",
+      "reviewPolicy": "SYSTEM_REQUIRED",
+      "currentVersionId": null,
+      "currentPublishedVersionId": null,
+      "revisionCount": 0,
+      "sourceRightsStatus": "cleared",
+      "createdAt": "2026-07-19T04:01:44.495Z",
+      "updatedAt": "2026-07-19T04:01:44.632Z",
+      "_id": "62cf4e9f-0ce3-4ffd-8d42-740389e5d934",
+      "sourceMetadata": {
+        "title": "糖醋排骨做法教程",
+        "description": "焯水翻炒调汁",
+        "durationSeconds": 300,
+        "category": "美食制作"
+      },
+      "preflight": {
+        "verdict": "PASSED",
+        "score": 105,
+        "reasons": [
+          "标题/描述/标签含做菜教程信号",
+          "B站分区为美食相关",
+          "时长适合步骤型教程",
+          "存在烹饪动作或食材信号"
+        ],
+        "checkedAt": "2026-07-19T04:01:44.508Z",
+        "checkedBy": "content-service"
+      },
+      "activeTaskId": "export_tutorial_bilibili_BV1frame01_system_1784433704625"
+    }
+  ],
+  "tutorial_audit_events": [
+    {
+      "tutorialId": "tutorial_bilibili_BV1abcDEF12_system",
+      "type": "SUBMITTED",
+      "actor": "content-service",
+      "payload": {
+        "ownerType": "SYSTEM",
+        "bvid": "BV1abcDEF12"
+      },
+      "occurredAt": "2026-07-19T03:21:39.569Z",
+      "_id": "fad6ab09-9640-4b0e-9294-76cb4b2a96d1"
+    },
+    {
+      "tutorialId": "tutorial_bilibili_BV1zzTEST99_system",
+      "type": "SUBMITTED",
+      "actor": "content-service",
+      "payload": {
+        "ownerType": "SYSTEM",
+        "bvid": "BV1zzTEST99"
+      },
+      "occurredAt": "2026-07-19T03:22:02.054Z",
+      "_id": "45003287-008e-4f9e-861f-9c13d6ff0dcf"
+    },
+    {
+      "tutorialId": "tutorial_bilibili_BV1zzTEST99_system",
+      "type": "PREFLIGHT_COMPLETED",
+      "actor": "content-service",
+      "payload": {
+        "verdict": "PASSED",
+        "score": 105,
+        "reasons": [
+          "标题/描述/标签含做菜教程信号",
+          "B站分区为美食相关",
+          "时长适合步骤型教程",
+          "存在烹饪动作或食材信号"
+        ]
+      },
+      "occurredAt": "2026-07-19T03:22:02.066Z",
+      "_id": "42abf5d9-c878-4777-a161-114c4f195204"
+    },
+    {
+      "tutorialId": "tutorial_bilibili_BV1zzTEST99_system",
+      "type": "PROCESSING_QUEUED",
+      "actor": "content-service",
+      "payload": {
+        "taskId": "task_tutorial_bilibili_BV1zzTEST99_system_1784431322111"
+      },
+      "occurredAt": "2026-07-19T03:22:02.111Z",
+      "_id": "3088dcc9-81e6-49fa-901f-95a6581aa72d"
+    },
+    {
+      "tutorialId": "tutorial_bilibili_BV1zzTEST99_system",
+      "type": "TASK_CLAIMED",
+      "actor": "w1",
+      "payload": {
+        "taskId": "task_tutorial_bilibili_BV1zzTEST99_system_1784431322111"
+      },
+      "occurredAt": "2026-07-19T03:22:02.118Z",
+      "_id": "fd964e8a-7b2b-4a19-b780-da8cacdcba05"
+    },
+    {
+      "tutorialId": "tutorial_bilibili_BV1zzTEST99_system",
+      "type": "VERSION_REGISTERED",
+      "actor": "content-service",
+      "payload": {
+        "versionId": "version-z",
+        "packageId": "pkg-z",
+        "versionNumber": 1
+      },
+      "occurredAt": "2026-07-19T03:22:02.136Z",
+      "_id": "3fdff94a-6b5e-4b6a-8edc-d2f474c66972"
+    },
+    {
+      "tutorialId": "tutorial_bilibili_BV1zzTEST99_system",
+      "type": "SYSTEM_APPROVE",
+      "actor": "admin",
+      "payload": {
+        "versionId": "version-z",
+        "reason": null
+      },
+      "occurredAt": "2026-07-19T03:22:02.174Z",
+      "_id": "a3bc4696-d8f8-4f0a-bd44-d9c0917df3ff"
+    },
+    {
+      "tutorialId": "tutorial_bilibili_BV1frame01_system",
+      "type": "SUBMITTED",
+      "actor": "content-service",
+      "payload": {
+        "ownerType": "SYSTEM",
+        "bvid": "BV1frame01"
+      },
+      "occurredAt": "2026-07-19T04:01:44.496Z",
+      "_id": "4d0747cb-c593-4534-990b-f8706202dc20"
+    },
+    {
+      "tutorialId": "tutorial_bilibili_BV1frame01_system",
+      "type": "PREFLIGHT_COMPLETED",
+      "actor": "content-service",
+      "payload": {
+        "verdict": "PASSED",
+        "score": 105,
+        "reasons": [
+          "标题/描述/标签含做菜教程信号",
+          "B站分区为美食相关",
+          "时长适合步骤型教程",
+          "存在烹饪动作或食材信号"
+        ]
+      },
+      "occurredAt": "2026-07-19T04:01:44.508Z",
+      "_id": "9fc31694-337d-4dd5-af6d-1376441d73ac"
+    },
+    {
+      "tutorialId": "tutorial_bilibili_BV1frame01_system",
+      "type": "PROCESSING_QUEUED",
+      "actor": "content-service",
+      "payload": {
+        "taskId": "task_tutorial_bilibili_BV1frame01_system_1784433704517"
+      },
+      "occurredAt": "2026-07-19T04:01:44.518Z",
+      "_id": "50eb6004-91c1-48a6-ae4b-83cbd82553c5"
+    },
+    {
+      "tutorialId": "tutorial_bilibili_BV1frame01_system",
+      "type": "TASK_CLAIMED",
+      "actor": "w1",
+      "payload": {
+        "taskId": "task_tutorial_bilibili_BV1frame01_system_1784433704517",
+        "kind": "PROCESS"
+      },
+      "occurredAt": "2026-07-19T04:01:44.528Z",
+      "_id": "b0561def-1621-4b4d-8c26-9009c9d83d7e"
+    },
+    {
+      "tutorialId": "tutorial_bilibili_BV1frame01_system",
+      "type": "DRAFT_REGISTERED",
+      "actor": "content-service",
+      "payload": {
+        "stepCount": 2
+      },
+      "occurredAt": "2026-07-19T04:01:44.584Z",
+      "_id": "abe2d8f1-8635-4177-958f-57b529d0edd2"
+    },
+    {
+      "tutorialId": "tutorial_bilibili_BV1frame01_system",
+      "type": "FRAMES_SELECTED",
+      "actor": "admin",
+      "payload": {
+        "taskId": "export_tutorial_bilibili_BV1frame01_system_1784433704625",
+        "stepCount": 2
+      },
+      "occurredAt": "2026-07-19T04:01:44.625Z",
+      "_id": "81a0d0b8-8706-4f90-b5bb-8ccaf28faf88"
+    },
+    {
+      "tutorialId": "tutorial_bilibili_BV1frame01_system",
+      "type": "TASK_CLAIMED",
+      "actor": "w1",
+      "payload": {
+        "taskId": "export_tutorial_bilibili_BV1frame01_system_1784433704625",
+        "kind": "EXPORT"
+      },
+      "occurredAt": "2026-07-19T04:01:44.632Z",
+      "_id": "c5c97051-b592-4301-acd8-f6d63238ce75"
+    }
+  ],
+  "tutorial_processing_tasks": [
+    {
+      "taskId": "task_tutorial_bilibili_BV1zzTEST99_system_1784431322111",
+      "tutorialId": "tutorial_bilibili_BV1zzTEST99_system",
+      "platform": "bilibili",
+      "bvid": "BV1zzTEST99",
+      "status": "CLAIMED",
+      "createdAt": "2026-07-19T03:22:02.111Z",
+      "updatedAt": "2026-07-19T03:22:02.117Z",
+      "_id": "c4dae51b-343b-4821-8254-c3928af841b5",
+      "workerId": "w1",
+      "claimedAt": "2026-07-19T03:22:02.117Z"
+    },
+    {
+      "taskId": "task_tutorial_bilibili_BV1frame01_system_1784433704517",
+      "tutorialId": "tutorial_bilibili_BV1frame01_system",
+      "kind": "PROCESS",
+      "platform": "bilibili",
+      "bvid": "BV1frame01",
+      "status": "COMPLETED",
+      "createdAt": "2026-07-19T04:01:44.517Z",
+      "updatedAt": "2026-07-19T04:01:44.584Z",
+      "_id": "8de4bb39-c1c9-41ee-92af-17296b869520",
+      "workerId": "w1",
+      "claimedAt": "2026-07-19T04:01:44.527Z",
+      "completedAt": "2026-07-19T04:01:44.584Z"
+    },
+    {
+      "taskId": "export_tutorial_bilibili_BV1frame01_system_1784433704625",
+      "tutorialId": "tutorial_bilibili_BV1frame01_system",
+      "kind": "EXPORT",
+      "platform": "bilibili",
+      "bvid": "BV1frame01",
+      "status": "CLAIMED",
+      "createdAt": "2026-07-19T04:01:44.625Z",
+      "updatedAt": "2026-07-19T04:01:44.632Z",
+      "_id": "5f1ce1c5-8d06-4bc3-8dd1-4886ab857ab1",
+      "workerId": "w1",
+      "claimedAt": "2026-07-19T04:01:44.632Z"
+    }
+  ],
+  "tutorial_revisions": [
+    {
+      "tutorialId": "tutorial_bilibili_BV1zzTEST99_system",
+      "versionId": "version-z",
+      "versionNumber": 1,
+      "packageId": "pkg-z",
+      "recipeId": "recipe-z",
+      "manifestHash": null,
+      "changeSummary": "首次处理完成",
+      "reviewStatus": "SYSTEM_APPROVED",
+      "releaseStatus": "PUBLISHED",
+      "submittedBy": "content-service",
+      "createdAt": "2026-07-19T03:22:02.135Z",
+      "updatedAt": "2026-07-19T03:22:02.173Z",
+      "_id": "60f7ee9a-5f46-4eec-b839-f44b64783f6f",
+      "reviewedBy": "admin",
+      "reviewedAt": "2026-07-19T03:22:02.173Z",
+      "publishedAt": "2026-07-19T03:22:02.173Z"
+    }
+  ],
+  "media_assets": [
+    {
+      "sha256": "15947137645b4e4e8abf394064c5c2cc703780f962f4d7c97a8081d7a38b4445",
+      "cloudFileId": "local://recipe-frame-candidates/v1/15/15947137645b4e4e8abf394064c5c2cc703780f962f4d7c97a8081d7a38b4445.jpg",
+      "storagePath": "recipe-frame-candidates/v1/15/15947137645b4e4e8abf394064c5c2cc703780f962f4d7c97a8081d7a38b4445.jpg",
+      "mimeType": "image/jpeg",
+      "byteSize": 8,
+      "role": "candidate",
+      "lastVerifiedAt": "2026-07-19T04:01:44.571Z",
+      "createdAt": "2026-07-19T04:01:44.571Z",
+      "updatedAt": "2026-07-19T04:01:44.571Z",
+      "_id": "4c4f7271-30d6-4b1e-84f8-01726ef5819b"
+    }
+  ],
+  "tutorial_frame_drafts": [
+    {
+      "tutorialId": "tutorial_bilibili_BV1frame01_system",
+      "recipeName": "糖醋排骨",
+      "bvid": "BV1frame01",
+      "steps": [
+        {
+          "stepIndex": 0,
+          "name": "焯水",
+          "description": "排骨焯水",
+          "candidates": [
+            {
+              "frameType": "key",
+              "slot": 0,
+              "cloudFileId": "local://recipe-frame-candidates/v1/15/15947137645b4e4e8abf394064c5c2cc703780f962f4d7c97a8081d7a38b4445.jpg"
+            }
+          ]
+        },
+        {
+          "stepIndex": 1,
+          "name": "调汁",
+          "description": "糖醋汁",
+          "candidates": [
+            {
+              "frameType": "key",
+              "slot": 0,
+              "cloudFileId": "local://recipe-frame-candidates/v1/15/15947137645b4e4e8abf394064c5c2cc703780f962f4d7c97a8081d7a38b4445.jpg"
+            }
+          ]
+        }
+      ],
+      "selection": [
+        {
+          "stepIndex": 0,
+          "frameType": "key",
+          "slot": 0
+        },
+        {
+          "stepIndex": 1,
+          "frameType": "key",
+          "slot": 0
+        }
+      ],
+      "reviewerType": "SYSTEM",
+      "createdAt": "2026-07-19T04:01:44.583Z",
+      "updatedAt": "2026-07-19T04:01:44.624Z",
+      "_id": "860fafab-0287-42b8-a79b-15abf1aef3fa",
+      "selectedBy": "admin",
+      "selectedAt": "2026-07-19T04:01:44.624Z"
+    }
+  ]
+}

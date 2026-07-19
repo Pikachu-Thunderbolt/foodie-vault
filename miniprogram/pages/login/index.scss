@@ -1,0 +1,38 @@
+/* 严格依据“登陆页面效果图-2”：整屏连续手账场景，禁止冰箱/卡片分块。 */
+.page { display: block; width: 750rpx; min-height: 100vh; overflow: hidden; background: #f5ebd9; padding-bottom: env(safe-area-inset-bottom); }
+.login-scene { position: relative; display: block; flex: none; width: 750rpx; height: 1333rpx; overflow: hidden; }
+.scene-art { position: absolute; left: 0; top: 0; width: 750rpx; height: 1333rpx; display: block; }
+.scene-content { position: absolute; left: 0; top: 0; width: 750rpx; height: 1333rpx; box-sizing: border-box; padding: 0 112rpx; }
+
+/* 位置按 750×1333 连续底图中的撕纸留白区对齐。 */
+.scene-heading { position: absolute; left: 88rpx; right: 88rpx; top: 742rpx; display: flex; flex-direction: column; align-items: center; text-align: center; }
+.welcome-title { display: block; color: #a65c31; font-family: 'STKaiti','KaiTi','PingFang SC',serif; font-size: 66rpx; line-height: 1.2; font-weight: 800; letter-spacing: 8rpx; }
+.brand-slogan { display: block; margin-top: 23rpx; color: #98623d; font-family: 'STKaiti','KaiTi','PingFang SC',serif; font-size: 30rpx; line-height: 1.4; letter-spacing: 2rpx; font-weight: 700; }
+.welcome-subtitle { display: block; margin-top: 36rpx; color: #79624e; font-size: 23rpx; line-height: 1.35; letter-spacing: 1rpx; }
+
+.agreement { position: absolute; left: 112rpx; right: 92rpx; top: 1003rpx; display: flex; align-items: center; gap: 14rpx; min-height: 52rpx; }
+.agreement--error { animation: agreement-shake 320ms ease-in-out; }
+.agreement-check { width: 35rpx; height: 35rpx; box-sizing: border-box; flex: 0 0 35rpx; border: 3rpx solid rgba(104,75,52,.72); border-radius: 7rpx 10rpx 6rpx 9rpx; background: rgba(255,251,239,.72); transition: background 150ms ease,border-color 150ms ease,transform 150ms ease; }
+.agreement--error .agreement-check { border-color: var(--color-coral-deep); transform: scale(1.08); }
+.agreement-check--on { border-color: #4d7c42; background: #659955; }
+.agreement-check-tick { width: 11rpx; height: 17rpx; margin: 3rpx 0 0 9rpx; border-right: 4rpx solid #fff9ec; border-bottom: 4rpx solid #fff9ec; transform: rotate(45deg); }
+.agreement-copy { color: #725f4f; font-size: 22rpx; line-height: 1.5; white-space: nowrap; }
+.agreement-link { color: #d25b3c; font-weight: 700; }
+.agreement-error { position: absolute; left: 154rpx; top: 1053rpx; color: var(--color-coral-deep); font-size: 19rpx; line-height: 1.4; }
+
+.login-button { position: absolute; left: 115rpx; top: 1107rpx; width: 520rpx; height: 112rpx; overflow: visible; border-radius: 56rpx; background-color: #e96747; background-image: url('/resource/generated/login/login-wechat-button-v2.webp'); background-position: center; background-size: 100% 100%; background-repeat: no-repeat; color: #fffaf0; line-height: 1; transition: transform 120ms ease-out,opacity 150ms ease; }
+.login-button-label { position: absolute; left: 0; top: 0; z-index: 1; width: 520rpx; height: 112rpx; display: flex; align-items: center; justify-content: center; gap: 13rpx; color: #fffaf0; font-size: 27rpx; font-weight: 800; letter-spacing: 1rpx; white-space: nowrap; }
+.login-button-label text { display: block; white-space: nowrap; }
+.login-button--pressed { transform: translateY(4rpx) scale(.99); }
+.login-button--loading { opacity: .72; }
+.wechat-mark { position: relative; width: 37rpx; height: 28rpx; flex: 0 0 37rpx; border: 3rpx solid #fff9ec; border-radius: 52% 52% 48% 48%; box-sizing: border-box; }
+.wechat-mark::before { content: ''; position: absolute; right: -8rpx; bottom: -5rpx; width: 22rpx; height: 18rpx; box-sizing: border-box; border: 3rpx solid #fff9ec; border-radius: 52% 52% 48% 48%; background: #ef6646; }
+.wechat-mark::after { content: ''; position: absolute; left: 4rpx; bottom: -7rpx; width: 8rpx; height: 8rpx; border-left: 3rpx solid #fff9ec; transform: rotate(-34deg); }
+.wechat-dot { position: absolute; top: 10rpx; z-index: 1; width: 3rpx; height: 3rpx; border-radius: 50%; background: #fff9ec; }.dot-a { left: 9rpx; }.dot-b { right: 9rpx; }
+.login-hint { position: absolute; left: 82rpx; right: 82rpx; top: 1260rpx; color: #8c7b69; font-size: 20rpx; line-height: 1.4; text-align: center; }
+.login-success { position: absolute; left: 0; right: 0; top: 1293rpx; color: #5b7f46; font-size: 23rpx; font-weight: 700; text-align: center; animation: success-in 220ms ease-out both; }
+.page--success .scene-art { animation: scene-glow 520ms cubic-bezier(.2,.8,.2,1) both; }
+@keyframes agreement-shake { 0%,100% { transform: translateX(0); } 25% { transform: translateX(-8rpx); } 75% { transform: translateX(8rpx); } }
+@keyframes success-in { from { opacity:0; transform:translateY(8rpx); } to { opacity:1; transform:translateY(0); } }
+@keyframes scene-glow { 0% { filter: brightness(1); } 45% { filter: brightness(1.08); } 100% { filter: brightness(1.03); } }
+@media (prefers-reduced-motion: reduce) { .agreement-check,.login-button { transition:none; } .agreement--error,.login-success,.page--success .scene-art { animation:none; } }

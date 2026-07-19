@@ -1,0 +1,19 @@
+{
+  "name": "foodie-vault-paoding-jieniu",
+  "version": "1.0.0",
+  "private": true,
+  "description": "庖丁解牛：食光宝盒 B站教程发现、预检、处理、审核与发布后台",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node --test test/*.test.js",
+    "build:seeds": "node scripts/build-seeds.js",
+    "seed:cloud": "node scripts/seed-cloud.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  }
+}

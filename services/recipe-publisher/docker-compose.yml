@@ -1,0 +1,40 @@
+# 本地整合测试：单容器（Node 控制面/UI/发布 + 内嵌 Python 引擎 worker）。
+# 用法：
+#   cp .env.example .env   # 填 INGEST_API_TOKEN / DASHBOARD_* / LLM_*
+#   docker compose up --build
+# Dashboard：http://127.0.0.1:8080/dashboard
+services:
+  paoding:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      HOST: 0.0.0.0
+      PORT: "8080"
+      EMBED_WORKER: "true"
+      # 本地用文件版假云，无需微信云环境。生产（云托管）删掉此行。
+      USE_LOCAL_CLOUD: "true"
+      INGEST_API_TOKEN: ${INGEST_API_TOKEN:-local-dev-token}
+      DASHBOARD_USER: ${DASHBOARD_USER:-admin}
+      DASHBOARD_PASSWORD: ${DASHBOARD_PASSWORD:-admin-local-pass}
+      INGEST_ROOT: /data/recipe-ingest/outgoing
+      PAODING_EXPORT_ROOT: /data/recipe-ingest/outgoing
+      PAODING_DATA_DIR: /data/paoding-work
+      WATCH_INGEST_ROOT: "true"
+      WHISPER_MODEL: ${WHISPER_MODEL:-base}
+      # 结构化抽取大模型（国产 OpenAI 兼容）；本地想用 Claude 改 LLM_PROVIDER=anthropic。
+      LLM_PROVIDER: ${LLM_PROVIDER:-openai_compatible}
+      LLM_MODEL: ${LLM_MODEL:-qwen-plus}
+      LLM_BASE_URL: ${LLM_BASE_URL:-}
+      LLM_API_KEY: ${LLM_API_KEY:-}
+      # 定时发现（可选，>=60000 才开）；手动发现从 Dashboard 触发。
+      DISCOVERY_INTERVAL_MS: ${DISCOVERY_INTERVAL_MS:-0}
+    volumes:
+      - ingest:/data/recipe-ingest/outgoing
+      - work:/data/paoding-work
+
+volumes:
+  ingest:
+  work:

@@ -1,0 +1,21 @@
+<!-- 参考图中的五栏手绘底部导航 -->
+<view class="tab-bar" aria-role="tablist">
+  <view
+    wx:for="{{tabs}}"
+    wx:key="key"
+    class="tab-item {{active === item.key ? 'tab-item--active' : ''}}"
+    bindtap="switchTab"
+    data-key="{{item.key}}"
+    hover-class="tab-item--pressed"
+    hover-stay-time="100"
+    aria-role="tab"
+    aria-label="{{item.label}}"
+    aria-selected="{{active === item.key}}"
+  >
+    <view class="tab-icon tab-symbol tab-symbol--{{item.icon}}" aria-hidden="true">
+      <view class="tab-symbol__detail"></view>
+    </view>
+    <text class="tab-label">{{item.label}}</text>
+    <view wx:if="{{active === item.key}}" class="tab-indicator"></view>
+  </view>
+</view>

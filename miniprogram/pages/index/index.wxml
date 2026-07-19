@@ -1,0 +1,161 @@
+<!-- 食材首页 — 按设计文档「食材页面.png」重构 -->
+<navigation-bar title="食材" back="{{false}}" color="#34271D" background="#FBF3E4"></navigation-bar>
+
+<view class="page paper-bg">
+  <scroll-view class="page-scroll" scroll-y enhanced show-scrollbar="{{false}}" bindscroll="onIngredientScroll">
+    <!-- 主题背景图 -->
+    <view class="theme-scene" aria-role="img" aria-label="主题背景图">
+      <image class="theme-scene-image" src="{{themeBackground}}" mode="widthFix"></image>
+    </view>
+
+    <!-- 搜索框 -->
+    <view class="search-sheet">
+      <view class="search-icon" aria-hidden="true"></view>
+      <input class="search-input" value="{{keyword}}" placeholder="搜索食材" placeholder-class="search-placeholder" confirm-type="search" bindinput="onSearchInput" aria-label="搜索食材" />
+      <view wx:if="{{keyword}}" class="search-clear" bindtap="onClearSearch" hover-class="search-clear--pressed" aria-role="button" aria-label="清空搜索"><view></view></view>
+    </view>
+
+    <!-- 设计稿中的四项库存概览：全部 / 常温 / 冷藏 / 冷冻 -->
+    <view wx:if="{{!isEmpty}}" class="stats-strip">
+      <view class="stat-card {{filterCategory === 'all' ? 'stat-card--active' : ''}}" bindtap="onStatFilter" data-filter="all" aria-role="button" aria-label="查看全部食材">
+        <text class="stat-num stat-num--all">{{stats.total}}</text>
+        <text class="stat-label">全部</text>
+      </view>
+      <view class="stat-card {{filterCategory === '常温' ? 'stat-card--active' : ''}}" bindtap="onStatFilter" data-filter="常温" aria-role="button" aria-label="查看常温食材">
+        <text class="stat-num stat-num--room">{{stats.room}}</text>
+        <text class="stat-label">常温</text>
+      </view>
+      <view class="stat-card {{filterCategory === '冷藏' ? 'stat-card--active' : ''}}" bindtap="onStatFilter" data-filter="冷藏" aria-role="button" aria-label="查看冷藏食材">
+        <text class="stat-num stat-num--chilled">{{stats.chilled}}</text>
+        <text class="stat-label">冷藏</text>
+      </view>
+      <view class="stat-card {{filterCategory === '冷冻' ? 'stat-card--active' : ''}}" bindtap="onStatFilter" data-filter="冷冻" aria-role="button" aria-label="查看冷冻食材">
+        <text class="stat-num stat-num--frozen">{{stats.frozen}}</text>
+        <text class="stat-label">冷冻</text>
+      </view>
+    </view>
+
+    <!-- 最近添加（横向滚动） -->
+    <view wx:if="{{recentItems.length > 0}}" class="recent-section">
+      <view class="section-header">
+        <text class="section-title">最近添加</text>
+        <text class="section-link" bindtap="onStatFilter" data-filter="all">全部 ›</text>
+      </view>
+      <scroll-view class="recent-strip" scroll-x enhanced show-scrollbar="{{false}}">
+        <view class="recent-list">
+          <view
+            wx:for="{{recentItems}}"
+            wx:key="id"
+            class="recent-card anim-stagger-{{index + 1}}"
+            bindtap="goIngredientDetail"
+            data-id="{{item.id}}"
+            hover-class="recent-card--pressed"
+            aria-label="{{item.name}}，{{item.dayLabel}}，{{item.daysFromNow}}天后过期"
+          >
+            <text class="recent-day">{{item.dayLabel}}</text>
+            <view class="recent-art">
+              <image wx:if="{{item.foodVisual.type === 'image'}}" class="recent-img" src="{{item.foodVisual.value}}" mode="aspectFill"></image>
+              <text wx:else class="recent-emoji">{{item.foodVisual.value}}</text>
+            </view>
+            <text class="recent-name">{{item.name}}</text>
+            <text class="recent-expiry">{{item.daysFromNow}}天后过期</text>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+
+    <!-- 食材清单 -->
+    <view wx:if="{{!isEmpty}}" class="ingredient-list-section">
+      <view class="section-header section-header--with-action">
+        <text class="section-title">食材清单</text>
+        <view class="list-add" bindtap="goAddIngredient" hover-class="list-add--pressed" aria-role="button" aria-label="添加食材">
+          <text class="list-add__plus" aria-hidden="true">+</text>
+          <text>添一笔食材</text>
+        </view>
+      </view>
+
+      <!-- 分类筛选 chip -->
+      <scroll-view class="category-chips" scroll-x enhanced show-scrollbar="{{false}}">
+        <view class="chip-list">
+          <text wx:for="{{categoryFilters}}" wx:key="key" wx:for-index="i"
+            class="chip {{filterCategory === item.key ? 'chip--active' : ''}}"
+            bindtap="onCategoryFilter" data-key="{{item.key}}"
+            hover-class="chip--pressed">{{item.label}}</text>
+        </view>
+      </scroll-view>
+
+      <!-- 食材卡片 -->
+      <view wx:if="{{visibleIngredients.length > 0}}" class="ingredient-list">
+        <view
+          wx:for="{{visibleIngredients}}"
+          wx:key="id"
+          class="ingredient-row anim-stagger-{{index + 1}}"
+          bindtap="goIngredientDetail"
+          data-id="{{item.id}}"
+          hover-class="ingredient-row--pressed"
+          aria-label="{{item.name}}，{{item.statusLabel}}，{{item.expiryHint}}"
+        >
+          <view class="food-art" aria-hidden="true">
+            <image wx:if="{{item.foodVisual.type === 'image'}}" class="food-art-img" src="{{item.foodVisual.value}}" mode="aspectFill"></image>
+            <text wx:else class="food-art-emoji">{{item.foodVisual.value}}</text>
+          </view>
+
+          <view class="ingredient-copy">
+            <view class="ingredient-name-row">
+              <text class="ingredient-name">{{item.name}}</text>
+              <text wx:if="{{item.batchLabel}}" class="ingredient-batch">{{item.batchLabel}}</text>
+              <text class="status-tag status-tag--{{item.status}}">{{item.statusLabel}}</text>
+            </view>
+            <view class="ingredient-meta">
+              <text class="ingredient-cat">{{item.category}}</text>
+              <text class="ingredient-location" wx:if="{{item.batchSummary}}">{{item.batchSummary}}</text>
+              <text class="ingredient-location" wx:elif="{{item.storageLocation}}">{{item.storageLocation}}</text>
+              <text class="ingredient-days" wx:if="{{item.daysFromNow >= 0}}">{{item.daysFromNow}}天后过期</text>
+              <text class="ingredient-days ingredient-days--expired" wx:else>已过期 {{-item.daysFromNow}}天</text>
+            </view>
+          </view>
+
+          <view class="qty-summary"><text>{{item.quantityDisplay || (item.quantity + item.unit)}}</text><text wx:if="{{item.batchCount > 1}}"> · {{item.batchCount}}批</text></view>
+          <view class="quick-use" catchtap="openQuickConsume" data-id="{{item.id}}" hover-class="quick-use--pressed">消耗</view>
+        </view>
+      </view>
+      <view wx:else class="list-empty">
+        <text class="list-empty-text">该分类下还没有食材</text>
+      </view>
+    </view>
+
+    <!-- 空状态 -->
+    <view wx:elif="{{keyword}}" class="search-empty">
+      <view class="search-empty__scribble"></view>
+      <text class="search-empty__title">没有找到“{{keyword}}”</text>
+      <text class="search-empty__desc">换个名字再找找看吧</text>
+    </view>
+
+    <view wx:else class="empty-state">
+      <image class="empty-fridge-image" src="../../resource/generated/empty-fridge-watercolor.png" mode="aspectFit" aria-role="img" aria-label="空冰箱"></image>
+      <text class="empty-title">还没放东西进去呢～</text>
+      <text class="empty-desc">把家里的食材记进这本厨房手账吧</text>
+      <view class="empty-action" bindtap="goAddIngredient" hover-class="empty-action--pressed" aria-role="button" aria-label="添加食材">添加食材</view>
+    </view>
+
+    <view class="scroll-safe-space"></view>
+  </scroll-view>
+
+  <!-- 清理确认弹层 -->
+  <view class="modal-overlay" wx:if="{{showClearConfirm}}" bindtap="onClearCancel">
+    <view class="modal" catchtap="noop">
+      <text class="modal-title">确认清理</text>
+      <text class="modal-desc">将把已过期库存记为“过期丢弃”，并保留消耗记录供日后查看。</text>
+      <view class="modal-actions">
+        <view class="modal-action modal-action--cancel" bindtap="onClearCancel">取消</view>
+        <view class="modal-action modal-action--confirm" bindtap="onClearConfirm">确认清理</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="quick-consume-mask" wx:if="{{showQuickConsume}}" bindtap="closeQuickConsume">
+    <view class="quick-consume-sheet" catchtap="noop"><view class="quick-consume-handle"></view><text class="quick-consume-title">用掉 {{quickConsumeItem.name}}</text><text class="quick-consume-hint">默认优先消耗最早到期的一批</text><view class="quick-consume-stepper"><view bindtap="changeQuickConsume" data-delta="-1">−</view><text>{{quickConsumeQuantity}}{{quickConsumeItem.unit}}</text><view bindtap="changeQuickConsume" data-delta="1">＋</view></view><view class="quick-consume-confirm" bindtap="confirmQuickConsume" hover-class="quick-consume-confirm--pressed">确认减少</view></view>
+  </view>
+</view>
+
+<tab-bar active="index"></tab-bar>

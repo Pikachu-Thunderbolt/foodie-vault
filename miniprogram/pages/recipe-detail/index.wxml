@@ -1,0 +1,136 @@
+<!-- 菜谱详情/烹饪步骤页 -->
+<navigation-bar title="{{recipe.name}}" color="#3D2E1F" background="#F7F2E9"></navigation-bar>
+
+<view class="page" wx:if="{{recipe}}">
+  <scroll-view class="content" scroll-y>
+    <!-- 菜谱头部 -->
+    <view class="recipe-header">
+      <view class="recipe-cover" aria-role="img" aria-label="{{recipe.name}}插画">
+        <image class="detail-dish-image" src="{{dishImage}}" mode="aspectFit"></image>
+      </view>
+      <view class="recipe-summary">
+        <text class="recipe-name">{{recipe.name}}</text>
+        <view class="match-summary" aria-label="可做度{{matchPercent}}%"><text class="match-summary-num">{{matchPercent}}%</text><text>{{matchText}}</text></view>
+        <view class="recipe-tags">
+          <text class="summary-tag">{{recipe.duration}}分钟</text>
+          <text class="summary-tag">
+            <text wx:if="{{recipe.difficulty === 'easy'}}">简单</text>
+            <text wx:elif="{{recipe.difficulty === 'medium'}}">中等</text>
+            <text wx:else>较难</text>
+          </text>
+          <text class="summary-tag">{{recipe.servings}}人份</text>
+          <text class="summary-tag">{{recipe.category}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 食材清单 -->
+    <view class="section">
+      <view class="section-heading"><view class="heading-mark heading-mark--list"></view><text class="section-title">食材清单</text></view>
+      <view class="ingredient-list">
+        <view wx:for="{{ingredientItems}}" wx:key="name" class="ingredient-row">
+          <view class="ingredient-status-mark {{item.owned ? 'ingredient-status-mark--owned' : 'ingredient-status-mark--need'}}"></view>
+          <text class="ing-name {{item.owned ? 'owned' : 'need-buy'}}">{{item.name}}</text>
+          <text class="ing-status" wx:if="{{item.owned}}">已有</text>
+          <text class="ing-status need" wx:else>需购买</text>
+        </view>
+      </view>
+      <view class="checklist-add" bindtap="addToChecklist" wx:if="{{needBuyIngredients.length}}">将缺少的食材加入采购清单</view>
+      <view class="extra-ingredients" wx:if="{{recipe.extraIngredients.length > 0}}">
+        <text class="extra-title">调料/辅料：</text>
+        <text class="extra-text">{{extraIngredientsText}}</text>
+      </view>
+      <view class="equipment" wx:if="{{recipe.equipment.length > 0}}">
+        <text class="extra-title">所需厨具：</text>
+        <text class="extra-text">{{equipmentText}}</text>
+      </view>
+      <view class="cooking-reservation-note" wx:if="{{cookingSessionId}}"><text>本次制作已预留现有食材</text><text>完成烹饪时才会同步扣减库存</text></view>
+    </view>
+
+    <!-- 烹饪步骤 -->
+    <view class="section">
+      <view class="section-heading"><view class="heading-mark heading-mark--steps"></view><text class="section-title">烹饪步骤</text></view>
+      <view class="steps-nav">
+        <text
+          wx:for="{{recipe.steps}}"
+          wx:key="index"
+          class="step-dot {{currentStep === index ? 'active' : ''}} {{index < currentStep ? 'done' : ''}}"
+          bindtap="goToStep"
+          data-index="{{index}}"
+        >{{index + 1}}</text>
+      </view>
+
+      <view class="current-step">
+        <view class="step-number">步骤 {{currentStep + 1}}/{{recipe.steps.length}}</view>
+        <text class="step-desc">{{recipe.steps[currentStep].desc}}</text>
+      </view>
+
+      <view class="step-nav-btns">
+        <text
+          class="step-nav-btn {{currentStep === 0 ? 'disabled' : ''}}"
+          bindtap="goToStep"
+          data-index="{{currentStep - 1}}"
+          wx:if="{{currentStep > 0}}"
+        >← 上一步</text>
+        <text
+          class="step-nav-btn next"
+          bindtap="goToStep"
+          data-index="{{currentStep + 1}}"
+          wx:if="{{currentStep < recipe.steps.length - 1}}"
+        >下一步 →</text>
+        <block wx:if="{{currentStep === recipe.steps.length - 1}}">
+          <text class="step-nav-btn next" bindtap="finishAllSteps" wx:if="{{cookingSessionId}}">{{isFinishing ? '正在完成…' : completionError ? '重试完成' : '完成'}}</text>
+          <text class="step-nav-btn next" bindtap="startCooking" wx:else>从头开始制作</text>
+        </block>
+      </view>
+      <text class="completion-error" wx:if="{{completionError}}">{{completionError}}</text>
+    </view>
+
+    <!-- 小贴士 -->
+    <view class="section" wx:if="{{recipe.tips}}">
+      <view class="section-heading"><view class="heading-mark heading-mark--tip"></view><text class="section-title">小贴士</text></view>
+      <view class="tips-card">
+        <text class="tips-text">{{recipe.tips}}</text>
+      </view>
+    </view>
+
+    <view class="bottom-spacer"></view>
+  </scroll-view>
+
+  <!-- 底部工具栏 -->
+  <view class="toolbar">
+    <view class="toolbar-left">
+      <view class="tool-btn" bindtap="toggleKeepScreenOn">
+        <view class="tool-symbol tool-symbol--light {{keepScreenOn ? 'is-on' : ''}}"></view>
+        <text class="tool-text">{{keepScreenOn ? '常亮中' : '常亮'}}</text>
+      </view>
+      <view class="tool-btn" bindtap="toggleTimer">
+        <view class="tool-symbol tool-symbol--timer"></view>
+        <text class="tool-text">计时</text>
+      </view>
+    </view>
+    <view class="toolbar-right">
+      <view class="start-btn" bindtap="startCooking">
+        <text>{{cookingStateText}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 计时器弹窗 -->
+  <view class="timer-overlay" wx:if="{{showTimer}}">
+    <view class="timer-card">
+      <text class="timer-title">烹饪计时器</text>
+      <text class="timer-display">{{timerRunning ? timerDisplay : '00:00'}}</text>
+      <view class="timer-input-row" wx:if="{{!timerRunning}}">
+        <input class="timer-input" type="number" placeholder="分" value="{{timerMinutes}}" bindinput="onTimerMinutesInput" />
+        <text class="timer-colon">:</text>
+        <input class="timer-input" type="number" placeholder="秒" value="{{timerSeconds}}" bindinput="onTimerSecondsInput" />
+      </view>
+      <view class="timer-btns">
+        <text class="timer-btn cancel" bindtap="toggleTimer">关闭</text>
+        <text class="timer-btn start" wx:if="{{!timerRunning}}" bindtap="startTimer">开始</text>
+        <text class="timer-btn stop" wx:else bindtap="stopTimer">停止</text>
+      </view>
+    </view>
+  </view>
+</view>

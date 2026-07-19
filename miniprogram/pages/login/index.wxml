@@ -1,0 +1,28 @@
+<navigation-bar title="" back="{{false}}" color="#3D2E1F" background="#F7F2E9"></navigation-bar>
+
+<!-- 效果图-2 的连续场景：冰箱、台面和撕纸便签是一张完整底图。 -->
+<view class="page {{loginSucceeded ? 'page--success' : ''}}">
+  <view class="login-scene" aria-role="img" aria-label="打开的手绘冰箱和一张欢迎便签">
+    <image class="scene-art" src="/resource/generated/login/login-continuous-scene-v4.webp" mode="scaleToFill"></image>
+
+    <view class="scene-content">
+      <view class="scene-heading">
+        <text class="welcome-title">食光宝盒</text>
+        <text class="brand-slogan">打开冰箱，也打开今天的好心情</text>
+        <text class="welcome-subtitle">登录后可同步食材、菜谱和拿手菜成长记录</text>
+      </view>
+
+      <view class="agreement {{agreementError ? 'agreement--error' : ''}}" bindtap="onAgreementChange" aria-role="checkbox" aria-checked="{{agreed}}" aria-label="同意用户协议与隐私政策">
+        <view class="agreement-check {{agreed ? 'agreement-check--on' : ''}}"><view wx:if="{{agreed}}" class="agreement-check-tick"></view></view>
+        <view class="agreement-copy"><text>我已阅读并同意 </text><text class="agreement-link" catchtap="viewAgreement">《用户协议》</text><text> 和 </text><text class="agreement-link" catchtap="viewPrivacy">《隐私政策》</text></view>
+      </view>
+      <view wx:if="{{agreementError}}" class="agreement-error"><text>请先阅读并同意用户协议与隐私政策</text></view>
+
+      <view class="login-button {{submitting ? 'login-button--loading' : ''}}" bindtap="onSubmit" hover-class="login-button--pressed" aria-role="button" aria-label="微信登录，打开小厨房">
+        <view class="login-button-label"><view class="wechat-mark" aria-hidden="true"><view class="wechat-dot dot-a"></view><view class="wechat-dot dot-b"></view></view><text>{{submitting ? '正在打开…' : '微信登录，打开小厨房'}}</text></view>
+      </view>
+      <view class="login-hint"><text>登录仅用于保存和同步你的厨房数据</text></view>
+      <view wx:if="{{loginSucceeded}}" class="login-success"><text>小厨房已经为你打开啦</text></view>
+    </view>
+  </view>
+</view>
