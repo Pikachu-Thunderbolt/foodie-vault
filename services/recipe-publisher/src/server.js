@@ -286,7 +286,7 @@ function dashboardDiscoverPage(message, channelType = 'bilibili', activeSopTab =
       const pRows = discoverItems.map(r => {
         const passed = r.verdict === 'PASSED' || r.lifecycleStatus === 'PREFLIGHT_PASSED'
         return `<tr>
-          <td>${passed ? `<input type="checkbox" name="tids" value="${html(r.tutorialId || r._id)}" ${passed ? 'checked' : ''}>` : '<span style="color:#ad4d39;font-size:12px">—</span>'}</td>
+          <td><input type="checkbox" name="tids" value="${html(r.tutorialId || r._id)}" ${passed ? 'checked' : ''}></td>
           <td><a target="_blank" href="${html(r.sourceUrl || '#')}">${html(r.sourceTitle || r.sourceId || '')}</a></td>
           <td><small>${html(r.sourceId || '')}</small></td>
           <td>${badge(r.verdict || r.lifecycleStatus)}</td>
@@ -686,6 +686,17 @@ const server = http.createServer(async (req, res) => {
 
       return res.end(dashboardDiscoverPage(msg, channelType, activeSopTab, activeSubTab, allTutorials, upsList))
     }
+    // —— 渲染素材工作台页面的辅助函数（直接渲染，不走重定向） ——
+    async function renderWorkbench(res, msg, sop, sub) {
+      const channelType = 'bilibili'
+      const activeSopTabVal = sop || 'discover'
+      const activeSubTabVal = sub || 'ranking'
+      let upsList = []
+      try { upsList = await listUpsSubscriptions(port) } catch (_) {}
+      let allTutorials = []
+      try { allTutorials = await tutorials.list(200) } catch (_) {}
+      return res.end(dashboardDiscoverPage(msg, channelType, activeSopTabVal, activeSubTabVal, allTutorials, upsList))
+    }
     if (req.method === 'POST' && req.url === '/dashboard/discover/run') {
       if (!isDashboardAuthorized(req)) { res.writeHead(303, { location: '/dashboard/login' }); return res.end() }
       const form = await readForm(req)
@@ -693,7 +704,7 @@ const server = http.createServer(async (req, res) => {
       const bvids = String(form.bvids || '').split(/\s+/).filter(Boolean)
       runDiscoveryOnce(port, { source: form.source || 'food_3day', limit: form.limit || '30', bvids })
         .catch((error) => console.error('[paoding-jieniu] discover run failed', error.message))
-      res.writeHead(303, { location: `/dashboard/discover?msg=${encodeURIComponent('发现任务已触发，稍后在教程库查看候选。')}` }); return res.end()
+      return renderWorkbench(res, '发现任务已触发，稍后刷新查看候选素材', 'discover', 'ranking')
     }
     if (req.method === 'POST' && req.url === '/dashboard/discover/enqueue-batch') {
       if (!isDashboardAuthorized(req)) { res.writeHead(303, { location: '/dashboard/login' }); return res.end() }
@@ -702,21 +713,26 @@ const server = http.createServer(async (req, res) => {
       for (const tid of tids) {
         try { await tutorials.enqueue(tid, dashboardUser || 'content-admin') } catch (e) { console.error('[paoding-jieniu] batch enqueue failed for', tid, e.message) }
       }
-      res.writeHead(303, { location: `/dashboard/discover?msg=已入队${tids.length}个教程` }); return res.end()
+      res.writeHead(303, { location: `/dashboard/discover?msg=${encodeURIComponent(`已入队${tids.length}个教程`)}` }); return res.end()
     }
     // POST /dashboard/discover/push-to-processing — 批量将预检通过的素材送入待处理
     if (req.method === 'POST' && req.url === '/dashboard/discover/push-to-processing') {
       if (!isDashboardAuthorized(req)) { res.writeHead(303, { location: '/dashboard/login' }); return res.end() }
       const form = await readForm(req)
       const tids = Array.isArray(form.tids) ? form.tids : (form.tids ? [form.tids] : [])
-      let count = 0
+      let pushed = 0, skipped = 0
       for (const tid of tids) {
         try {
-          await tutorials.enqueue(tid, dashboardUser || 'content-admin')
-          count++
-        } catch (e) { console.error('[paoding-jieniu] push-to-processing failed for', tid, e.message) }
+          const t = await tutorials.get(tid)
+          if (t && t.tutorial && t.tutorial.lifecycleStatus === 'PREFLIGHT_PASSED') {
+            await tutorials.enqueue(tid, dashboardUser || 'content-admin'); pushed++
+          } else { skipped++ }
+        } catch (e) { skipped++ }
       }
-      res.writeHead(303, { location: `/dashboard/discover?sop=processing&msg=已将${count}个素材送入待处理` }); return res.end()
+      const msg = pushed > 0
+        ? `已将 ${pushed} 个素材送入待处理` + (skipped > 0 ? `，${skipped} 个未通过预检被跳过` : '')
+        : `${skipped} 个素材未通过预检，无法送入待处理`
+      return renderWorkbench(res, msg, 'processing', '')
     }
     // POST /dashboard/discover/start-processing — 批量入队开始处理
     if (req.method === 'POST' && req.url === '/dashboard/discover/start-processing') {
@@ -725,12 +741,9 @@ const server = http.createServer(async (req, res) => {
       const tids = Array.isArray(form.tids) ? form.tids : (form.tids ? [form.tids] : [])
       let count = 0
       for (const tid of tids) {
-        try {
-          await tutorials.enqueue(tid, dashboardUser || 'content-admin')
-          count++
-        } catch (e) { console.error('[paoding-jieniu] start-processing failed for', tid, e.message) }
+        try { await tutorials.enqueue(tid, dashboardUser || 'content-admin'); count++ } catch (e) {}
       }
-      res.writeHead(303, { location: `/dashboard/discover?sop=processing&msg=已开始处理${count}个素材` }); return res.end()
+      return renderWorkbench(res, `已开始处理 ${count} 个素材`, 'processing', '')
     }
     // POST /dashboard/discover/publish-selected — 批量系统通过发布
     if (req.method === 'POST' && req.url === '/dashboard/discover/publish-selected') {
@@ -739,12 +752,9 @@ const server = http.createServer(async (req, res) => {
       const tids = Array.isArray(form.tids) ? form.tids : (form.tids ? [form.tids] : [])
       let count = 0
       for (const tid of tids) {
-        try {
-          await tutorials.review(tid, { action: 'SYSTEM_APPROVE', versionId: null }, dashboardUser || 'content-admin')
-          count++
-        } catch (e) { console.error('[paoding-jieniu] publish-selected failed for', tid, e.message) }
+        try { await tutorials.review(tid, { action: 'SYSTEM_APPROVE', versionId: null }, dashboardUser || 'content-admin'); count++ } catch (e) {}
       }
-      res.writeHead(303, { location: `/dashboard/discover?sop=publish&msg=已发布${count}个素材` }); return res.end()
+      return renderWorkbench(res, `已发布 ${count} 个素材`, 'publish', '')
     }
     // POST /dashboard/discover/reject-selected — 批量拒绝
     if (req.method === 'POST' && req.url === '/dashboard/discover/reject-selected') {
@@ -753,33 +763,30 @@ const server = http.createServer(async (req, res) => {
       const tids = Array.isArray(form.tids) ? form.tids : (form.tids ? [form.tids] : [])
       let count = 0
       for (const tid of tids) {
-        try {
-          await tutorials.review(tid, { action: 'REJECT', versionId: null, reason: form.reason || '管理员拒绝' }, dashboardUser || 'content-admin')
-          count++
-        } catch (e) { console.error('[paoding-jieniu] reject-selected failed for', tid, e.message) }
+        try { await tutorials.review(tid, { action: 'REJECT', versionId: null, reason: form.reason || '管理员拒绝' }, dashboardUser || 'content-admin'); count++ } catch (e) {}
       }
-      res.writeHead(303, { location: `/dashboard/discover?sop=publish&msg=已拒绝${count}个素材` }); return res.end()
+      return renderWorkbench(res, `已拒绝 ${count} 个素材`, 'publish', '')
     }
     // UP主管理 API
     if (req.method === 'POST' && req.url === '/dashboard/ups/crawl') {
       if (!isDashboardAuthorized(req)) { res.writeHead(303, { location: '/dashboard/login' }); return res.end() }
       const { runUpsCrawl } = require('./supervisor')
       runUpsCrawl(port).catch(e => console.error('[paoding-jieniu] ups crawl failed', e.message))
-      res.writeHead(303, { location: '/dashboard/discover?msg=UP主视频拉取已触发' }); return res.end()
+      return renderWorkbench(res, 'UP主视频拉取已触发', 'discover', 'up_subscription')
     }
     if (req.method === 'POST' && req.url === '/dashboard/ups/add') {
       if (!isDashboardAuthorized(req)) { res.writeHead(303, { location: '/dashboard/login' }); return res.end() }
       const form = await readForm(req)
       const { addUpsSubscription } = require('./supervisor')
       addUpsSubscription(port, form.mid).catch(e => console.error('[paoding-jieniu] ups add failed', e.message))
-      res.writeHead(303, { location: '/dashboard/discover?msg=已添加UP主' }); return res.end()
+      return renderWorkbench(res, '已添加UP主', 'discover', 'up_subscription')
     }
     if (req.method === 'POST' && req.url === '/dashboard/ups/remove') {
       if (!isDashboardAuthorized(req)) { res.writeHead(303, { location: '/dashboard/login' }); return res.end() }
       const form = await readForm(req)
       const { removeUpsSubscription } = require('./supervisor')
       removeUpsSubscription(port, form.mid).catch(e => console.error('[paoding-jieniu] ups remove failed', e.message))
-      res.writeHead(303, { location: '/dashboard/discover?msg=已取消关注' }); return res.end()
+      return renderWorkbench(res, '已取消关注', 'discover', 'up_subscription')
     }
     const dashboardEnqueueMatch = req.method === 'POST' && req.url.match(/^\/dashboard\/tutorials\/([^/?]+)\/enqueue$/)
     if (dashboardEnqueueMatch) {
