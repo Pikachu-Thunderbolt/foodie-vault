@@ -275,11 +275,15 @@ function dashboardDiscoverPage(message, channelType = 'bilibili', activeSopTab =
       </section>`
     }
 
-    // --- Preflight results table (shown after discovery) ---
+    // --- Preflight results table (仅显示预检阶段的素材，已处理/已发布的不在此展示) ---
     let preflightTable = ''
-    const preflightPassedItems = results.filter(r => r.verdict === 'PASSED' || r.lifecycleStatus === 'PREFLIGHT_PASSED')
-    if (results.length > 0) {
-      const pRows = results.map(r => {
+    const discoverItems = results.filter(r => {
+      const s = r.lifecycleStatus || r.verdict || ''
+      return s.startsWith('PREFLIGHT') || s === 'METADATA_INCOMPLETE'
+    })
+    const preflightPassedItems = discoverItems.filter(r => r.verdict === 'PASSED' || r.lifecycleStatus === 'PREFLIGHT_PASSED')
+    if (discoverItems.length > 0) {
+      const pRows = discoverItems.map(r => {
         const passed = r.verdict === 'PASSED' || r.lifecycleStatus === 'PREFLIGHT_PASSED'
         return `<tr>
           <td>${passed ? `<input type="checkbox" name="tids" value="${html(r.tutorialId || r._id)}" ${passed ? 'checked' : ''}>` : '<span style="color:#ad4d39;font-size:12px">—</span>'}</td>
@@ -291,7 +295,7 @@ function dashboardDiscoverPage(message, channelType = 'bilibili', activeSopTab =
       }).join('')
       preflightTable = `
       <section>
-        <h2>发现结果</h2>
+        <h2>发现结果 (${discoverItems.length})</h2>
         <form method="post" action="/dashboard/discover/push-to-processing" id="preflight-form">
           <table><thead><tr><th style="width:40px">选</th><th>标题</th><th>ID</th><th>预检</th><th>评分</th></tr></thead>
           <tbody>${pRows}</tbody></table>
@@ -301,6 +305,8 @@ function dashboardDiscoverPage(message, channelType = 'bilibili', activeSopTab =
           </div>
         </form>
       </section>`
+    } else {
+      preflightTable = '<section><p style="color:#806f61;text-align:center;padding:20px">暂无新发现的素材。请通过上方榜单发现、UP主关注或指定素材来发现新的做饭教程。</p></section>'
     }
 
     discoverContent = channelBar + subTabs + note + rankingForm + upsForm + directForm + preflightTable
