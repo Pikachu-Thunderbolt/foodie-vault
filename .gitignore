@@ -1,0 +1,23 @@
+# dependencies
+node_modules/
+venv/
+.git/
+
+# local tooling state
+.claude/
+.superpowers/
+.DS_Store
+tmp/
+
+# heavy asset packs excluded from this repo (regenerable; see DESIGN.md)
+resource/design/
+resource/recoginition/
+resource/recipe-icon/
+resource/food-icon/
+miniprogram/resource/recipe-icon/
+miniprogram/resource/food-icon/
+miniprogram/resource/generated/
+
+# local env
+*.local
+.env
