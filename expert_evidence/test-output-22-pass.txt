@@ -1,0 +1,34 @@
+
+> foodie-vault-paoding-jieniu@1.0.0 test
+> node --test test/*.test.js
+
+✔ listDictionaryQueue returns pending items for the dashboard (4.518375ms)
+✔ resolveDictionaryQueue creates a canonical entry and marks item resolved (1.872834ms)
+✔ preflight rejects non-tutorials and never lets them queue (5.992083ms)
+✔ user tutorial must self-review then receive system approval for sharing (6.843375ms)
+✔ preflight does not use popularity as a tutorial bypass (0.17375ms)
+✔ system approval refuses to publish when source rights are not cleared (2.89725ms)
+✔ an update keeps the previously published version available until replacement review (3.249333ms)
+✔ draft registration pauses the tutorial at FRAMES_REVIEW (3.657834ms)
+✔ SYSTEM frame selection creates an EXPORT task claimable by kind (4.27375ms)
+✔ USER frame selection is refused for anyone but the owner (4.171292ms)
+✔ channel parseSourceId parses BV号 (0.176917ms)
+✔ channel evaluateCookingTutorial rejects non-cooking (0.099167ms)
+✔ submitSource creates tutorial with channelType and sourceId (0.662167ms)
+✔ 素材终审：registerDraft 持久化 LLM 推断的菜名/食材/别名 (3.650625ms)
+✔ 素材终审：submitFrameSelection 把 approvedRecipeName/approvedIngredients 落 draft，export 队列就绪 (4.956916ms)
+✔ 素材终审：approvedIngredients 缺省时回落到 draft.detectedIngredients (4.067375ms)
+✔ updateTask surfaces processingStage so the detail page can show real progress (2.122292ms)
+✔ dispatch failure marks task FAILED so it never stays stuck QUEUED (2.273167ms)
+✔ accepts a complete minimum manifest (0.889292ms)
+✔ rejects traversal paths (0.210167ms)
+✔ rejects missing source time for a video step (0.072ms)
+✔ rejects PUBLISH_READY without canonical data and cleared rights (0.066333ms)
+ℹ tests 22
+ℹ suites 0
+ℹ pass 22
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 117.998875

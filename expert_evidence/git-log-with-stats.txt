@@ -1,0 +1,344 @@
+commit af1d5ea9bcda65617491c2abdcef43f61252263f
+Author: pika~pika~ <hejabvbreus11@163.com>
+Date:   Thu Sep 24 20:21:25 2026 +0800
+
+    restore: re-implement uncommitted material-review/dispatch work lost to history rewrite
+    
+    A forced git-filter-repo pass (stripping node_modules/asset packs before
+    publishing) reset tracked files that had uncommitted changes, dropping 5 tests
+    and their src support. Reconstructed from surviving test names, the design
+    memory file and committed code:
+    
+    - registerDraft persists LLM-inferred recipeName/ingredients/aliases
+    - submitFrameSelection lands approvedRecipeName/approvedIngredients, with
+      fallback to draft.detectedIngredients; server route forwards approval
+    - updateTask surfaces processingStage on both task and tutorial
+    - new dispatch(): executor failure marks the task FAILED, never stuck QUEUED
+    
+    Tests: 22/22 pass.
+
+ services/recipe-publisher/src/server.js          |  2 +-
+ services/recipe-publisher/src/tutorials.js       | 38 +++++++++--
+ services/recipe-publisher/test/tutorials.test.js | 87 ++++++++++++++++++++++++
+ 3 files changed, 120 insertions(+), 7 deletions(-)
+
+commit 340e7a6324912975abe497e07670bfce48adcdf4
+Author: pika~pika~ <hejabvbreus11@163.com>
+Date:   Mon Sep 21 11:52:23 2026 +0800
+
+    chore: add .gitignore (deps, local state, heavy asset packs)
+
+ .gitignore | 23 +++++++++++++++++++++++
+ 1 file changed, 23 insertions(+)
+
+commit a82697454214f40044e9fe55253f2743898a6348
+Author: pika~pika~ <hejabvbreus11@163.com>
+Date:   Sun Jul 19 19:19:51 2026 +0800
+
+    refactor: replace URL redirect messages with direct page rendering via renderWorkbench helper
+
+ services/recipe-publisher/src/server.js | 59 ++++++++++++++++++---------------
+ 1 file changed, 33 insertions(+), 26 deletions(-)
+
+commit 82567ed3207424184b61a296f21d08bf18bb7829
+Author: pika~pika~ <hejabvbreus11@163.com>
+Date:   Sun Jul 19 18:29:16 2026 +0800
+
+    fix: discover tab now only shows preflight-stage items, not published/processing
+
+ services/recipe-publisher/src/server.js | 16 +++++++++++-----
+ 1 file changed, 11 insertions(+), 5 deletions(-)
+
+commit 4ab20643b9d8a51baf6b1dc0387b73628a40abba
+Author: pika~pika~ <hejabvbreus11@163.com>
+Date:   Sun Jul 19 17:59:27 2026 +0800
+
+    rename: 发现 → 素材工作台 in nav and page titles
+
+ services/recipe-publisher/src/server.js | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+commit f0cb0f1261a418045825a96cca1061d3731e206e
+Author: pika~pika~ <hejabvbreus11@163.com>
+Date:   Sun Jul 19 17:42:07 2026 +0800
+
+    feat: SOP workflow tabs, Chinese status labels, seed dish dictionary from icons
+
+ services/recipe-publisher/data/local-cloud-db.json | 1703 +++++++++++++++++++-
+ services/recipe-publisher/src/server.js            |  503 ++++--
+ services/recipe-publisher/src/tutorials.js         |   11 +-
+ 3 files changed, 2074 insertions(+), 143 deletions(-)
+
+commit cd033903189be1fa8d7e7760e3a792fd4619268b
+Author: pika~pika~ <hejabvbreus11@163.com>
+Date:   Sun Jul 19 15:34:34 2026 +0800
+
+    feat: dish fuzzy matching, cloud function channel abstraction, tests (17/17 pass)
+
+ cloudfunctions/tutorials/index.js                |  17 ++--
+ miniprogram/utils/tutorials.ts                   |   5 +-
+ services/recipe-publisher/src/server.js          | 107 +++++++++++++++++++++--
+ services/recipe-publisher/src/tutorials.js       |  62 +++++++++++--
+ services/recipe-publisher/test/tutorials.test.js |  24 ++++-
+ 5 files changed, 196 insertions(+), 19 deletions(-)
+
+commit 2a4024616497f7d931b652ad3bffc0e81764982b
+Author: pika~pika~ <hejabvbreus11@163.com>
+Date:   Sun Jul 19 15:30:42 2026 +0800
+
+    feat: extend LLM prompt with metadata+comments, pass sourceData from worker
+
+ .../worker/engine/extract_steps.py                 | 66 +++++++++++++++++-----
+ services/recipe-publisher/worker/paoding_worker.py | 16 +++++-
+ 2 files changed, 66 insertions(+), 16 deletions(-)
+
+commit 8380f098d2ec6dee0ad2a2659e54b43cf916b5a7
+Author: pika~pika~ <hejabvbreus11@163.com>
+Date:   Sun Jul 19 15:28:12 2026 +0800
+
+    feat: unify tutorial library with filters, channel-aware detail page
+
+ services/recipe-publisher/src/server.js | 50 +++++++++++++++++++++++++--------
+ 1 file changed, 38 insertions(+), 12 deletions(-)
+
+commit ebd6b43ce75587c28820ae0f65bfa217705e680e
+Author: pika~pika~ <hejabvbreus11@163.com>
+Date:   Sun Jul 19 15:25:03 2026 +0800
+
+    feat: redesign discover page with 3 tabs, UP主 management, and batch enqueue
+
+ services/recipe-publisher/src/server.js | 166 ++++++++++++++++++++++++++++++--
+ 1 file changed, 158 insertions(+), 8 deletions(-)
+
+commit c0e9dc71cbb2aae29a9171463eeb93507d60dd37
+Author: pika~pika~ <hejabvbreus11@163.com>
+Date:   Sun Jul 19 15:21:38 2026 +0800
+
+    feat: add UP主 management operations to supervisor and dashboard routes
+
+ services/recipe-publisher/src/server.js     | 21 ++++++++++++
+ services/recipe-publisher/src/supervisor.js | 53 ++++++++++++++++++++++++++++-
+ 2 files changed, 73 insertions(+), 1 deletion(-)
+
+commit 8d187fbbe0480cfb399317228c3fc1c64f880a92
+Author: pika~pika~ <hejabvbreus11@163.com>
+Date:   Sun Jul 19 15:19:44 2026 +0800
+
+    fix: address review issues — dead loop, redundant API call, ps=limit, parameterized SQL
+
+ services/recipe-publisher/worker/discovery_push.py | 23 +++++++++++-----------
+ 1 file changed, 11 insertions(+), 12 deletions(-)
+
+commit e007fca4d9c05fe42e9a4083e3175ff2aef3f122
+Author: pika~pika~ <hejabvbreus11@163.com>
+Date:   Sun Jul 19 15:14:16 2026 +0800
+
+    feat: add UP主 crawl mode and comment fetching to discovery_push
+
+ services/recipe-publisher/worker/discovery_push.py | 90 ++++++++++++++++++++--
+ 1 file changed, 82 insertions(+), 8 deletions(-)
+
+commit b2f9ece63ee12bb82261e1f8079f8fa4a214f237
+Author: pika~pika~ <hejabvbreus11@163.com>
+Date:   Sun Jul 19 15:10:04 2026 +0800
+
+    refactor: replace hardcoded bvid/bilibili with channel abstraction
+
+ services/recipe-publisher/src/server.js    |  7 ++-
+ services/recipe-publisher/src/tutorials.js | 72 +++++++++++++++++++-----------
+ 2 files changed, 53 insertions(+), 26 deletions(-)
+
+commit b797094fc6aeb76fee74081bb6264ac9304cc60f
+Author: pika~pika~ <hejabvbreus11@163.com>
+Date:   Sun Jul 19 15:04:44 2026 +0800
+
+    feat: add channel abstraction layer with bilibili adapter
+
+ services/recipe-publisher/src/channels/bilibili.js | 83 ++++++++++++++++++++++
+ services/recipe-publisher/src/channels/index.js    | 42 +++++++++++
+ 2 files changed, 125 insertions(+)
+
+commit c6ff048e9cfe79cae6a45793494d6e6ea4dd14b3
+Author: pika~pika~ <hejabvbreus11@163.com>
+Date:   Sun Jul 19 15:03:44 2026 +0800
+
+    initial commit: foodie-vault full project
+
+ DESIGN.md                                          |   375 +
+ PRODUCT.md                                         |    47 +
+ assets/foodie-vault-fresh-notes-avatar.png         |   Bin 0 -> 35039 bytes
+ cloudfunctions/README.md                           |   229 +
+ cloudfunctions/login/index.js                      |    83 +
+ cloudfunctions/login/package-lock.json             |  1889 ++
+ cloudfunctions/login/package.json                  |     8 +
+ cloudfunctions/package-lock.json                   |  1889 ++
+ cloudfunctions/package.json                        |     8 +
+ cloudfunctions/sync/index.js                       |   148 +
+ cloudfunctions/sync/package.json                   |     8 +
+ cloudfunctions/tutorials/index.js                  |   224 +
+ cloudfunctions/tutorials/package.json              |     8 +
+ .../plans/2026-07-19-multi-channel-discovery.md    |  1267 ++
+ miniprogram/app.json                               |    79 +
+ miniprogram/app.scss                               |   403 +
+ miniprogram/app.ts                                 |   114 +
+ .../components/navigation-bar/navigation-bar.json  |     5 +
+ .../components/navigation-bar/navigation-bar.scss  |   183 +
+ .../components/navigation-bar/navigation-bar.ts    |   115 +
+ .../components/navigation-bar/navigation-bar.wxml  |    43 +
+ miniprogram/components/tab-bar/index.json          |     4 +
+ miniprogram/components/tab-bar/index.scss          |   159 +
+ miniprogram/components/tab-bar/index.ts            |    28 +
+ miniprogram/components/tab-bar/index.wxml          |    21 +
+ miniprogram/custom-tab-bar/index.json              |     3 +
+ miniprogram/custom-tab-bar/index.scss              |     1 +
+ miniprogram/custom-tab-bar/index.ts                |     1 +
+ miniprogram/custom-tab-bar/index.wxml              |     2 +
+ miniprogram/data/mock-data.ts                      |   718 +
+ miniprogram/pages/add-ingredient/index.json        |     6 +
+ miniprogram/pages/add-ingredient/index.scss        |   677 +
+ miniprogram/pages/add-ingredient/index.ts          |   337 +
+ miniprogram/pages/add-ingredient/index.wxml        |   228 +
+ miniprogram/pages/checklist/index.json             |     7 +
+ miniprogram/pages/checklist/index.scss             |    15 +
+ miniprogram/pages/checklist/index.ts               |    81 +
+ miniprogram/pages/checklist/index.wxml             |    57 +
+ miniprogram/pages/index/index.json                 |     7 +
+ miniprogram/pages/index/index.scss                 |   720 +
+ miniprogram/pages/index/index.ts                   |   404 +
+ miniprogram/pages/index/index.wxml                 |   161 +
+ miniprogram/pages/ingredient-detail/index.json     |     6 +
+ miniprogram/pages/ingredient-detail/index.scss     |   220 +
+ miniprogram/pages/ingredient-detail/index.ts       |   245 +
+ miniprogram/pages/ingredient-detail/index.wxml     |   154 +
+ miniprogram/pages/login/index.json                 |     6 +
+ miniprogram/pages/login/index.scss                 |    38 +
+ miniprogram/pages/login/index.ts                   |    63 +
+ miniprogram/pages/login/index.wxml                 |    28 +
+ miniprogram/pages/profile/index.json               |     7 +
+ miniprogram/pages/profile/index.scss               |   720 +
+ miniprogram/pages/profile/index.ts                 |   297 +
+ miniprogram/pages/profile/index.wxml               |   161 +
+ miniprogram/pages/recipe-detail/index.json         |     6 +
+ miniprogram/pages/recipe-detail/index.scss         |   366 +
+ miniprogram/pages/recipe-detail/index.ts           |   249 +
+ miniprogram/pages/recipe-detail/index.wxml         |   136 +
+ miniprogram/pages/recipes/index.json               |     7 +
+ miniprogram/pages/recipes/index.scss               |    19 +
+ miniprogram/pages/recipes/index.ts                 |   380 +
+ miniprogram/pages/recipes/index.wxml               |    43 +
+ miniprogram/pages/scan-import/index.json           |     7 +
+ miniprogram/pages/scan-import/index.scss           |  1930 ++
+ miniprogram/pages/scan-import/index.ts             |   591 +
+ miniprogram/pages/scan-import/index.wxml           |   275 +
+ miniprogram/pages/scan-import/mock-scanner.ts      |   138 +
+ miniprogram/pages/share/index.json                 |     6 +
+ miniprogram/pages/share/index.scss                 |   275 +
+ miniprogram/pages/share/index.ts                   |   190 +
+ miniprogram/pages/share/index.wxml                 |   106 +
+ miniprogram/pages/signature-detail/index.json      |     6 +
+ miniprogram/pages/signature-detail/index.scss      |   185 +
+ miniprogram/pages/signature-detail/index.ts        |   221 +
+ miniprogram/pages/signature-detail/index.wxml      |   136 +
+ miniprogram/pages/signature-dishes/index.json      |     6 +
+ miniprogram/pages/signature-dishes/index.scss      |     1 +
+ miniprogram/pages/signature-dishes/index.ts        |    51 +
+ miniprogram/pages/signature-dishes/index.wxml      |    10 +
+ miniprogram/pages/tutorial-frames/index.js         |    60 +
+ miniprogram/pages/tutorial-frames/index.json       |     6 +
+ miniprogram/pages/tutorial-frames/index.scss       |    15 +
+ miniprogram/pages/tutorial-frames/index.wxml       |    27 +
+ .../\344\270\200\345\256\266\344\272\272.png"      |   Bin 0 -> 2957166 bytes
+ .../theme-background/\345\245\263\347\224\237.png" |   Bin 0 -> 2930855 bytes
+ .../theme-background/\346\203\205\344\276\243.png" |   Bin 0 -> 2985445 bytes
+ .../\346\227\240\346\200\247\345\210\253.png"      |   Bin 0 -> 2383151 bytes
+ .../theme-background/\347\224\267\347\224\237.png" |   Bin 0 -> 2855194 bytes
+ miniprogram/sitemap.json                           |     7 +
+ miniprogram/utils/auth.ts                          |   119 +
+ miniprogram/utils/cloud.ts                         |   162 +
+ miniprogram/utils/food-image.ts                    |    83 +
+ miniprogram/utils/migration.ts                     |    64 +
+ miniprogram/utils/notify.ts                        |    61 +
+ miniprogram/utils/recipe-image.ts                  |    26 +
+ miniprogram/utils/recipe.ts                        |   146 +
+ miniprogram/utils/signature-dish.ts                |   255 +
+ miniprogram/utils/storage-strategy.ts              |   183 +
+ miniprogram/utils/storage.ts                       |   551 +
+ miniprogram/utils/sync.ts                          |    36 +
+ miniprogram/utils/tutorials.ts                     |   133 +
+ miniprogram/utils/util.ts                          |    19 +
+ package.json                                       |    15 +
+ project.config.json                                |    53 +
+ project.private.config.json                        |    21 +
+ .../\346\241\214\346\235\277-1.png"                |   Bin 0 -> 2591061 bytes
+ .../\346\241\214\346\235\277-2.png"                |   Bin 0 -> 2823570 bytes
+ .../\346\241\214\346\235\277-3.png"                |   Bin 0 -> 2868860 bytes
+ .../\344\270\200\345\256\266\344\272\272.png"      |   Bin 0 -> 2957166 bytes
+ .../theme-background/\345\245\263\347\224\237.png" |   Bin 0 -> 2930855 bytes
+ .../theme-background/\346\203\205\344\276\243.png" |   Bin 0 -> 2985445 bytes
+ .../\346\227\240\346\200\247\345\210\253.png"      |   Bin 0 -> 2383151 bytes
+ .../theme-background/\347\224\267\347\224\237.png" |   Bin 0 -> 2855194 bytes
+ services/recipe-publisher/.env.example             |    44 +
+ services/recipe-publisher/Dockerfile               |    41 +
+ services/recipe-publisher/OPERATIONS.md            |   143 +
+ services/recipe-publisher/README.md                |   117 +
+ .../data/dish-dictionary.seed.json                 |  1482 ++
+ .../data/food-dictionary.seed.json                 |  3537 ++++
+ services/recipe-publisher/data/local-cloud-db.json |   397 +
+ ...94064c5c2cc703780f962f4d7c97a8081d7a38b4445.jpg |     1 +
+ services/recipe-publisher/docker-compose.yml       |    40 +
+ services/recipe-publisher/package.json             |    19 +
+ services/recipe-publisher/scripts/build-seeds.js   |    80 +
+ services/recipe-publisher/scripts/seed-cloud.js    |    17 +
+ services/recipe-publisher/src/dictionary.js        |    78 +
+ services/recipe-publisher/src/local-cloud.js       |    39 +
+ services/recipe-publisher/src/publisher.js         |   343 +
+ services/recipe-publisher/src/server.js            |   371 +
+ services/recipe-publisher/src/supervisor.js        |    68 +
+ services/recipe-publisher/src/tutorials.js         |   253 +
+ services/recipe-publisher/src/validator.js         |   127 +
+ services/recipe-publisher/test/dictionary.test.js  |    34 +
+ services/recipe-publisher/test/tutorials.test.js   |   111 +
+ services/recipe-publisher/test/validator.test.js   |    38 +
+ services/recipe-publisher/worker/Dockerfile        |    24 +
+ services/recipe-publisher/worker/README.md         |    30 +
+ .../__pycache__/discovery_push.cpython-314.pyc     |   Bin 0 -> 10315 bytes
+ .../__pycache__/paoding_worker.cpython-314.pyc     |   Bin 0 -> 18883 bytes
+ services/recipe-publisher/worker/discovery_push.py |   152 +
+ .../recipe-publisher/worker/engine/__init__.py     |     0
+ .../engine/__pycache__/__init__.cpython-314.pyc    |   Bin 0 -> 124 bytes
+ .../engine/__pycache__/add_video.cpython-314.pyc   |   Bin 0 -> 8283 bytes
+ .../__pycache__/discover_cooking.cpython-314.pyc   |   Bin 0 -> 28500 bytes
+ .../engine/__pycache__/download.cpython-314.pyc    |   Bin 0 -> 18373 bytes
+ .../engine/__pycache__/export.cpython-314.pyc      |   Bin 0 -> 40690 bytes
+ .../__pycache__/extract_frames.cpython-314.pyc     |   Bin 0 -> 18944 bytes
+ .../__pycache__/extract_steps.cpython-314.pyc      |   Bin 0 -> 14640 bytes
+ .../__pycache__/llm_provider.cpython-314.pyc       |   Bin 0 -> 7111 bytes
+ .../engine/__pycache__/process.cpython-314.pyc     |   Bin 0 -> 16467 bytes
+ .../engine/__pycache__/schema.cpython-314.pyc      |   Bin 0 -> 6661 bytes
+ .../engine/__pycache__/transcribe.cpython-314.pyc  |   Bin 0 -> 13635 bytes
+ .../worker/engine/__pycache__/ups.cpython-314.pyc  |   Bin 0 -> 21848 bytes
+ .../recipe-publisher/worker/engine/add_video.py    |   130 +
+ .../worker/engine/discover_cooking.py              |   459 +
+ .../recipe-publisher/worker/engine/download.py     |   273 +
+ services/recipe-publisher/worker/engine/export.py  |   845 +
+ .../worker/engine/extract_frames.py                |   332 +
+ .../worker/engine/extract_steps.py                 |   246 +
+ .../recipe-publisher/worker/engine/llm_provider.py |   102 +
+ services/recipe-publisher/worker/engine/process.py |   261 +
+ services/recipe-publisher/worker/engine/schema.py  |   181 +
+ .../recipe-publisher/worker/engine/transcribe.py   |   215 +
+ services/recipe-publisher/worker/engine/ups.py     |   368 +
+ services/recipe-publisher/worker/paoding_worker.py |   250 +
+ services/recipe-publisher/worker/requirements.txt  |    19 +
+ tsconfig.json                                      |    30 +
+ typings/index.d.ts                                 |     1 +
+ typings/types/index.d.ts                           |     1 +
+ typings/types/wx/index.d.ts                        |    74 +
+ typings/types/wx/lib.wx.api.d.ts                   | 19671 +++++++++++++++++++
+ typings/types/wx/lib.wx.app.d.ts                   |   270 +
+ typings/types/wx/lib.wx.behavior.d.ts              |    68 +
+ typings/types/wx/lib.wx.cloud.d.ts                 |   924 +
+ typings/types/wx/lib.wx.component.d.ts             |   636 +
+ typings/types/wx/lib.wx.event.d.ts                 |  1435 ++
+ typings/types/wx/lib.wx.page.d.ts                  |   259 +
+ 177 files changed, 54725 insertions(+)
