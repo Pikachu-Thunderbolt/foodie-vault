@@ -158,11 +158,28 @@ class TutorialService {
   async updateTask(taskId, input, actor = 'paoding-worker') {
     const task = await this.findOne('tutorial_processing_tasks', { taskId }); if (!task) throw new ValidationError(['未找到处理任务'])
     if (!['DOWNLOADING', 'TRANSCRIBING', 'EXTRACTING', 'PACKAGING', 'EXPORTING', 'COMPLETED', 'FAILED'].includes(input.status)) throw new ValidationError(['无效的任务状态'])
-    await this.db.collection('tutorial_processing_tasks').doc(task._id).update({ data: { status: input.status, progress: input.progress || null, error: input.error || null, updatedAt: now(), completedAt: input.status === 'COMPLETED' || input.status === 'FAILED' ? now() : null } })
+    // processingStage 透出到任务与教程上，详情页才能展示真实处理进度（而不只是状态枚举）。
+    const stage = input.processingStage || null
+    await this.db.collection('tutorial_processing_tasks').doc(task._id).update({ data: { status: input.status, progress: input.progress || null, processingStage: stage, error: input.error || null, updatedAt: now(), completedAt: input.status === 'COMPLETED' || input.status === 'FAILED' ? now() : null } })
     const tutorial = await this.findOne('tutorials', { tutorialId: task.tutorialId })
-    if (tutorial) await this.db.collection('tutorials').doc(tutorial._id).update({ data: { processingStatus: input.status, lifecycleStatus: input.status === 'FAILED' ? 'PROCESSING_FAILED' : tutorial.lifecycleStatus, updatedAt: now() } })
-    await this.event(task.tutorialId, 'TASK_STATUS_UPDATED', actor, { taskId, status: input.status, progress: input.progress || null })
-    return { taskId, status: input.status }
+    if (tutorial) await this.db.collection('tutorials').doc(tutorial._id).update({ data: { processingStatus: input.status, processingStage: stage || tutorial.processingStage || null, lifecycleStatus: input.status === 'FAILED' ? 'PROCESSING_FAILED' : tutorial.lifecycleStatus, updatedAt: now() } })
+    await this.event(task.tutorialId, 'TASK_STATUS_UPDATED', actor, { taskId, status: input.status, processingStage: stage, progress: input.progress || null })
+    return { taskId, status: input.status, processingStage: stage }
+  }
+
+  // —— 派发执行：任何派发失败都立刻把任务置为 FAILED，绝不让任务卡在 QUEUED 被反复领取 ——
+  async dispatch(taskId, exec, actor = 'supervisor') {
+    const task = await this.findOne('tutorial_processing_tasks', { taskId }); if (!task) throw new ValidationError(['未找到处理任务'])
+    if (!['QUEUED', 'CLAIMED'].includes(task.status)) throw new ValidationError([`任务状态 ${task.status} 不可派发`])
+    try {
+      const result = await exec(task)
+      await this.updateTask(taskId, { status: 'COMPLETED' }, actor)
+      return { taskId, status: 'COMPLETED', result: result ?? null }
+    } catch (error) {
+      const message = String(error?.message || error)
+      await this.updateTask(taskId, { status: 'FAILED', error: message }, actor)
+      return { taskId, status: 'FAILED', error: message }
+    }
   }
 
   async registerVersion(input, actor = 'paoding-worker') {
@@ -189,6 +206,10 @@ class TutorialService {
     if (!steps.length) throw new ValidationError(['草稿必须包含步骤'])
     await this.upsert('tutorial_frame_drafts', { tutorialId }, {
       recipeName: input.recipeName || '',
+      // 素材终审：把 LLM 推断的菜名/食材/别名随草稿持久化，供终审页预填与回落。
+      detectedRecipeName: input.detectedRecipeName || input.recipeName || '',
+      detectedIngredients: Array.isArray(input.detectedIngredients) ? input.detectedIngredients : [],
+      detectedAliases: Array.isArray(input.detectedAliases) ? input.detectedAliases : [],
       sourceId: tutorial.sourceId,
       steps, // [{stepIndex,name,description,candidates:[{frameType,slot,cloudFileId}]}]
       selection: null,
@@ -212,7 +233,7 @@ class TutorialService {
   }
 
   // —— 提交挑帧结果：SYSTEM 由管理员(受令牌保护)，USER 仅所有者本人 ——
-  async submitFrameSelection(tutorialId, selections, actor) {
+  async submitFrameSelection(tutorialId, selections, actor, approval = {}) {
     const tutorial = await this.findOne('tutorials', { tutorialId })
     if (!tutorial) throw new ValidationError(['未找到教程'])
     if (tutorial.lifecycleStatus !== 'FRAMES_REVIEW') throw new ValidationError(['当前教程不在挑帧阶段'])
@@ -220,7 +241,12 @@ class TutorialService {
     const draft = await this.findOne('tutorial_frame_drafts', { tutorialId })
     if (!draft) throw new ValidationError(['未找到待挑帧的草稿'])
     if (!Array.isArray(selections) || !selections.length) throw new ValidationError(['selections 必填：每步选定 {stepIndex, frameType, slot}'])
-    await this.db.collection('tutorial_frame_drafts').doc(draft._id).update({ data: { selection: selections, selectedBy: actor, selectedAt: now(), updatedAt: now() } })
+    // 素材终审：落定审定菜名/食材；缺省时回落到 registerDraft 持久化的 LLM 推断结果。
+    const approvedRecipeName = approval.approvedRecipeName || draft.detectedRecipeName || draft.recipeName || ''
+    const approvedIngredients = Array.isArray(approval.approvedIngredients) && approval.approvedIngredients.length
+      ? approval.approvedIngredients
+      : (Array.isArray(draft.detectedIngredients) ? draft.detectedIngredients : [])
+    await this.db.collection('tutorial_frame_drafts').doc(draft._id).update({ data: { selection: selections, selectedBy: actor, selectedAt: now(), approvedRecipeName, approvedIngredients, updatedAt: now() } })
     const taskId = `export_${tutorialId}_${Date.now()}`
     await this.db.collection('tutorials').doc(tutorial._id).update({ data: { lifecycleStatus: 'READY_TO_EXPORT', processingStatus: 'EXPORT_QUEUED', activeTaskId: taskId, updatedAt: now() } })
     await this.db.collection('tutorial_processing_tasks').add({ data: { taskId, tutorialId, kind: 'EXPORT', channelType: tutorial.channelType, sourceId: tutorial.sourceId, status: 'QUEUED', createdAt: now(), updatedAt: now() } })

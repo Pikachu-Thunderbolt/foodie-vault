@@ -844,7 +844,7 @@ const server = http.createServer(async (req, res) => {
     const draftGetMatch = req.method === 'GET' && req.url.match(/^\/v1\/tutorials\/([^/?]+)\/draft$/)
     if (draftGetMatch) { const d = await tutorials.getDraft(decodeURIComponent(draftGetMatch[1])); return d ? reply(res, 200, { data: d }) : reply(res, 404, { code: 'NOT_FOUND', message: '未找到草稿' }) }
     const frameSelMatch = req.method === 'POST' && req.url.match(/^\/v1\/tutorials\/([^/?]+)\/frame-selection$/)
-    if (frameSelMatch) return reply(res, 200, { data: await tutorials.submitFrameSelection(decodeURIComponent(frameSelMatch[1]), (await readJson(req)).selections, actor) })
+    if (frameSelMatch) { const body = await readJson(req); return reply(res, 200, { data: await tutorials.submitFrameSelection(decodeURIComponent(frameSelMatch[1]), body.selections, actor, body.approval || {}) }) }
     const taskStatusMatch = req.method === 'POST' && req.url.match(/^\/v1\/processing-tasks\/([^/?]+)\/status$/)
     if (taskStatusMatch) return reply(res, 200, { data: await tutorials.updateTask(decodeURIComponent(taskStatusMatch[1]), await readJson(req), actor) })
     const versionMatch = req.method === 'POST' && req.url.match(/^\/v1\/tutorials\/([^/?]+)\/versions$/)

@@ -131,3 +131,90 @@ test('submitSource creates tutorial with channelType and sourceId', async () => 
   assert.equal(t.sourceId, 'BV1test0001')
   assert.equal(t.bvid, undefined)
 })
+
+// —— 素材终审与任务派发（重建自丢失的未提交增量，依据测试名与设计记忆）——
+async function toFramesReviewWithLlmDraft(service) {
+  const tutorial = await service.submitBilibili({ bvid: 'BV1llmdraft9', ownerType: 'SYSTEM', sourceRightsStatus: 'cleared' })
+  await service.preflight(tutorial.tutorialId, { title: '可乐鸡翅做法教程', description: '腌制鸡翅下锅炖煮', duration: 250, category: '美食制作' })
+  await service.enqueue(tutorial.tutorialId)
+  await service.claimNext('w1', 'PROCESS')
+  await service.registerDraft(tutorial.tutorialId, {
+    recipeName: '可乐鸡翅',
+    detectedRecipeName: '可乐鸡翅',
+    detectedIngredients: ['鸡翅', '可乐', '姜'],
+    detectedAliases: ['百事鸡翅', '快乐鸡翅'],
+    steps: [
+      { stepIndex: 0, name: '腌制', description: '鸡翅划刀腌制', candidates: [{ frameType: 'key', slot: 0, cloudFileId: 'cf-a' }] },
+      { stepIndex: 1, name: '炖煮', description: '倒可乐炖煮', candidates: [{ frameType: 'key', slot: 0, cloudFileId: 'cf-b' }] },
+    ],
+  })
+  return tutorial
+}
+
+test('素材终审：registerDraft 持久化 LLM 推断的菜名/食材/别名', async () => {
+  const root = await fs.mkdtemp(path.join(os.tmpdir(), 'paoding-'))
+  const service = new TutorialService({ cloud: createLocalCloud(root) })
+  const tutorial = await toFramesReviewWithLlmDraft(service)
+  const { draft } = await service.getDraft(tutorial.tutorialId)
+  assert.equal(draft.detectedRecipeName, '可乐鸡翅')
+  assert.deepEqual(draft.detectedIngredients, ['鸡翅', '可乐', '姜'])
+  assert.deepEqual(draft.detectedAliases, ['百事鸡翅', '快乐鸡翅'])
+})
+
+test('素材终审：submitFrameSelection 把 approvedRecipeName/approvedIngredients 落 draft，export 队列就绪', async () => {
+  const root = await fs.mkdtemp(path.join(os.tmpdir(), 'paoding-'))
+  const service = new TutorialService({ cloud: createLocalCloud(root) })
+  const tutorial = await toFramesReviewWithLlmDraft(service)
+  await service.submitFrameSelection(tutorial.tutorialId, [
+    { stepIndex: 0, frameType: 'key', slot: 0 }, { stepIndex: 1, frameType: 'key', slot: 0 },
+  ], 'admin', { approvedRecipeName: '家常可乐鸡翅', approvedIngredients: ['鸡翅', '可乐'] })
+  const { draft } = await service.getDraft(tutorial.tutorialId)
+  assert.equal(draft.approvedRecipeName, '家常可乐鸡翅')
+  assert.deepEqual(draft.approvedIngredients, ['鸡翅', '可乐'])
+  const exportTask = await service.claimNext('w2', 'EXPORT')
+  assert.equal(exportTask.kind, 'EXPORT')
+  assert.equal(exportTask.tutorial.tutorialId, tutorial.tutorialId)
+})
+
+test('素材终审：approvedIngredients 缺省时回落到 draft.detectedIngredients', async () => {
+  const root = await fs.mkdtemp(path.join(os.tmpdir(), 'paoding-'))
+  const service = new TutorialService({ cloud: createLocalCloud(root) })
+  const tutorial = await toFramesReviewWithLlmDraft(service)
+  await service.submitFrameSelection(tutorial.tutorialId, [
+    { stepIndex: 0, frameType: 'key', slot: 0 }, { stepIndex: 1, frameType: 'key', slot: 0 },
+  ], 'admin', {})
+  const { draft } = await service.getDraft(tutorial.tutorialId)
+  assert.deepEqual(draft.approvedIngredients, ['鸡翅', '可乐', '姜'])
+  assert.equal(draft.approvedRecipeName, '可乐鸡翅')
+})
+
+test('updateTask surfaces processingStage so the detail page can show real progress', async () => {
+  const root = await fs.mkdtemp(path.join(os.tmpdir(), 'paoding-'))
+  const service = new TutorialService({ cloud: createLocalCloud(root) })
+  const tutorial = await service.submitBilibili({ bvid: 'BV1stage0001', ownerType: 'SYSTEM', sourceRightsStatus: 'cleared' })
+  await service.preflight(tutorial.tutorialId, { title: '麻婆豆腐做法教程', description: '切豆腐下锅烧', duration: 240, category: '美食制作' })
+  const { taskId } = await service.enqueue(tutorial.tutorialId)
+  const updated = await service.updateTask(taskId, { status: 'EXTRACTING', processingStage: 'EXTRACTED' })
+  assert.equal(updated.processingStage, 'EXTRACTED')
+  const detail = await service.get(tutorial.tutorialId)
+  const task = detail.tasks.find((t) => t.taskId === taskId)
+  assert.equal(task.processingStage, 'EXTRACTED')
+  assert.equal(detail.tutorial.processingStage, 'EXTRACTED')
+})
+
+test('dispatch failure marks task FAILED so it never stays stuck QUEUED', async () => {
+  const root = await fs.mkdtemp(path.join(os.tmpdir(), 'paoding-'))
+  const service = new TutorialService({ cloud: createLocalCloud(root) })
+  const tutorial = await service.submitBilibili({ bvid: 'BV1dispatch1', ownerType: 'SYSTEM', sourceRightsStatus: 'cleared' })
+  await service.preflight(tutorial.tutorialId, { title: '回锅肉做法教程', description: '煮肉切片下锅爆炒', duration: 260, category: '美食制作' })
+  const { taskId } = await service.enqueue(tutorial.tutorialId)
+  const outcome = await service.dispatch(taskId, async () => { throw new Error('ffmpeg 崩了') })
+  assert.equal(outcome.status, 'FAILED')
+  assert.match(outcome.error, /ffmpeg/)
+  const detail = await service.get(tutorial.tutorialId)
+  const task = detail.tasks.find((t) => t.taskId === taskId)
+  assert.equal(task.status, 'FAILED')
+  assert.equal(detail.tutorial.lifecycleStatus, 'PROCESSING_FAILED')
+  // 已失败的任务不允许再次派发
+  await assert.rejects(() => service.dispatch(taskId, async () => {}), /不可派发/)
+})
